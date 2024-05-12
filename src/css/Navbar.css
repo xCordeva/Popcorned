@@ -1,0 +1,86 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2%;
+  background-color: #292929;
+  height: 40px;
+  font-size: 1.1em;
+  position: relative;
+}
+.navbar .nav-logo {
+  width: 45%;
+}
+.navbar .nav-logo img {
+  width: 40%;
+}
+.navbar .user-info {
+  display: flex;
+  align-items: center;
+  width: 250px;
+}
+.navbar .user-info .favorites {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  cursor: pointer;
+}
+.navbar .user-info .favorites svg {
+  width: 20px;
+  margin-right: 5px;
+}
+.navbar .user-info .favorites:hover {
+  color: #ca282c;
+}
+.navbar .user-info .favorites:hover svg {
+  animation: heart 1.5s ease infinite;
+}
+.navbar .user-info .user {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 35px;
+}
+.navbar .user-info .user svg {
+  width: 20px;
+  margin: 0 5px;
+}
+.navbar .user-info .user svg:nth-of-type(2) {
+  width: 15px;
+}
+
+.popup-user {
+  position: absolute;
+  right: 1%;
+  width: 100px;
+  background-color: #444444;
+  padding: 20px;
+  border-radius: 5px;
+  top: 72%;
+  box-shadow: 0 0 5px black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes heart {
+  30% {
+    transform: scale(1.1);
+  }
+  40%, 60% {
+    transform: rotate(-20deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(20deg) scale(1.1);
+  }
+  70% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}/*# sourceMappingURL=Navbar.css.map */

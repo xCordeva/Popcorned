@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+:root {
+  background-color: black;
+  color: white;
+  font-family: "Ubuntu Mono", monospace;
+  font-weight: 600;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}/*# sourceMappingURL=global.css.map */

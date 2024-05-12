@@ -1,0 +1,89 @@
+@use "variables.scss";
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2%;
+  background-color: variables.$main-grey;
+  height: 40px;
+  font-size: 1.1em;
+  position: relative;
+  .nav-logo {
+    width: 45%;
+    img {
+      width: 40%;
+    }
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    width: 250px;
+    .favorites {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      cursor: pointer;
+      //   margin-right: 35px;
+      svg {
+        width: 20px;
+        margin-right: 5px;
+      }
+      &:hover {
+        color: variables.$main-red;
+        svg {
+          animation: heart 1.5s ease infinite;
+        }
+      }
+    }
+    .user {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 35px;
+      svg {
+        &:nth-of-type(2) {
+          width: 15px;
+        }
+        width: 20px;
+        margin: 0 5px;
+      }
+    }
+  }
+}
+
+.popup-user {
+  position: absolute;
+  right: 1%;
+  width: 100px;
+  background-color: variables.$sec-grey;
+  padding: 20px;
+  border-radius: 5px;
+  top: (2% + 70);
+  box-shadow: 0 0 5px black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes heart {
+  30% {
+    transform: scale(1.1);
+  }
+  40%,
+  60% {
+    transform: rotate(-20deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(20deg) scale(1.1);
+  }
+  70% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
