@@ -3,9 +3,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 2%;
+  padding: 0 2%;
   background-color: #292929;
-  height: 40px;
+  height: fit-content;
   font-size: 1.1em;
   position: relative;
 }
@@ -18,13 +18,13 @@
 .navbar .user-info {
   display: flex;
   align-items: center;
-  width: 250px;
 }
 .navbar .user-info .favorites {
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
 .navbar .user-info .favorites svg {
@@ -42,8 +42,18 @@
   flex-direction: row;
   width: 100%;
   justify-content: center;
+  align-items: center;
   cursor: pointer;
   margin-left: 35px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.navbar .user-info .user:hover {
+  background-color: #444444;
+}
+.navbar .user-info .user.user-backgrounded {
+  background-color: #444444;
+  transition: background-color 0.3s ease;
 }
 .navbar .user-info .user svg {
   width: 20px;
@@ -52,19 +62,37 @@
 .navbar .user-info .user svg:nth-of-type(2) {
   width: 15px;
 }
+.navbar .user-info .user svg:nth-of-type(2).user-arrow-up {
+  transition: transform 0.5s ease;
+  transform: rotateX(180deg);
+}
+.navbar .user-info .user svg:nth-of-type(2).user-arrow-down {
+  transition: transform 0.5s ease;
+  transform: rotateX(0deg);
+}
 
 .popup-user {
   position: absolute;
-  right: 1%;
-  width: 100px;
+  right: 2%;
+  width: 118px;
   background-color: #444444;
-  padding: 20px;
   border-radius: 5px;
-  top: 72%;
+  top: 92%;
   box-shadow: 0 0 5px black;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+}
+.popup-user h4 {
+  width: 100%;
+  text-align: center;
+  padding: 25px 0;
+  margin: 0;
+  cursor: pointer;
+}
+.popup-user h4:hover {
+  background-color: #292929;
 }
 
 @keyframes heart {

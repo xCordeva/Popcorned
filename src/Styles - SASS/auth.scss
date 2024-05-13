@@ -1,0 +1,135 @@
+@use "variables.scss";
+.user-signs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  img {
+    // min-width: 30%;
+    width: 400px;
+    max-width: 80%;
+  }
+  .sign-box {
+    min-width: 30%;
+    width: 600px;
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: variables.$main-grey;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 50px;
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      h1 {
+        text-align: center;
+        margin: 10px 0 20px 0;
+      }
+      .input-container {
+        width: 100%;
+        position: relative;
+        margin-top: 20px;
+      }
+      svg {
+        color: variables.$main-red;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+      }
+      input {
+        padding: 10px 10px 10px 30px;
+        width: calc(100% - 50px);
+        margin: 10px 0;
+        border-radius: 4px;
+        border: 3px solid transparent;
+        outline: none;
+        font-size: 1.1rem;
+        &:focus {
+          border: 3px solid variables.$main-yellow;
+        }
+      }
+      button {
+        background-color: variables.$main-yellow;
+        border: none;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 1.2rem;
+        color: white;
+        cursor: pointer;
+        font-weight: 1000;
+        margin: 10px 0;
+        transition: background-color 0.5s;
+        &:hover {
+          background-color: darken(variables.$main-yellow, 7.5%);
+        }
+      }
+      .name-section {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        .input-container {
+          width: 47%;
+        }
+      }
+      h5 {
+        visibility: hidden;
+        text-align: center;
+        color: red;
+        margin: 10px;
+        height: 12px;
+        &.incorrect-signin {
+          visibility: visible;
+        }
+        &.incorrect-signup {
+          visibility: visible;
+        }
+      }
+    }
+    img {
+      width: 25px;
+      margin-right: 20px;
+      background-color: white;
+      border-radius: 50%;
+      padding: 4px;
+    }
+    button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px;
+      color: white;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+      margin: 15px 0;
+      cursor: pointer;
+      font-weight: 1000;
+      font-size: 15px;
+      &:nth-child(2) {
+        background-color: #4285f4;
+        &:hover {
+          background-color: darken(#4285f4, 7.5%);
+        }
+      }
+    }
+    .switch {
+      font-size: 1.1em;
+      margin-top: 25px;
+      a {
+        color: variables.$main-red;
+        transition: color 0.3s;
+        &:hover {
+          color: darken(variables.$main-red, 7.5%);
+        }
+      }
+    }
+  }
+}

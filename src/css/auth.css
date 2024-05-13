@@ -1,0 +1,133 @@
+.user-signs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+}
+.user-signs img {
+  width: 400px;
+  max-width: 80%;
+}
+.user-signs .sign-box {
+  min-width: 30%;
+  width: 600px;
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #292929;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 50px;
+}
+.user-signs .sign-box form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.user-signs .sign-box form h1 {
+  text-align: center;
+  margin: 10px 0 20px 0;
+}
+.user-signs .sign-box form .input-container {
+  width: 100%;
+  position: relative;
+  margin-top: 20px;
+}
+.user-signs .sign-box form svg {
+  color: #ca282c;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.user-signs .sign-box form input {
+  padding: 10px 10px 10px 30px;
+  width: calc(100% - 50px);
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 3px solid transparent;
+  outline: none;
+  font-size: 1.1rem;
+}
+.user-signs .sign-box form input:focus {
+  border: 3px solid #e89c1e;
+}
+.user-signs .sign-box form button {
+  background-color: #e89c1e;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  font-weight: 1000;
+  margin: 10px 0;
+  transition: background-color 0.5s;
+}
+.user-signs .sign-box form button:hover {
+  background-color: #cb8615;
+}
+.user-signs .sign-box form .name-section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.user-signs .sign-box form .name-section .input-container {
+  width: 47%;
+}
+.user-signs .sign-box form h5 {
+  visibility: hidden;
+  text-align: center;
+  color: red;
+  margin: 10px;
+  height: 12px;
+}
+.user-signs .sign-box form h5.incorrect-signin {
+  visibility: visible;
+}
+.user-signs .sign-box form h5.incorrect-signup {
+  visibility: visible;
+}
+.user-signs .sign-box img {
+  width: 25px;
+  margin-right: 20px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 4px;
+}
+.user-signs .sign-box button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  margin: 15px 0;
+  cursor: pointer;
+  font-weight: 1000;
+  font-size: 15px;
+}
+.user-signs .sign-box button:nth-child(2) {
+  background-color: #4285f4;
+}
+.user-signs .sign-box button:nth-child(2):hover {
+  background-color: #1e6ef2;
+}
+.user-signs .sign-box .switch {
+  font-size: 1.1em;
+  margin-top: 25px;
+}
+.user-signs .sign-box .switch a {
+  color: #ca282c;
+  transition: color 0.3s;
+}
+.user-signs .sign-box .switch a:hover {
+  color: #aa2225;
+}/*# sourceMappingURL=auth.css.map */

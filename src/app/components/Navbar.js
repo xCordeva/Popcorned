@@ -6,8 +6,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../../css/Navbar.css";
 import PopupUser from "./PopupUser";
+import { useDispatch, useSelector } from "react-redux";
+import { openUserPopup } from "@/features/UserPopup";
+import useAuth from "@/Custom Hooks/useAuth";
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+  const userPopupClicked = useSelector((state) => state.UserPopup.value);
+  const toggleUserPopup = () => {
+    dispatch(openUserPopup(!userPopupClicked));
+  };
+  const { user } = useAuth();
+  console.log(user);
   return (
     <div className="navbar">
       <div className="nav-logo">
@@ -21,13 +31,26 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faHeart} />
           <p>Favourites</p>
         </div>
-        <div className="user">
+        <div
+          className={userPopupClicked ? "user user-backgrounded" : "user"}
+          onClick={() => {
+            toggleUserPopup();
+          }}
+        >
           <FontAwesomeIcon icon={faCircleUser} />
-          <p>Cordeva</p>
-          <FontAwesomeIcon icon={faCaretDown} />
+          <p>
+            {user &&
+              user.displayName &&
+              user.displayName.substring(0, user.displayName.indexOf(" "))}
+          </p>
+
+          <FontAwesomeIcon
+            className={userPopupClicked ? "user-arrow-up" : "user-arrow-down"}
+            icon={faCaretDown}
+          />
         </div>
       </div>
-      <PopupUser></PopupUser>
+      {userPopupClicked && <PopupUser></PopupUser>}
     </div>
   );
 }
