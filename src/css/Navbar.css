@@ -88,6 +88,7 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
+  z-index: 99;
 }
 .popup-user h4 {
   width: 100%;
