@@ -1,18 +1,22 @@
 @use "variables.scss";
+.navbar-container {
+  padding: 0 5%;
+  background-color: variables.$main-grey;
+}
 .navbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2%;
-  background-color: variables.$main-grey;
-  height: fit-content;
+
+  height: 60px;
   font-size: 1.1em;
   position: relative;
   .nav-logo {
     width: 45%;
     img {
-      width: 40%;
+      width: 60%;
+      max-width: 200px;
     }
   }
   .user-info {
@@ -41,6 +45,7 @@
       display: flex;
       flex-direction: row;
       width: 100%;
+      min-width: 120px;
       justify-content: center;
       align-items: center;
       cursor: pointer;
@@ -75,11 +80,11 @@
 
 .popup-user {
   position: absolute;
-  right: 2%;
-  width: 118px;
+  right: 0%;
+  width: 120px;
   background-color: variables.$sec-grey;
   border-radius: 5px;
-  top: (2% + 90);
+  top: (2% + 100);
   box-shadow: 0 0 5px black;
   display: flex;
   flex-direction: column;

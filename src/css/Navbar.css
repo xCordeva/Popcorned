@@ -1,11 +1,14 @@
+.navbar-container {
+  padding: 0 5%;
+  background-color: hsl(0, 0%, 10%);
+}
+
 .navbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2%;
-  background-color: #292929;
-  height: fit-content;
+  height: 60px;
   font-size: 1.1em;
   position: relative;
 }
@@ -13,7 +16,8 @@
   width: 45%;
 }
 .navbar .nav-logo img {
-  width: 40%;
+  width: 60%;
+  max-width: 200px;
 }
 .navbar .user-info {
   display: flex;
@@ -41,6 +45,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
+  min-width: 120px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -49,10 +54,10 @@
   white-space: nowrap;
 }
 .navbar .user-info .user:hover {
-  background-color: #444444;
+  background-color: hsl(0, 0%, 15%);
 }
 .navbar .user-info .user.user-backgrounded {
-  background-color: #444444;
+  background-color: hsl(0, 0%, 15%);
   transition: background-color 0.3s ease;
 }
 .navbar .user-info .user svg {
@@ -73,11 +78,11 @@
 
 .popup-user {
   position: absolute;
-  right: 2%;
-  width: 118px;
-  background-color: #444444;
+  right: 0%;
+  width: 120px;
+  background-color: hsl(0, 0%, 15%);
   border-radius: 5px;
-  top: 92%;
+  top: 102%;
   box-shadow: 0 0 5px black;
   display: flex;
   flex-direction: column;
@@ -92,7 +97,7 @@
   cursor: pointer;
 }
 .popup-user h4:hover {
-  background-color: #292929;
+  background-color: hsl(0, 0%, 10%);
 }
 
 @keyframes heart {
