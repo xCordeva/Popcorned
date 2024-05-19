@@ -30,6 +30,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: all 0.5s ease;
 }
 .navbar .user-info .favorites svg {
   width: 20px;
@@ -45,7 +46,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  min-width: 120px;
+  min-width: 125px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -75,11 +76,30 @@
   transition: transform 0.5s ease;
   transform: rotateX(0deg);
 }
+.navbar .user-info .sign-in-button {
+  text-align: center;
+  width: 100%;
+  min-width: 120px;
+}
+.navbar .user-info .sign-in-button a {
+  text-decoration: none;
+  padding: 10px;
+  cursor: pointer;
+  margin-left: 35px;
+  border-radius: 3px;
+  white-space: nowrap;
+  background-color: #e89c1e;
+  color: white;
+  transition: all 0.5s ease;
+}
+.navbar .user-info .sign-in-button a:hover {
+  background-color: #bf7f14;
+}
 
 .popup-user {
   position: absolute;
   right: 0%;
-  width: 120px;
+  width: 125px;
   background-color: hsl(0, 0%, 15%);
   border-radius: 5px;
   top: 102%;
@@ -92,10 +112,12 @@
 }
 .popup-user h4 {
   width: 100%;
-  text-align: center;
   padding: 25px 0;
   margin: 0;
   cursor: pointer;
+}
+.popup-user h4 svg {
+  margin: 0 6px;
 }
 .popup-user h4:hover {
   background-color: hsl(0, 0%, 10%);
@@ -117,4 +139,4 @@
   100% {
     transform: scale(1);
   }
-}/*# sourceMappingURL=Navbar.css.map */
+}

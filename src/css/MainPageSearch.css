@@ -45,6 +45,9 @@
   transition: border 0.5s ease;
   font-size: larger;
 }
+.main-page-search .search-box .input-container input::-moz-placeholder {
+  color: hsl(0, 0%, 80%);
+}
 .main-page-search .search-box .input-container input::placeholder {
   color: hsl(0, 0%, 80%);
 }
@@ -88,4 +91,4 @@
   font-weight: 1000;
   right: 0;
   transition: all 0.5s ease;
-}/*# sourceMappingURL=MainPageSearch.css.map */
+}

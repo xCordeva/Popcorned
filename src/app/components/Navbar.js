@@ -9,6 +9,7 @@ import PopupUser from "./PopupUser";
 import { useDispatch, useSelector } from "react-redux";
 import { openUserPopup } from "@/features/UserPopup";
 import useAuth from "@/Custom Hooks/useAuth";
+import Link from "next/link";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -17,7 +18,6 @@ export default function Navbar() {
     dispatch(openUserPopup(!userPopupClicked));
   };
   const { user } = useAuth();
-  console.log(user);
   return (
     <div className="navbar-container">
       <div className="navbar">
@@ -32,24 +32,32 @@ export default function Navbar() {
             <FontAwesomeIcon icon={faHeart} />
             <p>Watchlist</p>
           </div>
-          <div
-            className={userPopupClicked ? "user user-backgrounded" : "user"}
-            onClick={() => {
-              toggleUserPopup();
-            }}
-          >
-            <FontAwesomeIcon icon={faCircleUser} />
-            <p>
-              {user &&
-                user.displayName &&
-                user.displayName.substring(0, user.displayName.indexOf(" "))}
-            </p>
+          {user ? (
+            <div
+              className={userPopupClicked ? "user user-backgrounded" : "user"}
+              onClick={() => {
+                toggleUserPopup();
+              }}
+            >
+              <FontAwesomeIcon icon={faCircleUser} />
+              <p>
+                {user &&
+                  user.displayName &&
+                  user.displayName.substring(0, user.displayName.indexOf(" "))}
+              </p>
 
-            <FontAwesomeIcon
-              className={userPopupClicked ? "user-arrow-up" : "user-arrow-down"}
-              icon={faCaretDown}
-            />
-          </div>
+              <FontAwesomeIcon
+                className={
+                  userPopupClicked ? "user-arrow-up" : "user-arrow-down"
+                }
+                icon={faCaretDown}
+              />
+            </div>
+          ) : (
+            <div className="sign-in-button">
+              <Link href={"/sign-in"}>Sign In</Link>
+            </div>
+          )}
         </div>
         {userPopupClicked && <PopupUser></PopupUser>}
       </div>
