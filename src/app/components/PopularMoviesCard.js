@@ -8,33 +8,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
-const PopularMoviesCard = () => {
+const PopularMoviesCard = ({ movie }) => {
+  const posterUrl = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : "https://via.placeholder.com/500x750?text=No+Image";
   return (
     <div className="populuar-movies-card-container">
-      <img
-        src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/popcorned.png?alt=media&token=db91cd2d-06cd-4808-bb3b-5548b0e03762"
-        alt=""
-      />
-      <div className="rating">
-        <FontAwesomeIcon icon={faStar} />
-        <p>Rate</p>
-        <Link href={"/"}> Rate it</Link>
+      <img src={posterUrl} alt="" />
+      <div className="card-components">
+        <div className="rating">
+          <FontAwesomeIcon icon={faStar} />
+          <p>{movie.vote_average.toFixed(1)}</p>
+          <Link href={"/"}> Rate it</Link>
+        </div>
+        <h2>{movie.title}</h2>
+        <p className="movie-plot">{movie.overview}</p>
+        <button>
+          Show More Info
+          <FontAwesomeIcon icon={faCircleInfo} />
+        </button>
+        <button>
+          Add to Watch List
+          <FontAwesomeIcon icon={faSquarePlus} />
+        </button>
       </div>
-      <h2>Movie Name</h2>
-      <p className="movie-plot">
-        Plot PlotPlotPlotPlot PlotPlotPlotPlot PlotPloPlot PlotPlotPlotPlot
-        PlotPlotPlotPlot PlotPloPlot PlotPlotPlotPlot PlotPlotPlotPlot
-        PlotPloPlot PlotPlotPlotPlot PlotPlotPlotPlot PlotPloPlot
-        PlotPlotPlotPlot PlotPlotPlotPlot PlotPlotPlotPlot PlotPlotPlot
-      </p>
-      <button>
-        Show More Info
-        <FontAwesomeIcon icon={faCircleInfo} />
-      </button>
-      <button>
-        Add to Watch List
-        <FontAwesomeIcon icon={faSquarePlus} />
-      </button>
     </div>
   );
 };

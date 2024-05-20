@@ -1,17 +1,40 @@
 @use "variables.scss";
 .carousel-container {
+  // display: flex;
+  // justify-content: center;
+}
+.popular-movies-carousel {
   display: flex;
-  margin: 5%;
-  //   width: 100%;
+  flex-direction: column;
+  margin: 2%;
+  h1 {
+    margin-left: 10px;
+  }
 }
 .populuar-movies-card-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  max-width: 300px;
-  padding: 15px;
+  // width: 100%;
+  margin: 0 10px;
+  max-height: 850px;
+  // max-width: 300px;
+  // padding: 15px;
+  overflow: hidden;
   background-color: hsl(0, 0%, 5%);
   border-radius: 5px;
+  h2 {
+    margin: 5px 0;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-align: left;
+  }
+  .card-components {
+    padding: 0 15px 15px 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
   .movie-plot {
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
@@ -22,6 +45,8 @@
   }
   img {
     width: 100%;
+    min-width: 300px;
+    height: 430px;
   }
   button {
     cursor: pointer;
@@ -70,4 +95,7 @@
       }
     }
   }
+}
+.custom-dot-list-style {
+  width: 200px;
 }

@@ -1,6 +1,5 @@
 import "../../css/PopularMovies.css";
-import React from "react";
-import Slider from "react-slick";
+import React, { useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Carousel from "react-multi-carousel";
@@ -8,42 +7,56 @@ import "react-multi-carousel/lib/styles.css";
 import PopularMoviesCard from "./PopularMoviesCard";
 
 export default function PopularMovies() {
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3, // optional, default to 1.
+      items: 6,
+      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2, // optional, default to 1.
+      items: 4,
+      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
+      items: 2,
+      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
   };
+
+  const apiKey = "9c1ed83ad2420de0ccb3ce263f277ede";
+  const apiUrl = "https://api.themoviedb.org/3";
+
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    // Function to fetch movie data
+    async function fetchMovies() {
+      try {
+        const response = await fetch(
+          `${apiUrl}/movie/popular?api_key=${apiKey}`
+        );
+        const data = await response.json();
+        setMovies(data.results);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    }
+
+    fetchMovies();
+  }, []);
+
   return (
     <Carousel
       swipeable={false}
       draggable={false}
-      showDots={true}
+      showDots={false}
       responsive={responsive}
       ssr={true} // means to render carousel on server-side.
       infinite={false}
-      // autoPlay={this.props.deviceType !== "mobile" ? true : false}
-      autoPlaySpeed={1000}
-      keyBoardControl={true}
-      customTransition="all .5"
+      keyBoardControl={false}
+      customTransition="all 0.4s ease"
       transitionDuration={500}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
@@ -51,12 +64,9 @@ export default function PopularMovies() {
       dotListClass="custom-dot-list-style"
       itemClass="carousel-item-padding-40-px"
     >
-      <PopularMoviesCard></PopularMoviesCard>
-      <PopularMoviesCard></PopularMoviesCard>
-      <PopularMoviesCard></PopularMoviesCard>
-      <PopularMoviesCard></PopularMoviesCard>
-      <PopularMoviesCard></PopularMoviesCard>
-      <PopularMoviesCard></PopularMoviesCard>
+      {movies.map((movie) => (
+        <PopularMoviesCard key={movie.id} movie={movie} />
+      ))}
     </Carousel>
   );
 }

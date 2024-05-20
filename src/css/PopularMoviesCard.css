@@ -1,16 +1,33 @@
-.carousel-container {
+.popular-movies-carousel {
   display: flex;
-  margin: 5%;
+  flex-direction: column;
+  margin: 2%;
+}
+.popular-movies-carousel h1 {
+  margin-left: 10px;
 }
 
 .populuar-movies-card-container {
+  margin: 0 10px;
+  max-height: 850px;
+  overflow: hidden;
+  background-color: hsl(0, 0%, 5%);
+  border-radius: 5px;
+}
+.populuar-movies-card-container h2 {
+  margin: 5px 0;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-align: left;
+}
+.populuar-movies-card-container .card-components {
+  padding: 0 15px 15px 15px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  max-width: 300px;
-  padding: 15px;
-  background-color: hsl(0, 0%, 5%);
-  border-radius: 5px;
 }
 .populuar-movies-card-container .movie-plot {
   text-overflow: ellipsis;
@@ -22,6 +39,8 @@
 }
 .populuar-movies-card-container img {
   width: 100%;
+  min-width: 300px;
+  height: 430px;
 }
 .populuar-movies-card-container button {
   cursor: pointer;
@@ -69,4 +88,8 @@
 .populuar-movies-card-container .rating a:hover {
   background-color: hsl(0, 0%, 15%);
   transition: all 0.4s ease;
+}
+
+.custom-dot-list-style {
+  width: 200px;
 }

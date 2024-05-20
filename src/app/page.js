@@ -10,7 +10,10 @@ export default function Home() {
     <div>
       <Navbar></Navbar>
       <MainPageSearch></MainPageSearch>
-      <PopularMovies></PopularMovies>
+      <div className="popular-movies-carousel">
+        <h1>Popular Movies</h1>
+        <PopularMovies></PopularMovies>
+      </div>
     </div>
   );
 }
