@@ -42,13 +42,17 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     text-align: left;
+    height: 50px;
   }
   img {
     width: 100%;
     min-width: 300px;
     height: 430px;
   }
-  button {
+  a {
+    text-decoration: none;
+    color: black;
+    white-space: nowrap;
     cursor: pointer;
     padding: 15px;
     display: flex;

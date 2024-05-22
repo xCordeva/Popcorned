@@ -6,7 +6,6 @@
   flex-direction: column;
   background-position: center;
   align-items: center;
-  justify-content: center;
   height: calc(100dvh - 60px);
   position: relative;
 }
@@ -20,6 +19,8 @@
 }
 .main-page-search .search-box {
   z-index: 1;
+  position: relative;
+  top: 25%;
 }
 .main-page-search .search-box h1 {
   display: flex;

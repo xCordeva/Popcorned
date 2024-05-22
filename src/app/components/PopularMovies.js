@@ -25,7 +25,7 @@ export default function PopularMovies() {
     },
   };
 
-  const apiKey = "9c1ed83ad2420de0ccb3ce263f277ede";
+  const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
   const apiUrl = "https://api.themoviedb.org/3";
 
   const [movies, setMovies] = useState([]);
@@ -43,10 +43,8 @@ export default function PopularMovies() {
         console.error("Error fetching movies:", error);
       }
     }
-
     fetchMovies();
   }, []);
-
   return (
     <Carousel
       swipeable={false}

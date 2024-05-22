@@ -22,15 +22,18 @@ const PopularMoviesCard = ({ movie }) => {
           <Link href={"/"}> Rate it</Link>
         </div>
         <h2>{movie.title}</h2>
-        <p className="movie-plot">{movie.overview}</p>
-        <button>
+        <p className="movie-plot">
+          {movie.overview.length > 0 ? movie.overview : `No Plot Available`}
+          {movie.overview}
+        </p>
+        <Link href={"/movie-details"}>
           Show More Info
           <FontAwesomeIcon icon={faCircleInfo} />
-        </button>
-        <button>
+        </Link>
+        <Link href={"/"}>
           Add to Watch List
           <FontAwesomeIcon icon={faSquarePlus} />
-        </button>
+        </Link>
       </div>
     </div>
   );

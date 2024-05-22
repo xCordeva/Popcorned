@@ -2,12 +2,42 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../css/MainPageSearch.css";
 import { useTypewriter } from "react-simple-typewriter";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies, userSearchInput } from "@/features/UserSearch";
+import SearchResults from "./SearchResults";
+
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
 
 export default function MainPageSearch() {
   const [text] = useTypewriter({
     words: ["Movie...", "Tv Show...", "Person..."],
     loop: 0,
   });
+  const dispatch = useDispatch();
+  const [userSearch, setUserSearch] = useState("");
+  const movies = useSelector((state) => state.UserSearch.movies);
+  const status = useSelector((state) => state.UserSearch.status);
+
+  const handleUserSearch = useCallback(() => {
+    if (userSearch.trim()) {
+      dispatch(userSearchInput(userSearch));
+      dispatch(fetchMovies(userSearch));
+    }
+  }, [userSearch, dispatch]);
+  const debounceHandleUserSearch = useCallback(
+    debounce(handleUserSearch, 500),
+    [handleUserSearch]
+  );
+  useEffect(() => {
+    debounceHandleUserSearch();
+  }, [userSearch, debounceHandleUserSearch]);
   return (
     <div className="main-page-search">
       <div className="search-box">
@@ -25,13 +55,21 @@ export default function MainPageSearch() {
         </h3>
 
         <div className="input-container">
-          <input type="text" placeholder={"Search for a " + text} />
+          <input
+            type="text"
+            placeholder={"Search for a " + text}
+            onChange={(e) => {
+              setUserSearch(e.target.value);
+              handleUserSearch();
+            }}
+          />
 
-          <button>
+          <button onClick={handleUserSearch}>
             <span>Search</span>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
         </div>
+        <SearchResults movies={movies} status={status}></SearchResults>
       </div>
     </div>
   );
