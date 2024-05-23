@@ -5,6 +5,7 @@ const initialState = {
   movies: [],
   status: "idle",
   error: null,
+  // initialSearchPopup: false,
 };
 const api_key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 export const fetchMovies = createAsyncThunk(
@@ -27,6 +28,9 @@ export const userSearchSlice = createSlice({
     userSearchInput: (state, action) => {
       state.value = action.payload;
     },
+    closeSearchPopup: (state, action) => {
+      state.value = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -44,5 +48,5 @@ export const userSearchSlice = createSlice({
   },
 });
 
-export const { userSearchInput } = userSearchSlice.actions;
+export const { userSearchInput, closeSearchPopup } = userSearchSlice.actions;
 export default userSearchSlice.reducer;

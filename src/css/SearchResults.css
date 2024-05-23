@@ -50,6 +50,13 @@
   margin-right: 10px;
   color: #e89c1e;
 }
+.search-results .no-results {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  height: 100%;
+}
 
 .loading-search-results {
   display: flex;

@@ -4,7 +4,11 @@ import "../../css/MainPageSearch.css";
 import { useTypewriter } from "react-simple-typewriter";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies, userSearchInput } from "@/features/UserSearch";
+import {
+  closeSearchPopup,
+  fetchMovies,
+  userSearchInput,
+} from "@/features/UserSearch";
 import SearchResults from "./SearchResults";
 
 function debounce(func, wait) {
@@ -24,9 +28,11 @@ export default function MainPageSearch() {
   const [userSearch, setUserSearch] = useState("");
   const movies = useSelector((state) => state.UserSearch.movies);
   const status = useSelector((state) => state.UserSearch.status);
-
+  const userSearching = useSelector((state) => state.UserSearch.value);
+  // console.log(userSearching);
   const handleUserSearch = useCallback(() => {
     if (userSearch.trim()) {
+      dispatch(closeSearchPopup(true));
       dispatch(userSearchInput(userSearch));
       dispatch(fetchMovies(userSearch));
     }
@@ -58,6 +64,7 @@ export default function MainPageSearch() {
           <input
             type="text"
             placeholder={"Search for a " + text}
+            value={userSearch}
             onChange={(e) => {
               setUserSearch(e.target.value);
               handleUserSearch();
@@ -69,7 +76,9 @@ export default function MainPageSearch() {
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
         </div>
-        <SearchResults movies={movies} status={status}></SearchResults>
+        {userSearch && (
+          <SearchResults movies={movies} status={status}></SearchResults>
+        )}
       </div>
     </div>
   );
