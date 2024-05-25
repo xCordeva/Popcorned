@@ -7,18 +7,22 @@
   box-shadow: 0 10px 10px -10px variables.$sec-grey;
   //   height: 440px;
   overflow-x: hidden;
-
+  a {
+    text-decoration: none;
+    color: white;
+    font-weight: normal;
+  }
   &::-webkit-scrollbar {
     width: 12px;
   }
   &::-webkit-scrollbar-track {
-    background: variables.$main-grey; /* Color of the scrollbar track */
+    background: variables.$main-grey;
     border-radius: 0 0 5px 5px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: variables.$sec-grey; /* Color of the scrollbar handle */
-    border-radius: 10px; /* Roundness of the scrollbar handle */
-    border: 3px solid variables.$main-grey; /* Space around the scrollbar handle */
+    background-color: variables.$sec-grey;
+    border-radius: 10px;
+    border: 3px solid variables.$main-grey;
   }
 
   .search-result {

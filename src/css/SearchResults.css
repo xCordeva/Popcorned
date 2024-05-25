@@ -6,17 +6,22 @@
   box-shadow: 0 10px 10px -10px hsl(0, 0%, 15%);
   overflow-x: hidden;
 }
+.search-results a {
+  text-decoration: none;
+  color: white;
+  font-weight: normal;
+}
 .search-results::-webkit-scrollbar {
   width: 12px;
 }
 .search-results::-webkit-scrollbar-track {
-  background: hsl(0, 0%, 10%); /* Color of the scrollbar track */
+  background: hsl(0, 0%, 10%);
   border-radius: 0 0 5px 5px;
 }
 .search-results::-webkit-scrollbar-thumb {
-  background-color: hsl(0, 0%, 15%); /* Color of the scrollbar handle */
-  border-radius: 10px; /* Roundness of the scrollbar handle */
-  border: 3px solid hsl(0, 0%, 10%); /* Space around the scrollbar handle */
+  background-color: hsl(0, 0%, 15%);
+  border-radius: 10px;
+  border: 3px solid hsl(0, 0%, 10%);
 }
 .search-results .search-result {
   display: flex;
