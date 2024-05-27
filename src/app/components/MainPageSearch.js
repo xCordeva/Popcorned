@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeSearchPopup,
+  fetchAll,
   fetchMovies,
   userSearchInput,
 } from "@/features/UserSearch";
@@ -27,14 +28,15 @@ export default function MainPageSearch() {
   const dispatch = useDispatch();
   const [userSearch, setUserSearch] = useState("");
   const movies = useSelector((state) => state.UserSearch.movies);
+  const tvShows = useSelector((state) => state.UserSearch.tvShows);
+  const people = useSelector((state) => state.UserSearch.people);
   const status = useSelector((state) => state.UserSearch.status);
-  const userSearching = useSelector((state) => state.UserSearch.value);
-  // console.log(userSearching);
+
   const handleUserSearch = useCallback(() => {
     if (userSearch.trim()) {
       dispatch(closeSearchPopup(true));
       dispatch(userSearchInput(userSearch));
-      dispatch(fetchMovies(userSearch));
+      dispatch(fetchAll(userSearch));
     }
   }, [userSearch, dispatch]);
   const debounceHandleUserSearch = useCallback(
@@ -44,6 +46,13 @@ export default function MainPageSearch() {
   useEffect(() => {
     debounceHandleUserSearch();
   }, [userSearch, debounceHandleUserSearch]);
+  // Combine and sort results by popularity
+  const combinedResults = [
+    ...movies.map((item) => ({ ...item, type: "movie" })),
+    ...tvShows.map((item) => ({ ...item, type: "tvShow" })),
+    ...people.map((item) => ({ ...item, type: "person" })),
+  ].sort((a, b) => b.popularity - a.popularity);
+  console.log(combinedResults);
   return (
     <div className="main-page-search">
       <div className="search-box">
@@ -77,7 +86,10 @@ export default function MainPageSearch() {
           </button>
         </div>
         {userSearch && (
-          <SearchResults movies={movies} status={status}></SearchResults>
+          <SearchResults
+            combinedResults={combinedResults}
+            status={status}
+          ></SearchResults>
         )}
       </div>
     </div>

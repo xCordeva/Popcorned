@@ -57,7 +57,7 @@ const MovieDetails = ({ params }) => {
       )
       .map((writer) => writer.name);
   };
-  console.log(movie);
+  console.log(cast.cast);
   return (
     <div>
       <Navbar></Navbar>
@@ -71,7 +71,9 @@ const MovieDetails = ({ params }) => {
             <h1>{movie.title}</h1>
             <div className="date-time-rate">
               <div className="date-time">
-                <p>{movie.release_date.split("-")[0]}</p>
+                {movie.release_date && (
+                  <p>{movie.release_date.split("-")[0]}</p>
+                )}
                 <p>&#8226;</p>
                 <p>{formatRuntime(movie.runtime)}</p>
               </div>
@@ -135,8 +137,12 @@ const MovieDetails = ({ params }) => {
               <div className="cast-member">
                 <Link href={"/"}>
                   <img
-                    src={`https://image.tmdb.org/t/p/w500${member.profile_path}`}
-                    alt=""
+                    src={
+                      member.profile_path
+                        ? `https://image.tmdb.org/t/p/w500${member.profile_path}`
+                        : `https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/no-image-avaiable.jpg?alt=media&token=f01f2f4a-c8db-4e5f-8f7f-c920219a77fd`
+                    }
+                    alt={member.name}
                   />
                 </Link>
                 <div className="member-name">

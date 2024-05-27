@@ -36,6 +36,7 @@
 }
 .search-results .search-result img {
   width: 20%;
+  min-height: 198px;
   margin-right: 15px;
 }
 .search-results .search-result .result-details {
