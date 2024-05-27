@@ -32,6 +32,45 @@
     display: inline;
     margin: 0 10px;
   }
+  .rating {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    // justify-content: center;
+    svg {
+      color: variables.$main-yellow;
+    }
+    p {
+      margin: 15px 15px 15px 5px;
+      color: white;
+      span {
+        color: gray;
+      }
+    }
+    button {
+      cursor: pointer;
+      color: white;
+      white-space: nowrap;
+      max-width: fit-content;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      border-radius: 3px;
+      background-color: variables.$main-grey;
+      font-weight: 800;
+      margin: 10px 0;
+      &:hover {
+        background-color: darken($color: variables.$main-grey, $amount: 3%);
+        transition: all 0.4s ease;
+      }
+      svg {
+        margin: 0 5px 0 0;
+        // font-size: large;
+      }
+    }
+  }
 }
 .details {
   display: flex;
@@ -106,45 +145,7 @@
 .date-time {
   display: flex;
 }
-.rating {
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
-  // justify-content: center;
-  svg {
-    color: variables.$main-yellow;
-  }
-  p {
-    margin: 15px 15px 15px 5px;
-    color: white;
-    span {
-      color: gray;
-    }
-  }
-  button {
-    cursor: pointer;
-    color: white;
-    white-space: nowrap;
-    max-width: fit-content;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 3px;
-    background-color: variables.$main-grey;
-    font-weight: 800;
-    margin: 10px 0;
-    &:hover {
-      background-color: darken($color: variables.$main-grey, $amount: 3%);
-      transition: all 0.4s ease;
-    }
-    svg {
-      margin: 0 5px 0 0;
-      // font-size: large;
-    }
-  }
-}
+
 .cast {
   display: flex;
   flex-wrap: wrap;

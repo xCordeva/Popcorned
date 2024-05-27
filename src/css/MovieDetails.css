@@ -32,6 +32,44 @@
   display: inline;
   margin: 0 10px;
 }
+.details-card .rating {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+}
+.details-card .rating svg {
+  color: #e89c1e;
+}
+.details-card .rating p {
+  margin: 15px 15px 15px 5px;
+  color: white;
+}
+.details-card .rating p span {
+  color: gray;
+}
+.details-card .rating button {
+  cursor: pointer;
+  color: white;
+  white-space: nowrap;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 3px;
+  background-color: hsl(0, 0%, 10%);
+  font-weight: 800;
+  margin: 10px 0;
+}
+.details-card .rating button:hover {
+  background-color: #121212;
+  transition: all 0.4s ease;
+}
+.details-card .rating button svg {
+  margin: 0 5px 0 0;
+}
 
 .details {
   display: flex;
@@ -106,45 +144,6 @@
 
 .date-time {
   display: flex;
-}
-
-.rating {
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
-}
-.rating svg {
-  color: #e89c1e;
-}
-.rating p {
-  margin: 15px 15px 15px 5px;
-  color: white;
-}
-.rating p span {
-  color: gray;
-}
-.rating button {
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  max-width: -moz-fit-content;
-  max-width: fit-content;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 3px;
-  background-color: hsl(0, 0%, 10%);
-  font-weight: 800;
-  margin: 10px 0;
-}
-.rating button:hover {
-  background-color: #121212;
-  transition: all 0.4s ease;
-}
-.rating button svg {
-  margin: 0 5px 0 0;
 }
 
 .cast {
