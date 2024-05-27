@@ -1,16 +1,16 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import "@/css/global.css";
 import Navbar from "@/app/components/Navbar";
+import "@/css/MovieDetails.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarReg } from "@fortawesome/free-regular-svg-icons";
+import Link from "next/link";
 
 const MovieDetails = ({ params }) => {
-  const router = useRouter();
-  //   const { id } = router.query;
   const [loading, setLoading] = useState(true);
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState(null);
-  console.log(router);
   const id = params.id;
   useEffect(() => {
     if (id) {
@@ -39,38 +39,114 @@ const MovieDetails = ({ params }) => {
   if (loading) return <p>Loading...</p>;
   if (!movie) return <p>Movie not found</p>;
   console.log(movie);
-  console.log(cast);
-  async function getStaticPaths() {
-    return {
-      paths: [
-        { params: { slug: [] } }, // Empty slug represents the homepage
-        { params: { slug: ["movie"] } }, // Empty slug represents the homepage
-        // Add other paths as needed for specific routes
-        // Example: { params: { slug: ['foo'] } },
-        // Example: { params: { slug: ['bar'] } },
-      ],
-      fallback: false, // Set to true if you want to use incremental static regeneration
-    };
-  }
+  console.log(cast.crew);
+  const formatRuntime = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h ${remainingMinutes}m`;
+  };
+  const getDirectors = (crew) => {
+    return crew
+      .filter((member) => member.job === "Director")
+      .map((director) => director.name);
+  };
+  const getWriters = (crew) => {
+    return crew
+      .filter(
+        (member) => member.job === "Writer" || member.department === "Writing"
+      )
+      .map((writer) => writer.name);
+  };
+  console.log(movie);
   return (
     <div>
       <Navbar></Navbar>
       <div className="movie-details-page">
-        <h1>{movie.title}</h1>
-        <div className="details">
-          <p>{movie.release_date}</p>
-          <p>{movie.runtime}</p>
-          <p>{movie.overview}</p>
+        <div className="details-card">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={`${movie.title} Poster`}
+          />
+          <div className="details">
+            <h1>{movie.title}</h1>
+            <div className="date-time-rate">
+              <div className="date-time">
+                <p>{movie.release_date.split("-")[0]}</p>
+                <p>&#8226;</p>
+                <p>{formatRuntime(movie.runtime)}</p>
+              </div>
+              <div className="rating">
+                <FontAwesomeIcon icon={faStar} />
+                <p>
+                  {movie.vote_average.toFixed(1)}
+                  <span>/10</span>
+                </p>
+                <button>
+                  <FontAwesomeIcon icon={faStarReg} />
+                  Rate
+                </button>
+              </div>
+            </div>
+            <div className="genres">
+              {movie.genres.map((genre) => (
+                <p key={genre.id}>{genre.name}</p>
+              ))}
+            </div>
+            <p className="movie-overview">{movie.overview}</p>
+            <div className="languages">
+              Languages:
+              {movie.spoken_languages.map((lang) => (
+                <p className="movie-language" key={lang.id}>
+                  {lang.english_name}
+                </p>
+              ))}
+            </div>
+            <div className="director-writers">
+              <p>
+                Director:{" "}
+                <Link href={"/"}>
+                  {cast && cast.crew ? getDirectors(cast.crew) : "N/A"}
+                </Link>
+              </p>
+
+              <p>
+                Writers:{" "}
+                {cast && cast.crew
+                  ? getWriters(cast.crew).map((writer, index, array) => (
+                      <span key={writer}>
+                        <Link href={`/writers/${writer}`}>{writer}</Link>
+                        {index < array.length - 1 && <span> &#8226; </span>}
+                      </span>
+                    ))
+                  : "N/A"}
+              </p>
+            </div>
+
+            <button>
+              Add to Watchlist
+              <FontAwesomeIcon icon={faHeart} />
+            </button>
+          </div>
         </div>
-        <div className="genres">
-          {movie.genres.map((genre) => (
-            <p key={genre.id}>{genre.name}</p>
-          ))}
+        <div className="cast">
+          <h1>Top Cast</h1>
+          <div className="members">
+            {cast.cast.slice(0, 10).map((member) => (
+              <div className="cast-member">
+                <Link href={"/"}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${member.profile_path}`}
+                    alt=""
+                  />
+                </Link>
+                <div className="member-name">
+                  <Link href={"/"}>{member.name}</Link>
+                  <p>{member.character}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={`${movie.title} Poster`}
-        />
       </div>
     </div>
   );
