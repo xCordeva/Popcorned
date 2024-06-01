@@ -227,3 +227,22 @@
 .birth-location span {
   color: hsl(0, 0%, 65%);
 }
+
+.details-page-loading,
+.details-page-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100dvh;
+}
+.details-page-loading img,
+.details-page-not-found img {
+  width: 100px;
+}
+
+.details-page-not-found h1 {
+  font-size: 5rem;
+  margin: 0;
+  color: #ca282c;
+}

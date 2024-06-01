@@ -17,24 +17,28 @@ const titleDetails = ({ details, cast, type }) => {
   const getDirectors = (crew) => {
     return crew
       .filter((member) => member.job === "Director")
-      .map((director) => director.name);
+      .map((director) => ({ name: director.name, id: director.id }));
   };
   const getWriters = (crew) => {
     return crew
       .filter(
         (member) => member.job === "Writer" || member.department === "Writing"
       )
-      .map((writer) => writer.name);
+      .map((writer) => ({ name: writer.name, id: writer.id }));
   };
-  // console.log(cast.crew);
+
   return (
     <div className="details-card">
       <img
-        src={`https://image.tmdb.org/t/p/w500${
-          type === "movie" || type === "tv"
-            ? details.poster_path
-            : details.profile_path
-        }`}
+        src={
+          details.poster_path || details.profile_path
+            ? `https://image.tmdb.org/t/p/w500${
+                type === "movie" || type === "tv"
+                  ? details.poster_path
+                  : details.profile_path
+              }`
+            : "https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/no-image-avaiable.jpg?alt=media&token=f01f2f4a-c8db-4e5f-8f7f-c920219a77fd"
+        }
         alt={`${details.title} Poster`}
       />
       <div className="details">
@@ -113,9 +117,17 @@ const titleDetails = ({ details, cast, type }) => {
           {type === "movie" && (
             <p>
               Director:{" "}
-              <Link href={"/"}>
-                {cast && cast.crew ? getDirectors(cast.crew) : "N/A"}
-              </Link>
+              {getDirectors(cast.crew).map((director) => (
+                <Link
+                  href={{
+                    pathname: `/title/${director.id}`,
+                    query: { type: "person" },
+                  }}
+                  key={director.id}
+                >
+                  {cast && cast.crew ? director.name : "N/A"}
+                </Link>
+              ))}
             </p>
           )}
           {type !== "person" && (
@@ -124,7 +136,14 @@ const titleDetails = ({ details, cast, type }) => {
               {cast && cast.crew
                 ? getWriters(cast.crew).map((writer, index, array) => (
                     <span key={writer}>
-                      <Link href={`/writers/${writer}`}>{writer}</Link>
+                      <Link
+                        href={{
+                          pathname: `/title/${writer.id}`,
+                          query: { type: "person" },
+                        }}
+                      >
+                        {writer.name}
+                      </Link>
                       {index < array.length - 1 && <span> &#8226; </span>}
                     </span>
                   ))

@@ -44,8 +44,23 @@ const titleDetails = ({ params }) => {
     }
   }, [id, type]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!details) return <p>Movie not found</p>;
+  if (loading)
+    return (
+      <div className="details-page-loading">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/popcorn-gif.gif?alt=media&token=40bd37ee-6317-4211-87f2-2eca181e52e9"
+          alt="loading-gif"
+        />
+        <p>Loading...</p>
+      </div>
+    );
+  if (!details)
+    return (
+      <div className="details-page-not-found">
+        <h1>404 Not Found!</h1>
+        <p>Oops we couldn't find anything with that title...</p>
+      </div>
+    );
   console.log(details);
 
   return (
