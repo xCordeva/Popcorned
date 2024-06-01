@@ -22,6 +22,21 @@
     padding: 10px;
     border-radius: 4px;
     margin: 25px 0;
+    overflow-x: hidden;
+    height: fit-content;
+    max-height: 200px;
+    line-height: 1.5;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: variables.$main-grey;
+      border-radius: 0 0 5px 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: variables.$main-red;
+      border-radius: 10px;
+    }
   }
 
   .movie-language {
@@ -80,7 +95,18 @@
   width: auto;
   h1 {
     margin: 0;
+    display: inline-block;
   }
+  .name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    h2 {
+      color: hsl(0, 0%, 65%);
+    }
+  }
+
   p {
     margin: 10px 0;
   }
@@ -190,5 +216,17 @@
         transition: 0.4s all ease;
       }
     }
+  }
+}
+.birth-location {
+  p {
+    margin: 15px 0 5px 0;
+  }
+  svg {
+    margin-right: 10px;
+    color: variables.$main-red;
+  }
+  span {
+    color: hsl(0, 0%, 65%);
   }
 }

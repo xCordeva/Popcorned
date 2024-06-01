@@ -39,7 +39,13 @@ const SearchResults = ({ combinedResults, status }) => {
         </div>
       ) : (
         combinedResults.slice(0, 10).map((result) => (
-          <Link href={`movie/${result.id}`} key={result.id}>
+          <Link
+            href={{
+              pathname: `/title/${result.id}`,
+              query: { type: result.type },
+            }}
+            key={result.id}
+          >
             <div className="search-result">
               <img
                 src={
