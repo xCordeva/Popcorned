@@ -1,4 +1,4 @@
-.movie-details-page {
+.title-details-page {
   padding: 1% 5%;
   max-width: 1800px;
   margin: 2% auto;
@@ -17,7 +17,7 @@
   height: 550px;
   border-radius: 5px;
 }
-.details-card .movie-overview {
+.details-card .title-overview {
   background-color: hsl(0, 0%, 10%);
   padding: 10px;
   border-radius: 4px;
@@ -28,18 +28,18 @@
   max-height: 200px;
   line-height: 1.5;
 }
-.details-card .movie-overview::-webkit-scrollbar {
+.details-card .title-overview::-webkit-scrollbar {
   width: 8px;
 }
-.details-card .movie-overview::-webkit-scrollbar-track {
+.details-card .title-overview::-webkit-scrollbar-track {
   background: hsl(0, 0%, 10%);
   border-radius: 0 0 5px 5px;
 }
-.details-card .movie-overview::-webkit-scrollbar-thumb {
+.details-card .title-overview::-webkit-scrollbar-thumb {
   background-color: #ca282c;
   border-radius: 10px;
 }
-.details-card .movie-language {
+.details-card .title-language {
   background-color: hsl(0, 0%, 10%);
   width: -moz-fit-content;
   width: fit-content;

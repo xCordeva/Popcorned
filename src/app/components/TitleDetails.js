@@ -96,14 +96,14 @@ const titleDetails = ({ details, cast, type }) => {
             ))}
           </div>
         )}
-        <p className="movie-overview">
+        <p className="title-overview">
           {type !== "person" ? details.overview : details.biography}
         </p>
         {type !== "person" && (
           <div className="languages">
             Languages:
             {details.spoken_languages.map((lang) => (
-              <p className="movie-language" key={lang.iso_639_1}>
+              <p className="title-language" key={lang.iso_639_1}>
                 {lang.english_name}
               </p>
             ))}

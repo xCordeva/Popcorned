@@ -1,6 +1,6 @@
 @use "variables.scss";
 
-.movie-details-page {
+.title-details-page {
   padding: 1% 5%;
   max-width: 1800px;
   margin: 2% auto;
@@ -17,7 +17,7 @@
     height: 550px;
     border-radius: 5px;
   }
-  .movie-overview {
+  .title-overview {
     background-color: variables.$main-grey;
     padding: 10px;
     border-radius: 4px;
@@ -39,7 +39,7 @@
     }
   }
 
-  .movie-language {
+  .title-language {
     background-color: variables.$main-grey;
     width: fit-content;
     padding: 5px;

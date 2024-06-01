@@ -51,7 +51,7 @@ const titleDetails = ({ params }) => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="movie-details-page">
+      <div className="title-details-page">
         <TitleDetails details={details} cast={cast} type={type}></TitleDetails>
         {(type === "movie" || type === "tv") && <TopCast cast={cast}></TopCast>}
       </div>
