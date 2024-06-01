@@ -50,7 +50,7 @@
           border: 2px solid variables.$main-red;
         }
       }
-      button {
+      a {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -64,7 +64,7 @@
         font-weight: 800;
         background-color: variables.$main-red;
         border-radius: 0 4px 4px 0;
-        padding: 10px 20px;
+        text-decoration: none;
         border: none;
         box-shadow: 0 0 5px hsl(0, 100%, 50%);
         cursor: pointer;

@@ -61,7 +61,6 @@ const titleDetails = ({ params }) => {
         <p>Oops we couldn't find anything with that title...</p>
       </div>
     );
-  console.log(details);
 
   return (
     <div>

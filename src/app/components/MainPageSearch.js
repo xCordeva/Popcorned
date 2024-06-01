@@ -6,11 +6,13 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeSearchPopup,
+  combinedSearchResults,
   fetchAll,
   resetSearchResults,
   userSearchInput,
 } from "@/features/UserSearch";
 import SearchResults from "./SearchResults";
+import Link from "next/link";
 
 function debounce(func, wait) {
   let timeout;
@@ -40,6 +42,11 @@ export default function MainPageSearch() {
       dispatch(fetchAll(userSearch));
     }
   }, [userSearch, dispatch]);
+  const searchButtonClicked = useCallback(() => {
+    if (userSearch.trim()) {
+      handleUserSearch();
+    }
+  });
   const debounceHandleUserSearch = useCallback(
     debounce(handleUserSearch, 500),
     [handleUserSearch]
@@ -106,10 +113,13 @@ export default function MainPageSearch() {
             }}
           />
 
-          <button onClick={handleUserSearch}>
+          <Link
+            onClick={searchButtonClicked}
+            href={`/search/title/${userSearch}`}
+          >
             <span>Search</span>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
+          </Link>
         </div>
         {userSearch && (
           <SearchResults

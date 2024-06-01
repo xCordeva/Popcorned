@@ -5,6 +5,7 @@ const initialState = {
   movies: [],
   tvShows: [],
   people: [],
+  combinedResults: [],
   status: "idle",
   error: null,
 };
@@ -35,13 +36,37 @@ export const fetchAll = createAsyncThunk(
     const moviesData = await moviesResponse.json();
     const tvShowsData = await tvShowsResponse.json();
     const peopleData = await peopleResponse.json();
-    console.log("Movies:", moviesData.results);
-    console.log("TV Shows:", tvShowsData.results);
-    console.log("People:", peopleData.results);
+
+    const exactMatchMovies = moviesData.results.filter(
+      (movie) => movie.title.toLowerCase() === query.toLowerCase()
+    );
+    const exactMatchTvShows = tvShowsData.results.filter(
+      (tvShow) => tvShow.name.toLowerCase() === query.toLowerCase()
+    );
+    const exactMatchPeople = peopleData.results.filter(
+      (person) => person.name.toLowerCase() === query.toLowerCase()
+    );
+
+    const sortedMovies = exactMatchMovies.concat(
+      moviesData.results
+        .filter((movie) => !exactMatchMovies.includes(movie))
+        .sort((a, b) => b.popularity - a.popularity)
+    );
+    const sortedTvShows = exactMatchTvShows.concat(
+      tvShowsData.results
+        .filter((tvShow) => !exactMatchTvShows.includes(tvShow))
+        .sort((a, b) => b.popularity - a.popularity)
+    );
+    const sortedPeople = exactMatchPeople.concat(
+      peopleData.results
+        .filter((person) => !exactMatchPeople.includes(person))
+        .sort((a, b) => b.popularity - a.popularity)
+    );
+
     return {
-      movies: moviesData.results,
-      tvShows: tvShowsData.results,
-      people: peopleData.results,
+      movies: sortedMovies,
+      tvShows: sortedTvShows,
+      people: sortedPeople,
     };
   }
 );
@@ -60,6 +85,14 @@ export const userSearchSlice = createSlice({
       state.movies = [];
       state.tvShows = [];
       state.people = [];
+      state.combinedResults = [];
+    },
+    combinedSearchResults: (state) => {
+      state.combinedResults = [
+        ...state.movies.map((item) => ({ ...item, type: "movie" })),
+        ...state.tvShows.map((item) => ({ ...item, type: "tv" })),
+        ...state.people.map((item) => ({ ...item, type: "person" })),
+      ];
     },
   },
   extraReducers: (builder) => {
@@ -72,6 +105,11 @@ export const userSearchSlice = createSlice({
         state.movies = action.payload.movies;
         state.tvShows = action.payload.tvShows;
         state.people = action.payload.people;
+        state.combinedResults = [
+          ...action.payload.movies.map((item) => ({ ...item, type: "movie" })),
+          ...action.payload.tvShows.map((item) => ({ ...item, type: "tv" })),
+          ...action.payload.people.map((item) => ({ ...item, type: "person" })),
+        ];
       })
       .addCase(fetchAll.rejected, (state, action) => {
         state.status = "failed";
@@ -82,4 +120,5 @@ export const userSearchSlice = createSlice({
 
 export const { userSearchInput, closeSearchPopup, resetSearchResults } =
   userSearchSlice.actions;
+
 export default userSearchSlice.reducer;
