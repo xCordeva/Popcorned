@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeSearchPopup,
-  combinedSearchResults,
   fetchAll,
   resetSearchResults,
   userSearchInput,
@@ -29,9 +28,6 @@ export default function MainPageSearch() {
   });
   const dispatch = useDispatch();
   const [userSearch, setUserSearch] = useState("");
-  const movies = useSelector((state) => state.UserSearch.movies);
-  const tvShows = useSelector((state) => state.UserSearch.tvShows);
-  const people = useSelector((state) => state.UserSearch.people);
   const status = useSelector((state) => state.UserSearch.status);
 
   const handleUserSearch = useCallback(() => {
@@ -40,6 +36,7 @@ export default function MainPageSearch() {
       dispatch(closeSearchPopup(true));
       dispatch(userSearchInput(userSearch));
       dispatch(fetchAll(userSearch));
+      console.log();
     }
   }, [userSearch, dispatch]);
   const searchButtonClicked = useCallback(() => {
@@ -55,35 +52,6 @@ export default function MainPageSearch() {
   useEffect(() => {
     debounceHandleUserSearch();
   }, [userSearch, debounceHandleUserSearch]);
-
-  let combinedResults = [
-    ...movies.map((item) => ({ ...item, type: "movie" })),
-    ...tvShows.map((item) => ({ ...item, type: "tv" })),
-    ...people.map((item) => ({ ...item, type: "person" })),
-  ];
-
-  // identifying exact matches and determine the most popular one
-
-  let exactMatches = combinedResults.filter(
-    (item) =>
-      (item.name && item.name.toLowerCase() === userSearch.toLowerCase()) ||
-      (item.title && item.title.toLowerCase() === userSearch.toLowerCase())
-  );
-  exactMatches = exactMatches.sort((a, b) => b.popularity - a.popularity);
-  const mostPopularExactMatch = exactMatches[0];
-
-  // remove the most popular exact match from the combinedResults to be added only once at top of the results
-  combinedResults = combinedResults.filter(
-    (item) => item !== mostPopularExactMatch
-  );
-
-  // sorting the remaining results by popularity
-  combinedResults = combinedResults.sort((a, b) => b.popularity - a.popularity);
-
-  // adding most popular exact match to the beginning of the list
-  if (mostPopularExactMatch) {
-    combinedResults = [mostPopularExactMatch, ...combinedResults];
-  }
 
   return (
     <div className="main-page-search">
@@ -110,6 +78,7 @@ export default function MainPageSearch() {
               setUserSearch(e.target.value);
               dispatch(resetSearchResults());
               handleUserSearch();
+              dispatch(userSearchInput(e.target.value));
             }}
           />
 
@@ -121,12 +90,7 @@ export default function MainPageSearch() {
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </Link>
         </div>
-        {userSearch && (
-          <SearchResults
-            combinedResults={combinedResults}
-            status={status}
-          ></SearchResults>
-        )}
+        {userSearch && <SearchResults status={status}></SearchResults>}
       </div>
     </div>
   );

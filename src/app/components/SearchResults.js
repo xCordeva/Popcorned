@@ -3,8 +3,12 @@ import "../../css/SearchResults.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
-const SearchResults = ({ combinedResults, status }) => {
+const SearchResults = ({ status }) => {
+  const combinedResults = useSelector(
+    (state) => state.UserSearch.combinedResults
+  );
   if (status === "loading") {
     return (
       <div

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: "",
+  searchInput: "",
   movies: [],
   tvShows: [],
   people: [],
@@ -28,7 +29,7 @@ export const fetchAll = createAsyncThunk(
         ),
       ]
     );
-
+    // const searchInput = query;
     if (!moviesResponse.ok || !tvShowsResponse.ok || !peopleResponse.ok) {
       throw new Error("Network response was not ok");
     }
@@ -37,36 +38,67 @@ export const fetchAll = createAsyncThunk(
     const tvShowsData = await tvShowsResponse.json();
     const peopleData = await peopleResponse.json();
 
-    const exactMatchMovies = moviesData.results.filter(
+    // Add type to each item
+    const moviesWithType = moviesData.results.map((item) => ({
+      ...item,
+      type: "movie",
+    }));
+    const tvShowsWithType = tvShowsData.results.map((item) => ({
+      ...item,
+      type: "tv",
+    }));
+    const peopleWithType = peopleData.results.map((item) => ({
+      ...item,
+      type: "person",
+    }));
+
+    // Find exact matches
+    const exactMatchMovies = moviesWithType.filter(
       (movie) => movie.title.toLowerCase() === query.toLowerCase()
     );
-    const exactMatchTvShows = tvShowsData.results.filter(
+    const exactMatchTvShows = tvShowsWithType.filter(
       (tvShow) => tvShow.name.toLowerCase() === query.toLowerCase()
     );
-    const exactMatchPeople = peopleData.results.filter(
+    const exactMatchPeople = peopleWithType.filter(
       (person) => person.name.toLowerCase() === query.toLowerCase()
     );
 
-    const sortedMovies = exactMatchMovies.concat(
-      moviesData.results
-        .filter((movie) => !exactMatchMovies.includes(movie))
-        .sort((a, b) => b.popularity - a.popularity)
-    );
-    const sortedTvShows = exactMatchTvShows.concat(
-      tvShowsData.results
-        .filter((tvShow) => !exactMatchTvShows.includes(tvShow))
-        .sort((a, b) => b.popularity - a.popularity)
-    );
-    const sortedPeople = exactMatchPeople.concat(
-      peopleData.results
-        .filter((person) => !exactMatchPeople.includes(person))
-        .sort((a, b) => b.popularity - a.popularity)
+    // Get the highest popularity exact match
+    const mostPopularExactMatch = [
+      ...exactMatchMovies,
+      ...exactMatchTvShows,
+      ...exactMatchPeople,
+    ].sort((a, b) => b.popularity - a.popularity)[0];
+
+    // Combine and sort results
+    const sortedMovies = moviesWithType
+      .filter((movie) => movie !== mostPopularExactMatch)
+      .sort((a, b) => b.popularity - a.popularity);
+    const sortedTvShows = tvShowsWithType
+      .filter((tvShow) => tvShow !== mostPopularExactMatch)
+      .sort((a, b) => b.popularity - a.popularity);
+    const sortedPeople = peopleWithType
+      .filter((person) => person !== mostPopularExactMatch)
+      .sort((a, b) => b.popularity - a.popularity);
+
+    let combinedResults = [...sortedMovies, ...sortedTvShows, ...sortedPeople];
+
+    // sorting the results to show the most popular at top of the list
+    combinedResults = combinedResults.sort(
+      (a, b) => b.popularity - a.popularity
     );
 
+    // Add the most popular exact match at the beginning if exists
+    if (mostPopularExactMatch) {
+      combinedResults = [mostPopularExactMatch, ...combinedResults];
+    }
+
     return {
+      searchInput: query,
       movies: sortedMovies,
       tvShows: sortedTvShows,
       people: sortedPeople,
+      combinedResults,
     };
   }
 );
@@ -77,6 +109,7 @@ export const userSearchSlice = createSlice({
   reducers: {
     userSearchInput: (state, action) => {
       state.value = action.payload;
+      state.searchInput = action.payload;
     },
     closeSearchPopup: (state) => {
       state.value = "";
@@ -87,13 +120,6 @@ export const userSearchSlice = createSlice({
       state.people = [];
       state.combinedResults = [];
     },
-    combinedSearchResults: (state) => {
-      state.combinedResults = [
-        ...state.movies.map((item) => ({ ...item, type: "movie" })),
-        ...state.tvShows.map((item) => ({ ...item, type: "tv" })),
-        ...state.people.map((item) => ({ ...item, type: "person" })),
-      ];
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -102,14 +128,11 @@ export const userSearchSlice = createSlice({
       })
       .addCase(fetchAll.fulfilled, (state, action) => {
         state.status = "succeeded";
+        state.searchInput = action.payload.searchInput;
         state.movies = action.payload.movies;
         state.tvShows = action.payload.tvShows;
         state.people = action.payload.people;
-        state.combinedResults = [
-          ...action.payload.movies.map((item) => ({ ...item, type: "movie" })),
-          ...action.payload.tvShows.map((item) => ({ ...item, type: "tv" })),
-          ...action.payload.people.map((item) => ({ ...item, type: "person" })),
-        ];
+        state.combinedResults = action.payload.combinedResults;
       })
       .addCase(fetchAll.rejected, (state, action) => {
         state.status = "failed";
