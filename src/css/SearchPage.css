@@ -1,0 +1,112 @@
+.no-valid-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100dvh - 60px);
+  flex-direction: column;
+}
+.no-valid-search a {
+  padding: 15px 20px;
+  background-color: #ca282c;
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+}
+.no-valid-search a:hover {
+  background-color: #b52427;
+  transition: background-color 0.3s ease;
+}
+
+.search-page {
+  padding: 0 5%;
+}
+.search-page .search-result {
+  display: flex;
+  margin: 40px 0;
+  background-color: hsl(0, 0%, 3%);
+  border-radius: 10px;
+}
+.search-page .search-result img {
+  border-radius: 10px;
+  width: 20%;
+  max-width: 200px;
+}
+.search-page .search-result .result-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 40px;
+  padding: 0 30px 0 0;
+}
+.search-page .search-result .result-details a {
+  align-self: center;
+  justify-self: center;
+  background-color: #ca282c;
+  padding: 15px 20px;
+  width: 160px;
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-page .search-result .result-details a:hover {
+  background-color: #a82125;
+  transition: background-color 0.3s ease;
+}
+.search-page .search-result .result-details a svg {
+  margin-left: 5px;
+}
+.search-page .search-result .result-details a:nth-of-type(2) {
+  background-color: #e89c1e;
+}
+.search-page .search-result .result-details a:nth-of-type(2):hover {
+  background-color: #c98515;
+  transition: background-color 0.3s ease;
+}
+
+.title-rate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title-rate .rating {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+}
+.title-rate .rating svg {
+  color: #e89c1e;
+}
+.title-rate .rating p {
+  margin: 15px 15px 15px 5px;
+  color: white;
+}
+.title-rate .rating p span {
+  color: gray;
+}
+.title-rate .rating button {
+  cursor: pointer;
+  color: white;
+  white-space: nowrap;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 3px;
+  background-color: hsl(0, 0%, 10%);
+  font-weight: 800;
+  margin: 10px 0;
+}
+.title-rate .rating button:hover {
+  background-color: #121212;
+  transition: all 0.4s ease;
+}
+.title-rate .rating button svg {
+  margin: 0 5px 0 0;
+}
