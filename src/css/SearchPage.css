@@ -76,6 +76,7 @@
   display: flex;
   align-items: center;
   font-size: 2rem;
+  white-space: nowrap;
 }
 .title-rate .rating svg {
   color: #e89c1e;
@@ -91,7 +92,6 @@
   cursor: pointer;
   color: white;
   white-space: nowrap;
-  max-width: -moz-fit-content;
   max-width: fit-content;
   padding: 10px;
   display: flex;
@@ -109,4 +109,4 @@
 }
 .title-rate .rating button svg {
   margin: 0 5px 0 0;
-}
+}/*# sourceMappingURL=SearchPage.css.map */
