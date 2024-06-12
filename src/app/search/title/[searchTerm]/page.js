@@ -12,7 +12,6 @@ import {
   faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { userSearchInput, fetchAll } from "@/features/UserSearch";
-import { useSearchParams } from "next/navigation";
 
 const SearchPage = ({ params }) => {
   const dispatch = useDispatch();
@@ -28,44 +27,7 @@ const SearchPage = ({ params }) => {
     dispatch(userSearchInput(searchInput));
     dispatch(fetchAll(searchInput));
   }, [searchInput, userSearch, dispatch]);
-  const searchParams = useSearchParams();
-  // const type = searchParams.get("type");
 
-  const id = params.id;
-
-  useEffect(() => {
-    const fetchCastDetails = async (id, type) => {
-      try {
-        const castResponse = await fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${id}/credits?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-        );
-        const castData = await castResponse.json();
-        return castData.cast.slice(0, 2);
-      } catch (error) {
-        console.error("Error fetching cast details:", error);
-        return [];
-      }
-    };
-    //     SearchResults.forEach((result) => {
-    //       result
-    //     });
-    //     SearchResults.forEach((result) => {
-    //       result
-    //     });
-    // i want to add the top cast members to every result to
-    // const loadCasts = async () => {
-    //   const newCasts = {};
-    //   for (const result of SearchResults) {
-    //     const mediaType = result.title ? "movie" : "tv";
-    //     newCasts[result.id] = await fetchCastDetails(result.id, mediaType);
-    //   }
-    //   setCasts(newCasts);
-    // };
-
-    // if (SearchResults.length > 0) {
-    //   loadCasts();
-    // }
-  }, [SearchResults]);
   if (!searchInput && !userSearch) {
     return (
       <div>
@@ -108,13 +70,29 @@ const SearchPage = ({ params }) => {
                   )}
                 </div>
               </div>
+              {result.topCast && result.type !== "person" ? (
+                <div className="top-cast">
+                  {result.topCast.map((castMember) => (
+                    <Link
+                      key={castMember.id}
+                      href={{
+                        pathname: `/title/${castMember.id}`,
+                        query: { type: "person" },
+                      }}
+                    >
+                      {castMember.name}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
               {(result.release_date || result.first_air_date) && (
-                <h2>
+                <h3>
                   {result.release_date
                     ? result.release_date.split("-")[0]
                     : result.first_air_date.split("-")[0]}
-                </h2>
+                </h3>
               )}
+
               <Link href={"/movie-details"}>
                 Show More Info
                 <FontAwesomeIcon icon={faCircleInfo} />

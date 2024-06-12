@@ -29,7 +29,7 @@ export const fetchAll = createAsyncThunk(
         ),
       ]
     );
-    // const searchInput = query;
+
     if (!moviesResponse.ok || !tvShowsResponse.ok || !peopleResponse.ok) {
       throw new Error("Network response was not ok");
     }
@@ -39,14 +39,34 @@ export const fetchAll = createAsyncThunk(
     const peopleData = await peopleResponse.json();
 
     // Add type to each item
-    const moviesWithType = moviesData.results.map((item) => ({
-      ...item,
-      type: "movie",
-    }));
-    const tvShowsWithType = tvShowsData.results.map((item) => ({
-      ...item,
-      type: "tv",
-    }));
+    const moviesWithType = await Promise.all(
+      moviesData.results.map(async (item) => {
+        const castResponse = await fetch(
+          `https://api.themoviedb.org/3/movie/${item.id}/credits?api_key=${api_key}`
+        );
+        const castData = await castResponse.json();
+        return {
+          ...item,
+          type: "movie",
+          topCast: castData.cast.slice(0, 2),
+        };
+      })
+    );
+
+    const tvShowsWithType = await Promise.all(
+      tvShowsData.results.map(async (item) => {
+        const castResponse = await fetch(
+          `https://api.themoviedb.org/3/tv/${item.id}/credits?api_key=${api_key}`
+        );
+        const castData = await castResponse.json();
+        return {
+          ...item,
+          type: "tv",
+          topCast: castData.cast.slice(0, 2),
+        };
+      })
+    );
+
     const peopleWithType = peopleData.results.map((item) => ({
       ...item,
       type: "person",

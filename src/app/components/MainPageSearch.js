@@ -36,7 +36,6 @@ export default function MainPageSearch() {
       dispatch(closeSearchPopup(true));
       dispatch(userSearchInput(userSearch));
       dispatch(fetchAll(userSearch));
-      console.log();
     }
   }, [userSearch, dispatch]);
   const searchButtonClicked = useCallback(() => {
