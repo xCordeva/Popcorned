@@ -16,8 +16,8 @@ import { userSearchInput, fetchAll } from "@/features/UserSearch";
 const SearchPage = ({ params }) => {
   const dispatch = useDispatch();
 
-  const searchInput = params.searchTerm;
-
+  const searchInput = decodeURIComponent(params.searchTerm);
+  console.log(searchInput);
   const SearchResults = useSelector(
     (state) => state.UserSearch.combinedResults
   );
