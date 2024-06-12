@@ -49,35 +49,6 @@
     min-width: 300px;
     height: 430px;
   }
-  a {
-    text-decoration: none;
-    color: black;
-    white-space: nowrap;
-    cursor: pointer;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 3px;
-    background-color: variables.$main-yellow;
-    font-weight: 800;
-    margin: 10px 0;
-    &:hover {
-      background-color: darken($color: variables.$main-yellow, $amount: 10%);
-      transition: all 0.4s ease;
-    }
-    svg {
-      margin-left: 10px;
-      font-size: large;
-    }
-    &:nth-of-type(2) {
-      background-color: variables.$main-red;
-      &:hover {
-        background-color: darken($color: variables.$main-red, $amount: 10%);
-      }
-    }
-  }
   .rating {
     display: flex;
     align-items: center;

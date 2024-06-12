@@ -34,38 +34,28 @@
     .result-details {
       display: flex;
       flex-direction: column;
+      // justify-content: center;
       width: 100%;
       margin-left: 40px;
       padding: 0 30px 0 0;
-      a {
+      .info-watchlist {
         align-self: center;
-        justify-self: center;
-        background-color: variables.$main-red;
-        padding: 15px 20px;
-        width: 160px;
-        text-decoration: none;
-        color: white;
-        border-radius: 4px;
-        margin: 10px 0;
+      }
+
+      .top-cast {
         display: flex;
+        flex-direction: row;
         align-items: center;
-        justify-content: center;
-        &:hover {
-          background-color: darken($color: variables.$main-red, $amount: 8%);
-          transition: background-color 0.3s ease;
+        a {
+          display: inline-block;
+          text-decoration: none;
+          margin: 0;
+          color: hsl(0, 0%, 60%);
         }
-        svg {
-          margin-left: 5px;
-        }
-        &:nth-of-type(2) {
-          background-color: variables.$main-yellow;
-          &:hover {
-            background-color: darken(
-              $color: variables.$main-yellow,
-              $amount: 8%
-            );
-            transition: background-color 0.3s ease;
-          }
+        p {
+          color: hsl(0, 0%, 60%);
+          display: inline-block;
+          margin: 5px 5px 5px 0;
         }
       }
     }
@@ -75,11 +65,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  h1 {
+    margin-bottom: 0;
+  }
   .rating {
     display: flex;
     align-items: center;
     font-size: 2rem;
-
     white-space: nowrap;
     svg {
       color: variables.$main-yellow;

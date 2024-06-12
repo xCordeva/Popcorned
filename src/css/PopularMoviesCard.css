@@ -43,35 +43,6 @@
   min-width: 300px;
   height: 430px;
 }
-.populuar-movies-card-container a {
-  text-decoration: none;
-  color: black;
-  white-space: nowrap;
-  cursor: pointer;
-  padding: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 3px;
-  background-color: #e89c1e;
-  font-weight: 800;
-  margin: 10px 0;
-}
-.populuar-movies-card-container a:hover {
-  background-color: #bf7f14;
-  transition: all 0.4s ease;
-}
-.populuar-movies-card-container a svg {
-  margin-left: 10px;
-  font-size: large;
-}
-.populuar-movies-card-container a:nth-of-type(2) {
-  background-color: #ca282c;
-}
-.populuar-movies-card-container a:nth-of-type(2):hover {
-  background-color: #9f2023;
-}
 .populuar-movies-card-container .rating {
   display: flex;
   align-items: center;
@@ -96,4 +67,4 @@
 
 .custom-dot-list-style {
   width: 200px;
-}/*# sourceMappingURL=PopularMoviesCard.css.map */
+}

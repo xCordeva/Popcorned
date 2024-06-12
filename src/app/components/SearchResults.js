@@ -31,7 +31,7 @@ const SearchResults = ({ status }) => {
       </div>
     );
   }
-
+  console.log(combinedResults);
   return (
     <div
       className="search-results"
@@ -64,6 +64,23 @@ const SearchResults = ({ status }) => {
 
               <div className="result-details">
                 <h2>{result.title ? result.title : result.name}</h2>
+                {result.topCast && result.type !== "person" ? (
+                  <div className="top-cast">
+                    {result.topCast.map((castMember, index) => (
+                      <div key={castMember.id}>
+                        <p
+                          href={{
+                            pathname: `/title/${castMember.id}`,
+                            query: { type: "person" },
+                          }}
+                        >
+                          {castMember.name}
+                        </p>
+                        {index < result.topCast.length - 1 && <p>,&nbsp;</p>}
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="date-rating">
                   {(result.release_date || result.first_air_date) && (
                     <p>
@@ -79,6 +96,11 @@ const SearchResults = ({ status }) => {
                     </p>
                   )}
                 </div>
+                {result.type === "person" && (
+                  <p className="known-for">
+                    Known for {result.known_for_department}
+                  </p>
+                )}
               </div>
             </div>
           </Link>

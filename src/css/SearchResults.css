@@ -73,4 +73,21 @@
 .loading-search-results img {
   scale: 2;
   margin-bottom: 20px;
-}/*# sourceMappingURL=SearchResults.css.map */
+}
+
+.top-cast {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.top-cast p {
+  color: hsl(0, 0%, 60%);
+  display: inline-block;
+  margin: 0;
+  font-weight: 600;
+}
+
+.known-for {
+  font-weight: 800;
+  color: hsl(0, 0%, 60%);
+}

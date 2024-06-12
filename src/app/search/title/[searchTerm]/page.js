@@ -72,16 +72,18 @@ const SearchPage = ({ params }) => {
               </div>
               {result.topCast && result.type !== "person" ? (
                 <div className="top-cast">
-                  {result.topCast.map((castMember) => (
-                    <Link
-                      key={castMember.id}
-                      href={{
-                        pathname: `/title/${castMember.id}`,
-                        query: { type: "person" },
-                      }}
-                    >
-                      {castMember.name}
-                    </Link>
+                  {result.topCast.map((castMember, index) => (
+                    <div key={castMember.id}>
+                      <Link
+                        href={{
+                          pathname: `/title/${castMember.id}`,
+                          query: { type: "person" },
+                        }}
+                      >
+                        {castMember.name}
+                      </Link>
+                      {index < result.topCast.length - 1 && <p>, </p>}
+                    </div>
                   ))}
                 </div>
               ) : null}
@@ -92,15 +94,19 @@ const SearchPage = ({ params }) => {
                     : result.first_air_date.split("-")[0]}
                 </h3>
               )}
-
-              <Link href={"/movie-details"}>
-                Show More Info
-                <FontAwesomeIcon icon={faCircleInfo} />
-              </Link>
-              <Link href={"/"}>
-                Add to Watch List
-                <FontAwesomeIcon icon={faSquarePlus} />
-              </Link>
+              <div className="info-watchlist">
+                <Link
+                  href={"/movie-details"}
+                  className="more-info global-button"
+                >
+                  Show More Info
+                  <FontAwesomeIcon icon={faCircleInfo} />
+                </Link>
+                <Link href={"/"} className="add-watchlist global-button">
+                  Add to Watch List
+                  <FontAwesomeIcon icon={faSquarePlus} />
+                </Link>
+              </div>
             </div>
           </div>
         ))}

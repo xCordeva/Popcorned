@@ -1,3 +1,4 @@
+@use "variables.scss";
 @import url("https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
@@ -9,4 +10,35 @@
 body {
   margin: 0;
   padding: 0;
+}
+.global-button {
+  background-color: variables.$main-red;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  transition: background-color, letter-spacing 0.5s ease;
+  &:hover {
+    background-color: darken($color: variables.$main-red, $amount: 8%);
+
+    letter-spacing: 2px;
+  }
+  svg {
+    margin-left: 5px;
+  }
+  &:nth-of-type(2) {
+    background-color: variables.$main-yellow;
+    &:hover {
+      background-color: darken($color: variables.$main-yellow, $amount: 8%);
+    }
+  }
+}
+
+.popular-movies-button {
+  width: auto;
 }

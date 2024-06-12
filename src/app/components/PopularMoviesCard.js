@@ -26,11 +26,14 @@ const PopularMoviesCard = ({ movie }) => {
           {movie.overview.length > 0 ? movie.overview : `No Plot Available`}
           {movie.overview}
         </p>
-        <Link href={"/movie-details"}>
+        <Link
+          href={"/movie-details"}
+          className="popular-movies-button global-button"
+        >
           Show More Info
           <FontAwesomeIcon icon={faCircleInfo} />
         </Link>
-        <Link href={"/"}>
+        <Link href={"/"} className="popular-movies-button global-button">
           Add to Watch List
           <FontAwesomeIcon icon={faSquarePlus} />
         </Link>
