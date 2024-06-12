@@ -9,7 +9,6 @@
 .search-results a {
   text-decoration: none;
   color: white;
-  font-weight: normal;
 }
 .search-results::-webkit-scrollbar {
   width: 12px;
@@ -90,4 +89,16 @@
 .known-for {
   font-weight: 800;
   color: hsl(0, 0%, 60%);
+}
+
+.show-all-results {
+  font-weight: 1000;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.show-all-results:hover {
+  background-color: #0d0d0d;
 }

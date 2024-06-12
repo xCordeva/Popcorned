@@ -10,7 +10,6 @@
   a {
     text-decoration: none;
     color: white;
-    font-weight: normal;
   }
   &::-webkit-scrollbar {
     width: 12px;
@@ -92,4 +91,15 @@
 .known-for {
   font-weight: 800;
   color: hsl(0, 0%, 60%);
+}
+.show-all-results {
+  font-weight: 1000;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: darken($color: variables.$sec-grey, $amount: 10%);
+  }
 }

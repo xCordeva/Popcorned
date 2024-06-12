@@ -89,7 +89,13 @@ export default function MainPageSearch() {
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </Link>
         </div>
-        {userSearch && <SearchResults status={status}></SearchResults>}
+        {userSearch && (
+          <SearchResults
+            status={status}
+            searchButtonClicked={searchButtonClicked}
+            userSearch={userSearch}
+          ></SearchResults>
+        )}
       </div>
     </div>
   );
