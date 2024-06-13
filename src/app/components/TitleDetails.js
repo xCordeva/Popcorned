@@ -14,18 +14,49 @@ const titleDetails = ({ details, cast, type }) => {
     const remainingMinutes = minutes % 60;
     return `${hours}h ${remainingMinutes}m`;
   };
+
   const getDirectors = (crew) => {
-    return crew
-      .filter((member) => member.job === "Director")
-      .map((director) => ({ name: director.name, id: director.id }));
-  };
-  const getWriters = (crew) => {
+    const seenIds = new Set();
     return crew
       .filter(
-        (member) => member.job === "Writer" || member.department === "Writing"
+        (member) =>
+          member.job === "Director" &&
+          !seenIds.has(member.id) &&
+          seenIds.add(member.id)
+      )
+      .map((director) => ({ name: director.name, id: director.id }));
+  };
+
+  const getWriters = (crew) => {
+    const seenIds = new Set();
+
+    // filter for writers
+    let writers = crew
+      .filter(
+        (member) =>
+          (member.job === "Writer" ||
+            member.department === "Writing" ||
+            member.known_for_department === "Writing") &&
+          !seenIds.has(member.id) &&
+          seenIds.add(member.id)
       )
       .map((writer) => ({ name: writer.name, id: writer.id }));
+
+    // if theres no writers found filter for executive producers
+    if (writers.length === 0) {
+      writers = crew
+        .filter(
+          (member) =>
+            member.job === "Executive Producer" &&
+            !seenIds.has(member.id) &&
+            seenIds.add(member.id)
+        )
+        .map((producer) => ({ name: producer.name, id: producer.id }));
+    }
+
+    return writers;
   };
+
   const calculateAge = (birthDate) => {
     const today = new Date();
     const birthDateObj = new Date(birthDate);
@@ -41,7 +72,8 @@ const titleDetails = ({ details, cast, type }) => {
 
     return age;
   };
-
+  console.log(getWriters(cast.crew));
+  console.log(cast);
   return (
     <div className="details-card">
       <img
