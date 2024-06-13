@@ -61,7 +61,7 @@ const SearchPage = ({ params }) => {
               <div className="title-rate">
                 <h1>{result.title ? result.title : result.name}</h1>
                 <div className="rating">
-                  {result.vote_average && (
+                  {result.vote_average !== 0 && result.vote_average && (
                     <p>
                       <FontAwesomeIcon icon={faStar} />
                       {result.vote_average.toFixed(1)}
@@ -87,6 +87,11 @@ const SearchPage = ({ params }) => {
                   ))}
                 </div>
               ) : null}
+              {result.type === "person" && (
+                <p className="known-for">
+                  Known for {result.known_for_department}
+                </p>
+              )}
               {(result.release_date || result.first_air_date) && (
                 <h3>
                   {result.release_date
@@ -102,10 +107,12 @@ const SearchPage = ({ params }) => {
                   Show More Info
                   <FontAwesomeIcon icon={faCircleInfo} />
                 </Link>
-                <Link href={"/"} className="add-watchlist global-button">
-                  Add to Watch List
-                  <FontAwesomeIcon icon={faSquarePlus} />
-                </Link>
+                {result.type !== "person" ? (
+                  <Link href={"/"} className="add-watchlist global-button">
+                    Add to Watch List
+                    <FontAwesomeIcon icon={faSquarePlus} />
+                  </Link>
+                ) : null}
               </div>
             </div>
           </div>

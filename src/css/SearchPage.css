@@ -62,9 +62,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.title-rate h1 {
-  margin-bottom: 0;
+  margin: 15px 0 0 0;
 }
 .title-rate .rating {
   display: flex;
@@ -103,4 +101,9 @@
 }
 .title-rate .rating button svg {
   margin: 0 5px 0 0;
+}
+
+.known-for {
+  font-weight: 800;
+  color: hsl(0, 0%, 60%);
 }

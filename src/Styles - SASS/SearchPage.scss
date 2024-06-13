@@ -65,8 +65,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 15px 0 0 0;
   h1 {
-    margin-bottom: 0;
   }
   .rating {
     display: flex;
@@ -107,4 +107,8 @@
       }
     }
   }
+}
+.known-for {
+  font-weight: 800;
+  color: hsl(0, 0%, 60%);
 }
