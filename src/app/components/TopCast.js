@@ -6,7 +6,7 @@ const TopCast = ({ cast }) => {
       <h1>Top Cast</h1>
       <div className="members">
         {cast.cast.slice(0, 10).map((member) => (
-          <div className="cast-member" key={member.cast_id}>
+          <div className="cast-member" key={member.id}>
             <Link href={"/"}>
               <img
                 src={
