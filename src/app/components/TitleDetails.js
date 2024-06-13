@@ -26,6 +26,21 @@ const titleDetails = ({ details, cast, type }) => {
       )
       .map((writer) => ({ name: writer.name, id: writer.id }));
   };
+  const calculateAge = (birthDate) => {
+    const today = new Date();
+    const birthDateObj = new Date(birthDate);
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDiff = today.getMonth() - birthDateObj.getMonth();
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDateObj.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
 
   return (
     <div className="details-card">
@@ -41,6 +56,17 @@ const titleDetails = ({ details, cast, type }) => {
         }
         alt={`${details.title} Poster`}
       />
+      <div className="title-type">
+        <p>
+          {type === "movie"
+            ? "Movie"
+            : type === "tv"
+            ? "TV Show"
+            : type === "person"
+            ? "Person"
+            : "Unknown"}
+        </p>
+      </div>
       <div className="details">
         <div className="name">
           <h1>{type == "movie" ? details.title : details.name}</h1>
@@ -84,12 +110,23 @@ const titleDetails = ({ details, cast, type }) => {
           <div className="birth-location">
             <p>
               <FontAwesomeIcon icon={faCakeCandles} />
-              Birthday: <span>{details.birthday}</span>
+              Birthday:{" "}
+              <span>
+                {details.birthday ? details.birthday : `No info available`}
+                <span style={{ color: `white` }}> &#8226; </span>
+                {calculateAge(details.birthday)}
+                &nbsp;years old
+              </span>
             </p>
             {details.deathday && <p>Deathday :{details.birthday}</p>}
             <p>
               <FontAwesomeIcon icon={faLocationDot} />
-              Place of Birth: <span>{details.place_of_birth}</span>
+              Place of Birth:{" "}
+              <span>
+                {details.place_of_birth
+                  ? details.place_of_birth
+                  : `No info available`}
+              </span>
             </p>
           </div>
         )}
@@ -116,23 +153,28 @@ const titleDetails = ({ details, cast, type }) => {
         <div className="director-writers">
           {type === "movie" && (
             <p>
-              Director:{" "}
-              {getDirectors(cast.crew).map((director) => (
-                <Link
-                  href={{
-                    pathname: `/title/${director.id}`,
-                    query: { type: "person" },
-                  }}
-                  key={director.id}
-                >
-                  {cast && cast.crew ? director.name : "N/A"}
-                </Link>
+              {`Director${getDirectors(cast.crew).length > 1 ? "s" : ""}: `}
+              {getDirectors(cast.crew).map((director, index, array) => (
+                <span key={director.id}>
+                  <Link
+                    href={{
+                      pathname: `/title/${director.id}`,
+                      query: { type: "person" },
+                    }}
+                    key={director.id}
+                  >
+                    {cast && cast.crew ? director.name : "N/A"}
+                  </Link>
+                  {index < array.length - 1 && <span> &#8226; </span>}
+                </span>
               ))}
             </p>
           )}
           {type !== "person" && (
             <p>
-              {type === "movie" ? "Writers: " : "Creators: "}
+              {type === "movie"
+                ? `Writer${getWriters(cast.crew).length > 1 ? "s" : ""}: `
+                : `Creator${getWriters(cast.crew).length > 1 ? "s" : ""}: `}
               {cast && cast.crew
                 ? getWriters(cast.crew).map((writer, index, array) => (
                     <span key={writer}>

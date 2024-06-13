@@ -30,6 +30,7 @@
   border-radius: 10px;
   width: 20%;
   max-width: 200px;
+  position: relative;
 }
 .search-page .search-result .result-details {
   display: flex;
@@ -51,11 +52,21 @@
   text-decoration: none;
   margin: 0;
   color: hsl(0, 0%, 60%);
+  transition: color 0.4s ease;
+}
+.search-page .search-result .result-details .top-cast a:hover {
+  color: white;
 }
 .search-page .search-result .result-details .top-cast p {
   color: hsl(0, 0%, 60%);
   display: inline-block;
   margin: 5px 5px 5px 0;
+}
+.search-page .search-result .result-type {
+  position: absolute;
+  background-color: hsl(0, 0%, 10%);
+  padding: 0px 5px;
+  border-radius: 9px 0 10px 0;
 }
 
 .title-rate {

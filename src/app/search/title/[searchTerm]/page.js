@@ -57,6 +57,18 @@ const SearchPage = ({ params }) => {
               }
               alt={result.title + ` Poster`}
             />
+            <div className="result-type">
+              <p>
+                {result.type === "movie"
+                  ? "Movie"
+                  : result.type === "tv"
+                  ? "TV Show"
+                  : result.type === "person"
+                  ? "Person"
+                  : "Unknown"}
+              </p>
+            </div>
+
             <div className="result-details">
               <div className="title-rate">
                 <h1>{result.title ? result.title : result.name}</h1>
@@ -101,7 +113,10 @@ const SearchPage = ({ params }) => {
               )}
               <div className="info-watchlist">
                 <Link
-                  href={"/movie-details"}
+                  href={{
+                    pathname: `/title/${result.id}`,
+                    query: { type: result.type },
+                  }}
                   className="more-info global-button"
                 >
                   Show More Info
