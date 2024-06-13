@@ -72,7 +72,7 @@ const titleDetails = ({ details, cast, type }) => {
 
     return age;
   };
-
+  console.log(cast);
   return (
     <div className="details-card">
       <img

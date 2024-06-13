@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const TopCast = ({ cast }) => {
+const TopCast = ({ cast, type }) => {
   return (
     <div className="cast">
       <h1>Top Cast</h1>
@@ -26,7 +26,11 @@ const TopCast = ({ cast }) => {
               >
                 {member.name}
               </Link>
-              <p>{member.character}</p>
+              {type === "tv" ? (
+                <p>{member.roles[0].character}</p>
+              ) : (
+                <p>{member.character}</p>
+              )}
             </div>
           </div>
         ))}
