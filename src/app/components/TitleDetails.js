@@ -143,11 +143,15 @@ const titleDetails = ({ details, cast, type }) => {
               <FontAwesomeIcon icon={faCakeCandles} />
               Birthday:{" "}
               <span>
-                {details.birthday ? details.birthday : `No info available`}
-                {details.birthday &&
-                  (
+                {details.birthday ? (
+                  <>
+                    {details.birthday}
                     <span style={{ color: "white" }}> &#8226; </span>
-                  )`${calculateAge(details.birthday)} years old`}
+                    {calculateAge(details.birthday)} years old
+                  </>
+                ) : (
+                  "No info available"
+                )}
               </span>
             </p>
             {details.deathday && <p>Deathday :{details.birthday}</p>}
