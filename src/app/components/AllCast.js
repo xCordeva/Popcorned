@@ -1,11 +1,12 @@
 import Link from "next/link";
+import React from "react";
 
-const TopCast = ({ cast, type, id }) => {
+export default function AllCast({ cast, type, title }) {
   return (
-    <div className="cast">
-      <h1>Top Cast</h1>
+    <div className="all-cast">
+      <h1>{title} Full Cast</h1>
       <div className="members">
-        {cast.cast.slice(0, 10).map((member) => (
+        {cast.cast.map((member) => (
           <div className="cast-member" key={member.id}>
             <Link
               href={{
@@ -40,16 +41,6 @@ const TopCast = ({ cast, type, id }) => {
           </div>
         ))}
       </div>
-      <Link
-        href={{
-          pathname: `/title/${id}/credits`,
-          query: { type },
-        }}
-      >
-        <h1>Show All cast members</h1>
-      </Link>
     </div>
   );
-};
-
-export default TopCast;
+}

@@ -185,6 +185,18 @@
   padding: 1% 5%;
   border-radius: 5px;
 }
+.cast a {
+  text-decoration: none;
+}
+.cast a h1 {
+  text-align: center;
+  color: hsl(0, 0%, 50%);
+  transition: all 0.5s ease;
+}
+.cast a h1:hover {
+  color: white;
+  letter-spacing: 1px;
+}
 .cast .members {
   display: flex;
   flex-wrap: wrap;

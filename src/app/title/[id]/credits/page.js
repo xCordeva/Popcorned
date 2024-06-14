@@ -1,31 +1,30 @@
 "use client";
-import { useEffect, useState } from "react";
+import AllCast from "@/app/components/AllCast";
 import Navbar from "@/app/components/Navbar";
-import "@/css/TitleDetails.css";
 import { useSearchParams } from "next/navigation";
-import TopCast from "@/app/components/TopCast";
-import TitleDetails from "@/app/components/TitleDetails";
+import { useEffect, useState } from "react";
+import "@/css/AllCast.css";
 
-const titleDetails = ({ params }) => {
+export default function allCast({ params }) {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
 
   const id = params.id;
-
+  console.log(id);
   const [loading, setLoading] = useState(true);
-  const [details, setDetails] = useState(null);
   const [cast, setCast] = useState(null);
+  const [titleDetails, setTitleDetails] = useState(null);
 
   useEffect(() => {
     if (id && type) {
-      const fetchDetails = async () => {
+      const fetchAllCast = async () => {
         try {
-          const detailsResponse = await fetch(
+          const titleDetailsResponse = await fetch(
             `https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
           );
 
-          const detailsData = await detailsResponse.json();
-          setDetails(detailsData);
+          const titleDetailsData = await titleDetailsResponse.json();
+          setTitleDetails(titleDetailsData);
 
           if (type === "movie") {
             const castResponse = await fetch(
@@ -46,13 +45,13 @@ const titleDetails = ({ params }) => {
           setLoading(false);
         }
       };
-      fetchDetails();
+      fetchAllCast();
     }
   }, [id, type]);
 
   if (loading)
     return (
-      <div className="details-page-loading">
+      <div className="all-cast-page-loading">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/popcorn-gif.gif?alt=media&token=40bd37ee-6317-4211-87f2-2eca181e52e9"
           alt="loading-gif"
@@ -60,25 +59,27 @@ const titleDetails = ({ params }) => {
         <p>Loading...</p>
       </div>
     );
-  if (!details)
+  if (!cast)
     return (
-      <div className="details-page-not-found">
+      <div className="all-cast-page-not-found">
         <h1>404 Not Found!</h1>
         <p>Oops we couldn't find anything with that title...</p>
       </div>
     );
-
+  console.log(cast);
   return (
     <div>
       <Navbar></Navbar>
-      <div className="title-details-page">
-        <TitleDetails details={details} cast={cast} type={type}></TitleDetails>
+      <div className="all-cast-page">
         {(type === "movie" || type === "tv") && (
-          <TopCast id={id} type={type} cast={cast}></TopCast>
+          <AllCast
+            id={id}
+            type={type}
+            cast={cast}
+            title={titleDetails.title ? titleDetails.title : titleDetails.name}
+          ></AllCast>
         )}
       </div>
     </div>
   );
-};
-
-export default titleDetails;
+}
