@@ -138,28 +138,6 @@
 }
 .details button {
   align-self: center;
-  cursor: pointer;
-  text-decoration: none;
-  color: white;
-  white-space: nowrap;
-  max-width: fit-content;
-  padding: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 3px;
-  background-color: #ca282c;
-  font-weight: 800;
-  margin: 30px 0;
-}
-.details button:hover {
-  background-color: #9f2023;
-  transition: all 0.4s ease;
-}
-.details button svg {
-  margin-left: 10px;
-  font-size: large;
 }
 
 .date-time-rate {

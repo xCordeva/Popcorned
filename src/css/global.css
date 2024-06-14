@@ -12,7 +12,7 @@ body {
 }
 
 .global-button {
-  background-color: #ca282c;
+  cursor: pointer;
   padding: 15px 20px;
   text-decoration: none;
   color: white;
@@ -22,11 +22,16 @@ body {
   align-items: center;
   justify-content: center;
   width: 200px;
-  transition: background-color, letter-spacing 0.5s ease;
+  white-space: nowrap;
+  font-weight: 800;
+  border: 2px solid transparent;
+  background-color: #ca282c;
+  transition: letter-spacing 0.4s ease, background-color 0.4s ease;
 }
 .global-button:hover {
-  background-color: #a82125;
+  border: 2px solid #ca282c;
   letter-spacing: 2px;
+  background-color: transparent;
 }
 .global-button svg {
   margin-left: 5px;
@@ -35,7 +40,8 @@ body {
   background-color: #e89c1e;
 }
 .global-button:nth-of-type(2):hover {
-  background-color: #c98515;
+  background-color: transparent;
+  border: 2px solid #e89c1e;
 }
 
 .popular-movies-button {

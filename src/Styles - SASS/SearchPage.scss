@@ -1,5 +1,7 @@
 @use "variables.scss";
-.no-valid-search {
+.no-valid-search,
+.search-page-loading,
+.no-results {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,6 +18,12 @@
       transition: background-color 0.3s ease;
     }
   }
+  img {
+    width: 100px;
+  }
+}
+.no-results {
+  height: calc(100dvh - 200px);
 }
 .search-page {
   padding: 0 5%;

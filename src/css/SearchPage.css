@@ -1,20 +1,35 @@
-.no-valid-search {
+.no-valid-search,
+.search-page-loading,
+.no-results {
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(100dvh - 60px);
   flex-direction: column;
 }
-.no-valid-search a {
+.no-valid-search a,
+.search-page-loading a,
+.no-results a {
   padding: 15px 20px;
   background-color: #ca282c;
   text-decoration: none;
   color: white;
   border-radius: 4px;
 }
-.no-valid-search a:hover {
+.no-valid-search a:hover,
+.search-page-loading a:hover,
+.no-results a:hover {
   background-color: #b52427;
   transition: background-color 0.3s ease;
+}
+.no-valid-search img,
+.search-page-loading img,
+.no-results img {
+  width: 100px;
+}
+
+.no-results {
+  height: calc(100dvh - 200px);
 }
 
 .search-page {

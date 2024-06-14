@@ -231,7 +231,7 @@ const titleDetails = ({ details, cast, type }) => {
         </div>
 
         {type !== "person" && (
-          <button>
+          <button className="global-button">
             Add to Watchlist
             <FontAwesomeIcon icon={faHeart} />
           </button>
