@@ -144,9 +144,10 @@ const titleDetails = ({ details, cast, type }) => {
               Birthday:{" "}
               <span>
                 {details.birthday ? details.birthday : `No info available`}
-                <span style={{ color: `white` }}> &#8226; </span>
-                {calculateAge(details.birthday)}
-                &nbsp;years old
+                {details.birthday &&
+                  (
+                    <span style={{ color: "white" }}> &#8226; </span>
+                  )`${calculateAge(details.birthday)} years old`}
               </span>
             </p>
             {details.deathday && <p>Deathday :{details.birthday}</p>}
