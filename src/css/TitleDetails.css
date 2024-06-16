@@ -179,7 +179,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
 }
 .cast .cast-member {
   display: flex;
