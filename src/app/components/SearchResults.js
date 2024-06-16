@@ -101,7 +101,7 @@ const SearchResults = ({ status, searchButtonClicked, userSearch }) => {
                       )}
                     </div>
                     {result.type === "person" && (
-                      <p className="known-for">
+                      <p className="search-known-for">
                         Known for {result.known_for_department}
                       </p>
                     )}

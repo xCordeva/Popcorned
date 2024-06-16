@@ -5,6 +5,7 @@ import "@/css/TitleDetails.css";
 import { useSearchParams } from "next/navigation";
 import TopCast from "@/app/components/TopCast";
 import TitleDetails from "@/app/components/TitleDetails";
+import KnownFor from "@/app/components/KnownFor";
 
 const titleDetails = ({ params }) => {
   const searchParams = useSearchParams();
@@ -75,6 +76,14 @@ const titleDetails = ({ params }) => {
         <TitleDetails details={details} cast={cast} type={type}></TitleDetails>
         {(type === "movie" || type === "tv") && (
           <TopCast id={id} type={type} cast={cast}></TopCast>
+        )}
+        {type === "person" && (
+          <KnownFor
+            id={id}
+            type={type}
+            cast={cast}
+            details={details}
+          ></KnownFor>
         )}
       </div>
     </div>
