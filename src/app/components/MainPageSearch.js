@@ -12,6 +12,7 @@ import {
 } from "@/features/UserSearch";
 import SearchResults from "./SearchResults";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function debounce(func, wait) {
   let timeout;
@@ -38,11 +39,16 @@ export default function MainPageSearch() {
       dispatch(fetchAll(userSearch));
     }
   }, [userSearch, dispatch]);
+
+  const router = useRouter();
+
   const searchButtonClicked = useCallback(() => {
     if (userSearch.trim()) {
       handleUserSearch();
+      router.push(`/search/title/${userSearch}`);
     }
   });
+
   const debounceHandleUserSearch = useCallback(
     debounce(handleUserSearch, 500),
     [handleUserSearch]
@@ -81,13 +87,10 @@ export default function MainPageSearch() {
             }}
           />
 
-          <Link
-            onClick={searchButtonClicked}
-            href={`/search/title/${userSearch}`}
-          >
+          <button onClick={searchButtonClicked} disabled={!userSearch}>
             <span>Search</span>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </Link>
+          </button>
         </div>
         {userSearch && (
           <SearchResults

@@ -50,7 +50,10 @@
           border: 2px solid variables.$main-red;
         }
       }
-      a {
+      button {
+        &:disabled {
+          cursor: auto;
+        }
         display: flex;
         justify-content: center;
         align-items: center;
