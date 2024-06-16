@@ -108,6 +108,7 @@
 .the-work .character-name {
   color: hsl(0, 0%, 60%);
   margin: 0;
+  height: 15px;
 }
 .the-work .work-type {
   position: absolute;

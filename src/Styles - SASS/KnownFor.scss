@@ -66,8 +66,7 @@
       align-items: center;
       margin: 15px 0 0 0;
       min-height: 35%;
-      h1 {
-      }
+
       .rating {
         display: flex;
         align-items: center;
@@ -112,6 +111,7 @@
   .character-name {
     color: hsl(0, 0%, 60%);
     margin: 0;
+    height: 15px;
   }
   .work-type {
     position: absolute;
