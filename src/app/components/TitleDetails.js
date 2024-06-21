@@ -7,6 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarReg } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
+import RatingBox from "./RatingBox";
+import { useDispatch, useSelector } from "react-redux";
+import RatingPopup, { openRatingPopup } from "@/features/RatingPopup";
 
 const titleDetails = ({ details, cast, type }) => {
   const formatRuntime = (minutes) => {
@@ -72,7 +75,8 @@ const titleDetails = ({ details, cast, type }) => {
 
     return age;
   };
-
+  const ratingPopupOpen = useSelector((state) => state.RatingPopup.value);
+  const dispatch = useDispatch();
   return (
     <div className="details-card">
       <img
@@ -131,11 +135,12 @@ const titleDetails = ({ details, cast, type }) => {
                 {details.vote_average.toFixed(1)}
                 <span>/10</span>
               </p>
-              <button>
+              <button onClick={() => dispatch(openRatingPopup(true))}>
                 <FontAwesomeIcon icon={faStarReg} />
                 Rate
               </button>
             </div>
+            {ratingPopupOpen && <RatingBox></RatingBox>}
           </div>
         ) : (
           <div className="birth-location">
