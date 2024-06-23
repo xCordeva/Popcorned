@@ -110,7 +110,7 @@ const KnownFor = ({ id, details }) => {
 
     fetchKnownFor();
   }, [id]);
-
+  console.log(knownFor);
   return (
     <div className="known-for">
       <h1>Known For</h1>

@@ -1,0 +1,102 @@
+@use "variables.scss";
+
+.the-work {
+  display: flex;
+  margin: 40px 0;
+  background-color: darken($color: variables.$main-grey, $amount: 7%);
+  border: 1px solid grey;
+  border-radius: 10px;
+  min-width: 49%;
+  transition: all 0.4s ease;
+  &:hover {
+    scale: 1.03;
+    box-shadow: 0 0 5px grey;
+  }
+  img {
+    border-radius: 10px;
+    width: 50%;
+    max-width: 200px;
+    position: relative;
+  }
+  .work-details {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    width: 100%;
+    margin-left: 40px;
+    padding: 0 30px 0 0;
+    .info-watchlist {
+      align-self: center;
+    }
+    .title-rate {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 15px 0 0 0;
+      min-height: 35%;
+
+      .rating {
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        white-space: nowrap;
+        svg {
+          color: variables.$main-yellow;
+        }
+        p {
+          margin: 15px 15px 15px 5px;
+          color: white;
+          span {
+            color: gray;
+          }
+        }
+        button {
+          cursor: pointer;
+          color: white;
+          white-space: nowrap;
+          max-width: fit-content;
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: none;
+          border-radius: 3px;
+          background-color: variables.$main-grey;
+          font-weight: 800;
+          margin: 10px 0;
+          &:hover {
+            background-color: darken($color: variables.$main-grey, $amount: 3%);
+            transition: all 0.4s ease;
+          }
+          svg {
+            margin: 0 5px 0 0;
+            // font-size: large;
+          }
+        }
+      }
+    }
+  }
+  .character-name {
+    color: hsl(0, 0%, 60%);
+    margin: 0;
+    height: 15px;
+  }
+  .work-type {
+    position: absolute;
+    background-color: variables.$main-grey;
+    padding: 0px 5px;
+    border-radius: 9px 0 10px 0;
+  }
+  // adding the button styles manually
+  .add-watchlist {
+    align-self: center;
+    justify-self: end;
+    background-color: variables.$main-yellow;
+    transition: letter-spacing 0.4s ease, background-color 0.4s ease;
+    &:hover {
+      border: 2px solid variables.$main-yellow;
+      letter-spacing: 2px;
+      background-color: transparent;
+    }
+  }
+}

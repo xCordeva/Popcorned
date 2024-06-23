@@ -47,3 +47,38 @@ body {
 .popular-movies-button {
   width: auto;
 }
+
+.rating-box-contianer,
+.remove-watchlist-box-contianer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+.rating-box-contianer .rating-box,
+.rating-box-contianer .remove-watchlist-box,
+.remove-watchlist-box-contianer .rating-box,
+.remove-watchlist-box-contianer .remove-watchlist-box {
+  background-color: hsl(0, 0%, 10%);
+  padding: 20px;
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: top 0.3s ease;
+}
+.rating-box-contianer .rating-box .x-mark,
+.rating-box-contianer .remove-watchlist-box .x-mark,
+.remove-watchlist-box-contianer .rating-box .x-mark,
+.remove-watchlist-box-contianer .remove-watchlist-box .x-mark {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  cursor: pointer;
+}

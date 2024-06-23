@@ -106,28 +106,6 @@
 .title-rate .rating p span {
   color: gray;
 }
-.title-rate .rating button {
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  max-width: fit-content;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 3px;
-  background-color: hsl(0, 0%, 10%);
-  font-weight: 800;
-  margin: 10px 0;
-}
-.title-rate .rating button:hover {
-  background-color: #121212;
-  transition: all 0.4s ease;
-}
-.title-rate .rating button svg {
-  margin: 0 5px 0 0;
-}
 
 .known-for {
   font-weight: 800;

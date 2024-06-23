@@ -4,12 +4,14 @@ import { Provider } from "react-redux";
 import UserPopupReducer from "./UserPopup";
 import UserSearchReducer from "./UserSearch";
 import RatingPopupReducer from "./RatingPopup";
+import RemoveWatchlistPopupReducer from "./RemoveWatchlistPopup";
 
 const store = configureStore({
   reducer: {
     UserPopup: UserPopupReducer,
     UserSearch: UserSearchReducer,
     RatingPopup: RatingPopupReducer,
+    RemoveWatchlistPopup: RemoveWatchlistPopupReducer,
   },
 });
 

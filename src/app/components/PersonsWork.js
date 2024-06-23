@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { faSquarePlus, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "@/css/PersonsWork.css";
 
 export default function PersonsWork({ work }) {
   return (

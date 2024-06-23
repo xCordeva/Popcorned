@@ -1,24 +1,3 @@
-.rating-box-contianer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-.rating-box-contianer .rating-box {
-  background-color: hsl(0, 0%, 10%);
-  padding: 20px;
-  border-radius: 6px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  transition: top 0.3s ease;
-}
 .rating-box-contianer .rating-box .rating-stars {
   font-size: 2rem;
   color: #e89c1e;
@@ -74,10 +53,4 @@
 .rating-box-contianer .rating-box .rating-review textarea::-webkit-scrollbar-thumb {
   background-color: black;
   border-radius: 10px;
-}
-.rating-box-contianer .rating-box .x-mark {
-  position: absolute;
-  top: 5%;
-  right: 5%;
-  cursor: pointer;
 }

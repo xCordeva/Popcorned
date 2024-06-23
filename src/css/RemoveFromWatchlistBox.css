@@ -1,0 +1,33 @@
+.remove-watchlist-box {
+  max-width: 300px;
+  text-align: center;
+}
+.remove-watchlist-box .buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.remove-watchlist-box .buttons button {
+  padding: 8px 30px;
+  cursor: pointer;
+  font-weight: 800;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: scale 0.4s ease, background-color 0.4s ease;
+}
+.remove-watchlist-box .buttons button:nth-last-of-type(1) {
+  background-color: hsl(0, 100%, 50%);
+}
+.remove-watchlist-box .buttons button:nth-last-of-type(1):hover {
+  background-color: transparent;
+  border: 2px solid red;
+  scale: 1.1;
+}
+.remove-watchlist-box .buttons button:nth-last-of-type(2) {
+  background-color: hsl(120, 100%, 35%);
+}
+.remove-watchlist-box .buttons button:nth-last-of-type(2):hover {
+  background-color: transparent;
+  scale: 1.1;
+  border: 2px solid hsl(120, 100%, 35%);
+}

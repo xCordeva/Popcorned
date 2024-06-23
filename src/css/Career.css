@@ -12,7 +12,6 @@
   flex-wrap: wrap;
   flex-direction: column;
   background-color: #080808;
-  margin: 5% 0;
   padding: 1% 5%;
   border-radius: 5px;
 }
@@ -21,102 +20,6 @@
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-}
-.person-career .works .the-work {
-  display: flex;
-  margin: 40px 0;
-  background-color: #080808;
-  border: 1px solid grey;
-  border-radius: 10px;
-  width: 100%;
-  transition: all 0.4s ease;
-}
-.person-career .works .the-work:hover {
-  scale: 1.03;
-  box-shadow: 0 0 5px grey;
-}
-.person-career .works .the-work img {
-  border-radius: 10px;
-  width: 50%;
-  max-width: 200px;
-  position: relative;
-}
-.person-career .works .the-work .work-details {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-left: 40px;
-  padding: 0 30px 0 0;
-}
-.person-career .works .the-work .work-details .info-watchlist {
-  align-self: center;
-}
-.person-career .works .the-work .work-details .title-rate {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0 0 0;
-  min-height: 35%;
-}
-.person-career .works .the-work .work-details .title-rate .rating {
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
-  white-space: nowrap;
-}
-.person-career .works .the-work .work-details .title-rate .rating svg {
-  color: #e89c1e;
-}
-.person-career .works .the-work .work-details .title-rate .rating p {
-  margin: 15px 15px 15px 5px;
-  color: white;
-}
-.person-career .works .the-work .work-details .title-rate .rating p span {
-  color: gray;
-}
-.person-career .works .the-work .work-details .title-rate .rating button {
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  max-width: fit-content;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 3px;
-  background-color: hsl(0, 0%, 10%);
-  font-weight: 800;
-  margin: 10px 0;
-}
-.person-career .works .the-work .work-details .title-rate .rating button:hover {
-  background-color: #121212;
-  transition: all 0.4s ease;
-}
-.person-career .works .the-work .work-details .title-rate .rating button svg {
-  margin: 0 5px 0 0;
-}
-.person-career .works .the-work .character-name {
-  color: hsl(0, 0%, 60%);
-  margin: 0;
-  height: 15px;
-}
-.person-career .works .the-work .work-type {
-  position: absolute;
-  background-color: hsl(0, 0%, 10%);
-  padding: 0px 5px;
-  border-radius: 9px 0 10px 0;
-}
-.person-career .works .the-work .add-watchlist {
-  align-self: center;
-  justify-self: end;
-  background-color: #e89c1e;
-  transition: letter-spacing 0.4s ease, background-color 0.4s ease;
-}
-.person-career .works .the-work .add-watchlist:hover {
-  border: 2px solid #e89c1e;
-  letter-spacing: 2px;
-  background-color: transparent;
 }
 .person-career a {
   text-decoration: none;
