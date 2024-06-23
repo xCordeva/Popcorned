@@ -10,8 +10,9 @@ import Link from "next/link";
 import RatingBox from "./RatingBox";
 import { useDispatch, useSelector } from "react-redux";
 import RatingPopup, { openRatingPopup } from "@/features/RatingPopup";
+import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 
-const titleDetails = ({ details, cast, type }) => {
+const TitleDetails = ({ details, cast, type }) => {
   const formatRuntime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
@@ -75,8 +76,12 @@ const titleDetails = ({ details, cast, type }) => {
 
     return age;
   };
+
   const ratingPopupOpen = useSelector((state) => state.RatingPopup.value);
   const dispatch = useDispatch();
+
+  const { addToWatchlist } = useFetchWatchlist();
+
   return (
     <div className="details-card">
       <img
@@ -236,7 +241,10 @@ const titleDetails = ({ details, cast, type }) => {
         </div>
 
         {type !== "person" && (
-          <button className="global-button">
+          <button
+            className="global-button"
+            onClick={() => addToWatchlist(details, type, cast.cast.slice(0, 2))}
+          >
             Add to Watchlist
             <FontAwesomeIcon icon={faHeart} />
           </button>
@@ -246,4 +254,4 @@ const titleDetails = ({ details, cast, type }) => {
   );
 };
 
-export default titleDetails;
+export default TitleDetails;
