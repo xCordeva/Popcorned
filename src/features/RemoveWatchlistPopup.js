@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialUserStateValue = false;
+const initialUserStateValue = null;
 
 export const removeWatchListPopupSlice = createSlice({
   name: "RemoveWatchlistPopup",
