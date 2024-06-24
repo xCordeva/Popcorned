@@ -13,7 +13,7 @@ export default function Home() {
       <Navbar></Navbar>
       <MainPageSearch></MainPageSearch>
       <div className="popular-movies-carousel">
-        <h1>Popular Movies</h1>
+        <h1 id="popular-movies">Popular Movies</h1>
         <PopularMovies></PopularMovies>
       </div>
     </div>

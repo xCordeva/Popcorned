@@ -82,3 +82,26 @@ body {
   right: 5%;
   cursor: pointer;
 }
+
+.all-cast-page-loading,
+.all-cast-page-not-found,
+.details-page-loading,
+.details-page-not-found,
+.career-page-loading,
+.all-cast-page-not-found,
+.watchlist-page-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100dvh;
+}
+.all-cast-page-loading img,
+.all-cast-page-not-found img,
+.details-page-loading img,
+.details-page-not-found img,
+.career-page-loading img,
+.all-cast-page-not-found img,
+.watchlist-page-loading img {
+  width: 100px;
+}

@@ -14,6 +14,19 @@ export default function Watchlist() {
     dispatch(openRemoveWatchlistPopup(itemId));
   };
   const { watchlist } = useFetchWatchlist();
+  if (watchlist < 1) {
+    return (
+      <div className="watchlist-section">
+        <h1>Your Watchlist</h1>
+        <div className="watchlist-not-found">
+          <h1>Nothing here yet!</h1>
+          <Link href={`/#popular-movies`}>
+            Start adding your favorite titles now!
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="watchlist-section">

@@ -26,19 +26,6 @@
   color: white;
 }
 
-.career-page-loading,
-.all-cast-page-not-found {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100dvh;
-}
-.career-page-loading img,
-.all-cast-page-not-found img {
-  width: 100px;
-}
-
 .career-page .accordion__button {
   padding: 18px 0 18px 18px;
   width: 99%;

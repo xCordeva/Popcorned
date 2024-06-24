@@ -1,4 +1,4 @@
-.watchlist-section {
+.watchlist-page {
   padding: 1% 5%;
   max-width: 1800px;
   margin: 2% auto;
@@ -6,7 +6,15 @@
   display: flex;
   flex-direction: column;
 }
-.watchlist-section .watchlist-item {
+.watchlist-page .watchlist-section {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: #080808;
+  padding: 1% 5%;
+  border-radius: 5px;
+}
+.watchlist-page .watchlist-section .watchlist-item {
   text-decoration: none;
   color: white;
   display: flex;
@@ -16,78 +24,93 @@
   transition: scale 0.3s ease, border 0.3s ease;
   border: 2px solid transparent;
 }
-.watchlist-section .watchlist-item:hover {
+.watchlist-page .watchlist-section .watchlist-item:hover {
   scale: 1.02;
   border: 2px solid hsl(0, 0%, 10%);
 }
-.watchlist-section .watchlist-item img {
+.watchlist-page .watchlist-section .watchlist-item img {
   border-radius: 10px;
   width: 20%;
   max-width: 200px;
   position: relative;
 }
-.watchlist-section .watchlist-item .item-details {
+.watchlist-page .watchlist-section .watchlist-item .item-details {
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-left: 40px;
   padding: 0 30px 0 0;
 }
-.watchlist-section .watchlist-item .item-details .top-cast {
+.watchlist-page .watchlist-section .watchlist-item .item-details .top-cast {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.watchlist-section .watchlist-item .item-details .top-cast a {
+.watchlist-page .watchlist-section .watchlist-item .item-details .top-cast a {
   display: inline-block;
   text-decoration: none;
   margin: 0;
   color: hsl(0, 0%, 60%);
   transition: color 0.4s ease;
 }
-.watchlist-section .watchlist-item .item-details .top-cast a:hover {
+.watchlist-page .watchlist-section .watchlist-item .item-details .top-cast a:hover {
   color: white;
 }
-.watchlist-section .watchlist-item .item-details .top-cast p {
+.watchlist-page .watchlist-section .watchlist-item .item-details .top-cast p {
   color: hsl(0, 0%, 60%);
   display: inline-block;
   margin: 5px 5px 5px 0;
 }
-.watchlist-section .watchlist-item .item-type {
+.watchlist-page .watchlist-section .watchlist-item .item-type {
   position: absolute;
   background-color: hsl(0, 0%, 10%);
   padding: 0px 5px;
   border-radius: 9px 0 10px 0;
 }
-.watchlist-section .watchlist-item .remove-item {
+.watchlist-page .watchlist-section .watchlist-item .remove-item {
   width: 230px;
   background-color: grey;
   align-self: center;
 }
-.watchlist-section .watchlist-item .remove-item:hover {
+.watchlist-page .watchlist-section .watchlist-item .remove-item:hover {
   border: 2px solid hsl(0, 0%, 10%);
   letter-spacing: 2px;
   background-color: transparent;
 }
-.watchlist-section .title-rate {
+.watchlist-page .watchlist-section .title-rate {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 15px 0 0 0;
 }
-.watchlist-section .title-rate .rating {
+.watchlist-page .watchlist-section .title-rate .rating {
   display: flex;
   align-items: center;
   font-size: 2rem;
   white-space: nowrap;
 }
-.watchlist-section .title-rate .rating svg {
+.watchlist-page .watchlist-section .title-rate .rating svg {
   color: #e89c1e;
 }
-.watchlist-section .title-rate .rating p {
+.watchlist-page .watchlist-section .title-rate .rating p {
   margin: 15px 15px 15px 5px;
   color: white;
 }
-.watchlist-section .title-rate .rating p span {
+.watchlist-page .watchlist-section .title-rate .rating p span {
   color: gray;
+}
+.watchlist-page .watchlist-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #ca282c;
+}
+.watchlist-page .watchlist-not-found a {
+  color: grey;
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+.watchlist-page .watchlist-not-found a:hover {
+  color: white;
 }

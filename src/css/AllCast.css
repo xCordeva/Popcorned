@@ -50,16 +50,3 @@
   filter: grayscale(30%);
   transition: 0.4s all ease;
 }
-
-.all-cast-page-loading,
-.all-cast-page-not-found {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100dvh;
-}
-.all-cast-page-loading img,
-.all-cast-page-not-found img {
-  width: 100px;
-}
