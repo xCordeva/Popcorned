@@ -31,13 +31,12 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.5s ease;
+  text-decoration: none;
+  color: #ca282c;
 }
 .navbar .user-info .favorites svg {
   width: 20px;
   margin-right: 5px;
-}
-.navbar .user-info .favorites:hover {
-  color: #ca282c;
 }
 .navbar .user-info .favorites:hover svg {
   animation: heart 1.5s ease infinite;

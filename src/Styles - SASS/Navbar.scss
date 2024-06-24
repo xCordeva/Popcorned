@@ -31,12 +31,13 @@
       align-items: center;
       cursor: pointer;
       transition: all 0.5s ease;
+      text-decoration: none;
+      color: variables.$main-red;
       svg {
         width: 20px;
         margin-right: 5px;
       }
       &:hover {
-        color: variables.$main-red;
         svg {
           animation: heart 1.5s ease infinite;
         }

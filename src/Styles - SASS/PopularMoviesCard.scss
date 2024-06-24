@@ -74,3 +74,9 @@
 .custom-dot-list-style {
   width: 200px;
 }
+button.popular-movies-button {
+  background-color: variables.$main-yellow;
+  &:hover {
+    border: 2px solid variables.$main-yellow;
+  }
+}

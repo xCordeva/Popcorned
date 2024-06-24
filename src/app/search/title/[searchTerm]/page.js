@@ -12,6 +12,7 @@ import {
   faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { userSearchInput, fetchAll } from "@/features/UserSearch";
+import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 
 const SearchPage = ({ params }) => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const SearchPage = ({ params }) => {
     dispatch(fetchAll(searchInput));
     setLoading(false);
   }, [searchInput, userSearch, dispatch]);
-
+  const { addToWatchlist } = useFetchWatchlist();
   if (!searchInput && !userSearch) {
     return (
       <div>
@@ -54,6 +55,7 @@ const SearchPage = ({ params }) => {
       </div>
     );
   }
+
   return (
     <div>
       <Navbar />
@@ -143,10 +145,15 @@ const SearchPage = ({ params }) => {
                     <FontAwesomeIcon icon={faCircleInfo} />
                   </Link>
                   {result.type !== "person" ? (
-                    <Link href={"/"} className="add-watchlist global-button">
+                    <button
+                      onClick={() =>
+                        addToWatchlist(result, result.type, result.topCast)
+                      }
+                      className="add-watchlist global-button"
+                    >
                       Add to Watch List
                       <FontAwesomeIcon icon={faSquarePlus} />
-                    </Link>
+                    </button>
                   ) : null}
                 </div>
               </div>

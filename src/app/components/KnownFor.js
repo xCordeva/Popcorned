@@ -13,6 +13,13 @@ const fetchTvShowDetails = async (showId) => {
   const data = await response.json();
   return data.number_of_episodes;
 };
+const fetchTopCast = async (mediaType, mediaId) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/${mediaType}/${mediaId}/credits?api_key=${api_key}`
+  );
+  const data = await response.json();
+  return data.cast.slice(0, 2); // Get the top 2 cast members
+};
 
 const KnownFor = ({ id, details }) => {
   const [knownFor, setKnownFor] = useState([]);
@@ -44,14 +51,25 @@ const KnownFor = ({ id, details }) => {
         const tvShowsWithDetails = await Promise.all(
           tvShows.map(async (show) => {
             const totalEpisodes = await fetchTvShowDetails(show.id);
+            const topCast = await fetchTopCast("tv", show.id);
             return {
               ...show,
               totalEpisodes,
+              topCast,
               appearancePercentage: (show.episode_count / totalEpisodes) * 100,
             };
           })
         );
 
+        const moviesWithDetails = await Promise.all(
+          movies.map(async (movie) => {
+            const topCast = await fetchTopCast("movie", movie.id);
+            return {
+              ...movie,
+              topCast,
+            };
+          })
+        );
         // sorting TV shows by appearance percentage and popularity
         tvShowsWithDetails.sort((a, b) => {
           if (b.appearancePercentage !== a.appearancePercentage) {
@@ -61,7 +79,7 @@ const KnownFor = ({ id, details }) => {
         });
 
         // sorting movies by order and popularity
-        movies.sort((a, b) => {
+        moviesWithDetails.sort((a, b) => {
           if (a.order !== b.order) {
             return a.order - b.order;
           }
@@ -81,7 +99,7 @@ const KnownFor = ({ id, details }) => {
 
         // getting top 2 TV shows and top 2 movies and filling remaining slots if necessary
         const topTvShows = tvShowsWithDetails.slice(0, 2);
-        const topMovies = movies.slice(0, 2);
+        const topMovies = moviesWithDetails.slice(0, 2);
 
         topTvShows.forEach(addToCombinedResults);
         topMovies.forEach(addToCombinedResults);
@@ -110,7 +128,7 @@ const KnownFor = ({ id, details }) => {
 
     fetchKnownFor();
   }, [id]);
-  console.log(knownFor);
+
   return (
     <div className="known-for">
       <h1>Known For</h1>

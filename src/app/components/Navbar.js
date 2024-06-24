@@ -30,10 +30,10 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="user-info">
-          <div className="favorites">
+          <Link href={"/user/watchlist"} className="favorites">
             <FontAwesomeIcon icon={faHeart} />
             <p>Watchlist</p>
-          </div>
+          </Link>
           {user ? (
             <div
               className={userPopupClicked ? "user user-backgrounded" : "user"}

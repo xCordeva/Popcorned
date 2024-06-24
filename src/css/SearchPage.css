@@ -83,6 +83,14 @@
   padding: 0px 5px;
   border-radius: 9px 0 10px 0;
 }
+.search-page .add-watchlist {
+  background-color: #e89c1e;
+  width: 100%;
+}
+.search-page .add-watchlist:hover {
+  background-color: transparent;
+  border: 2px solid #e89c1e;
+}
 
 .title-rate {
   display: flex;

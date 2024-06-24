@@ -13,8 +13,8 @@ export default function Watchlist() {
     event.preventDefault();
     dispatch(openRemoveWatchlistPopup(itemId));
   };
-  const { watchlist } = useFetchWatchlist();
-  if (watchlist < 1) {
+  const { watchlist, isLoading } = useFetchWatchlist();
+  if (watchlist < 1 && !isLoading) {
     return (
       <div className="watchlist-section">
         <h1>Your Watchlist</h1>
@@ -27,7 +27,7 @@ export default function Watchlist() {
       </div>
     );
   }
-
+  console.log(watchlist);
   return (
     <div className="watchlist-section">
       <h1>Your Watchlist</h1>
@@ -36,7 +36,7 @@ export default function Watchlist() {
           <Link
             href={{
               pathname: `/title/${item.id}`,
-              query: { type: item.media_type },
+              query: { type: item.media_type || item.type },
             }}
             className="watchlist-item"
             key={item.id}

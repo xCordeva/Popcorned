@@ -79,6 +79,14 @@
       border-radius: 9px 0 10px 0;
     }
   }
+  .add-watchlist {
+    background-color: variables.$main-yellow;
+    width: 100%;
+    &:hover {
+      background-color: transparent;
+      border: 2px solid variables.$main-yellow;
+    }
+  }
 }
 .title-rate {
   display: flex;

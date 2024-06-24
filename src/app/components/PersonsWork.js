@@ -2,8 +2,15 @@ import Link from "next/link";
 import { faSquarePlus, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@/css/PersonsWork.css";
+import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 
 export default function PersonsWork({ work }) {
+  const { addToWatchlist } = useFetchWatchlist();
+  const handleAddToWatchlist = (event, work, type, topCast) => {
+    event.preventDefault();
+    addToWatchlist(work, type, topCast);
+  };
+
   return (
     <Link
       href={`/title/${work.id}?type=${work.media_type}`}
@@ -52,10 +59,15 @@ export default function PersonsWork({ work }) {
         )}
 
         {work.type !== "person" && (
-          <Link href={"/"} className="add-watchlist global-button">
+          <button
+            onClick={(event) =>
+              handleAddToWatchlist(event, work, work.media_type, work.topCast)
+            }
+            className="add-watchlist global-button"
+          >
             Add to Watch List
             <FontAwesomeIcon icon={faSquarePlus} />
-          </Link>
+          </button>
         )}
       </div>
     </Link>

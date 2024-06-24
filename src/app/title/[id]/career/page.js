@@ -17,6 +17,15 @@ const fetchTvShowDetails = async (showId) => {
   return data.number_of_episodes;
 };
 
+// func to fetch the top cast for a given movie or TV show
+const fetchTopCast = async (mediaType, id) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/${mediaType}/${id}/credits?api_key=${api_key}`
+  );
+  const data = await response.json();
+  return data.cast.slice(0, 2); // Get the top 2 cast members
+};
+
 export default function allCast({ params }) {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
@@ -67,10 +76,23 @@ export default function allCast({ params }) {
         const tvShowsWithDetails = await Promise.all(
           tvShows.map(async (show) => {
             const totalEpisodes = await fetchTvShowDetails(show.id);
+            const topCast = await fetchTopCast("tv", show.id);
             return {
               ...show,
               totalEpisodes,
+              topCast,
               appearancePercentage: (show.episode_count / totalEpisodes) * 100,
+            };
+          })
+        );
+
+        // fetching top cast for movies
+        const moviesWithDetails = await Promise.all(
+          movies.map(async (movie) => {
+            const topCast = await fetchTopCast("movie", movie.id);
+            return {
+              ...movie,
+              topCast,
             };
           })
         );
@@ -84,7 +106,7 @@ export default function allCast({ params }) {
         });
 
         // sorting movies by order and popularity
-        movies.sort((a, b) => {
+        moviesWithDetails.sort((a, b) => {
           if (a.order !== b.order) {
             return a.order - b.order;
           }
@@ -103,7 +125,7 @@ export default function allCast({ params }) {
         };
 
         tvShowsWithDetails.forEach(addToCombinedResults);
-        movies.forEach(addToCombinedResults);
+        moviesWithDetails.forEach(addToCombinedResults);
 
         setWorks(combinedResults);
       } catch (error) {
