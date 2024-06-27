@@ -85,9 +85,15 @@
 }
 .search-page .add-watchlist {
   background-color: #e89c1e;
-  width: 100%;
 }
 .search-page .add-watchlist:hover {
+  background-color: transparent;
+  border: 2px solid #e89c1e;
+}
+.search-page .popular-movies-button {
+  background-color: #e89c1e;
+}
+.search-page .popular-movies-button:hover {
   background-color: transparent;
   border: 2px solid #e89c1e;
 }

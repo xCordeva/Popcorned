@@ -65,16 +65,6 @@
         padding: 0px 5px;
         border-radius: 9px 0 10px 0;
       }
-      .remove-item {
-        width: 230px;
-        background-color: grey;
-        align-self: center;
-        &:hover {
-          border: 2px solid variables.$main-grey;
-          letter-spacing: 2px;
-          background-color: transparent;
-        }
-      }
     }
     .title-rate {
       display: flex;
@@ -112,6 +102,14 @@
       &:hover {
         color: white;
       }
+    }
+  }
+
+  .remove-item {
+    width: 200px;
+    font-size: 0.7rem;
+    &:hover {
+      letter-spacing: 2px;
     }
   }
 }

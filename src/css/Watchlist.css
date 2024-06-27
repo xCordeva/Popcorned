@@ -67,16 +67,6 @@
   padding: 0px 5px;
   border-radius: 9px 0 10px 0;
 }
-.watchlist-page .watchlist-section .watchlist-item .remove-item {
-  width: 230px;
-  background-color: grey;
-  align-self: center;
-}
-.watchlist-page .watchlist-section .watchlist-item .remove-item:hover {
-  border: 2px solid hsl(0, 0%, 10%);
-  letter-spacing: 2px;
-  background-color: transparent;
-}
 .watchlist-page .watchlist-section .title-rate {
   display: flex;
   justify-content: space-between;
@@ -113,4 +103,11 @@
 }
 .watchlist-page .watchlist-not-found a:hover {
   color: white;
+}
+.watchlist-page .remove-item {
+  width: 200px;
+  font-size: 0.7rem;
+}
+.watchlist-page .remove-item:hover {
+  letter-spacing: 2px;
 }

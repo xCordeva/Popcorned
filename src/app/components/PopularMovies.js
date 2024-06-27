@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import PopularMoviesCard from "./PopularMoviesCard";
+import { useSelector } from "react-redux";
+import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
 
 export default function PopularMovies() {
   const responsive = {
@@ -45,26 +47,30 @@ export default function PopularMovies() {
     }
     fetchMovies();
   }, []);
+  const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
   return (
-    <Carousel
-      swipeable={false}
-      draggable={false}
-      showDots={false}
-      responsive={responsive}
-      ssr={true} // means to render carousel on server-side.
-      infinite={false}
-      keyBoardControl={false}
-      customTransition="all 0.4s ease"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      // deviceType={this.props.deviceType}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-    >
-      {movies.map((movie) => (
-        <PopularMoviesCard key={movie.id} movie={movie} />
-      ))}
-    </Carousel>
+    <div>
+      <Carousel
+        swipeable={false}
+        draggable={false}
+        showDots={false}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={false}
+        keyBoardControl={false}
+        customTransition="all 0.4s ease"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        // deviceType={this.props.deviceType}
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px"
+      >
+        {movies.map((movie) => (
+          <PopularMoviesCard key={movie.id} movie={movie} />
+        ))}
+      </Carousel>
+      {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
+    </div>
   );
 }

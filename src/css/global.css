@@ -13,7 +13,7 @@ body {
 
 .global-button {
   cursor: pointer;
-  padding: 15px 20px;
+  padding: 15px 0;
   text-decoration: none;
   color: white;
   border-radius: 4px;
@@ -45,7 +45,8 @@ body {
 }
 
 .popular-movies-button {
-  width: auto;
+  width: 100%;
+  height: 50px;
 }
 
 .rating-box-contianer,
@@ -104,4 +105,16 @@ body {
 .all-cast-page-not-found img,
 .watchlist-page-loading img {
   width: 100px;
+}
+
+.remove-item {
+  width: 100%;
+  background-color: grey;
+  align-self: center;
+  font-size: 0.7rem;
+}
+.remove-item:hover {
+  border: 2px solid hsl(0, 0%, 10%);
+  letter-spacing: 1.2px;
+  background-color: transparent;
 }

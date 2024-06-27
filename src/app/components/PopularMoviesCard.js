@@ -5,9 +5,14 @@ import {
   faStar,
   faCircleInfo,
   faSquarePlus,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
+import { useDispatch, useSelector } from "react-redux";
+import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
+import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
+import { triggerRefetch } from "@/features/RefetchWatchlist";
 
 const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -32,7 +37,31 @@ const PopularMoviesCard = ({ movie }) => {
     }
     fetchMovieCast();
   }, [movie.id]);
-  const { addToWatchlist } = useFetchWatchlist();
+  const { addToWatchlist, watchlist, isLoading } = useFetchWatchlist();
+  const dispatch = useDispatch();
+  const watchlistItem = watchlist.find((item) => item.id === movie.id);
+
+  const handleRemoveFromListClick = (event, itemId) => {
+    event.preventDefault();
+    dispatch(openRemoveWatchlistPopup(itemId));
+  };
+  const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
+
+  const handleAddToWatchlist = (result, type, topCast) => {
+    dispatch(triggerRefetch(!refetchWatchlist));
+    addToWatchlist(result, type, topCast);
+  };
+  if (watchlist && isLoading) {
+    return (
+      <div className="popular-movies-loading">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+          alt="loading-gif"
+        />
+        <p>Loading...</p>
+      </div>
+    );
+  }
   return (
     <div className="populuar-movies-card-container">
       <img src={posterUrl} alt="" />
@@ -57,13 +86,27 @@ const PopularMoviesCard = ({ movie }) => {
           Show More Info
           <FontAwesomeIcon icon={faCircleInfo} />
         </Link>
-        <button
-          onClick={() => addToWatchlist(movie, "movie", cast.cast.slice(0, 2))}
-          className="popular-movies-button global-button"
-        >
-          Add to Watch List
-          <FontAwesomeIcon icon={faSquarePlus} />
-        </button>
+        {watchlistItem ? (
+          <button
+            onClick={(event) =>
+              handleRemoveFromListClick(event, watchlistItem.firebaseItemId)
+            }
+            className="remove-item global-button"
+          >
+            Remove from watchlist
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
+        ) : (
+          <button
+            onClick={() =>
+              handleAddToWatchlist(movie, "movie", cast.cast.slice(0, 2))
+            }
+            className="popular-movies-button global-button"
+          >
+            Add to Watch List
+            <FontAwesomeIcon icon={faSquarePlus} />
+          </button>
+        )}
       </div>
     </div>
   );
