@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import "@/css/Career.css";
 import Career from "@/app/components/Career";
+import RemoveFromWatchlistBox from "@/app/components/RemoveFromWatchlistBox";
+import { useSelector } from "react-redux";
 
 const api_key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -18,12 +20,12 @@ const fetchTvShowDetails = async (showId) => {
 };
 
 // func to fetch the top cast for a given movie or TV show
-const fetchTopCast = async (mediaType, id) => {
+const fetchCast = async (mediaType, id) => {
   const response = await fetch(
     `https://api.themoviedb.org/3/${mediaType}/${id}/credits?api_key=${api_key}`
   );
   const data = await response.json();
-  return data.cast.slice(0, 2); // Get the top 2 cast members
+  return data.cast; // Get the top 2 cast members
 };
 
 export default function allCast({ params }) {
@@ -76,11 +78,11 @@ export default function allCast({ params }) {
         const tvShowsWithDetails = await Promise.all(
           tvShows.map(async (show) => {
             const totalEpisodes = await fetchTvShowDetails(show.id);
-            const topCast = await fetchTopCast("tv", show.id);
+            const cast = await fetchCast("tv", show.id);
             return {
               ...show,
               totalEpisodes,
-              topCast,
+              cast,
               appearancePercentage: (show.episode_count / totalEpisodes) * 100,
             };
           })
@@ -89,10 +91,10 @@ export default function allCast({ params }) {
         // fetching top cast for movies
         const moviesWithDetails = await Promise.all(
           movies.map(async (movie) => {
-            const topCast = await fetchTopCast("movie", movie.id);
+            const cast = await fetchCast("movie", movie.id);
             return {
               ...movie,
-              topCast,
+              cast,
             };
           })
         );
@@ -138,6 +140,8 @@ export default function allCast({ params }) {
     fetchAllWorks();
   }, [id]);
 
+  const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
+
   if (loading)
     return (
       <div className="career-page-loading">
@@ -168,6 +172,7 @@ export default function allCast({ params }) {
           personDetails={personDetails}
         ></Career>
       </div>
+      {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
     </div>
   );
 }

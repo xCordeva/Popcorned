@@ -11,7 +11,6 @@ import Link from "next/link";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 import { useDispatch, useSelector } from "react-redux";
 import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
-import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
 import { triggerRefetch } from "@/features/RefetchWatchlist";
 
 const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -53,7 +52,7 @@ const PopularMoviesCard = ({ movie }) => {
   };
   if (watchlist && isLoading) {
     return (
-      <div className="popular-movies-loading">
+      <div className="secondary-loading">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
           alt="loading-gif"

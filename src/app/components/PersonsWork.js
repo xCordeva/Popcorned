@@ -1,14 +1,32 @@
 import Link from "next/link";
-import { faSquarePlus, faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSquarePlus,
+  faStar,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@/css/PersonsWork.css";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
+import { useDispatch, useSelector } from "react-redux";
+import { triggerRefetch } from "@/features/RefetchWatchlist";
+import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 
 export default function PersonsWork({ work }) {
-  const { addToWatchlist } = useFetchWatchlist();
-  const handleAddToWatchlist = (event, work, type, topCast) => {
+  const dispatch = useDispatch();
+  const { addToWatchlist, watchlist, isLoading } = useFetchWatchlist();
+
+  const watchlistItem = watchlist.find((item) => item.id === work.id);
+
+  const handleRemoveFromListClick = (event, itemId) => {
     event.preventDefault();
-    addToWatchlist(work, type, topCast);
+    dispatch(openRemoveWatchlistPopup(itemId));
+  };
+  const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
+
+  const handleAddToWatchlist = (event, result, type, topCast) => {
+    event.preventDefault();
+    dispatch(triggerRefetch(!refetchWatchlist));
+    addToWatchlist(result, type, topCast);
   };
 
   return (
@@ -58,17 +76,33 @@ export default function PersonsWork({ work }) {
           </h3>
         )}
 
-        {work.type !== "person" && (
-          <button
-            onClick={(event) =>
-              handleAddToWatchlist(event, work, work.media_type, work.topCast)
-            }
-            className="add-watchlist global-button"
-          >
-            Add to Watch List
-            <FontAwesomeIcon icon={faSquarePlus} />
-          </button>
-        )}
+        {work.type !== "person" &&
+          (watchlistItem ? (
+            <button
+              onClick={(event) =>
+                handleRemoveFromListClick(event, watchlistItem.firebaseItemId)
+              }
+              className="remove-item global-button"
+            >
+              Remove from watchlist
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+          ) : (
+            <button
+              onClick={(event) =>
+                handleAddToWatchlist(
+                  event,
+                  work,
+                  "movie",
+                  work.cast.slice(0, 2)
+                )
+              }
+              className="add-to-watchlist global-button"
+            >
+              Add to Watch List
+              <FontAwesomeIcon icon={faSquarePlus} />
+            </button>
+          ))}
       </div>
     </Link>
   );

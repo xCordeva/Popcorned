@@ -13,6 +13,10 @@
   border-radius: 5px;
   display: flex;
   width: 100%;
+  .popular-movies-button,
+  .remove-item {
+    width: 200px;
+  }
   .title-type {
     position: absolute;
     background-color: variables.$main-grey;

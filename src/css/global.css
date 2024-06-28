@@ -36,17 +36,16 @@ body {
 .global-button svg {
   margin-left: 5px;
 }
-.global-button:nth-of-type(2) {
-  background-color: #e89c1e;
+.global-button.add-to-watchlist {
+  background-color: #ca282c;
 }
-.global-button:nth-of-type(2):hover {
+.global-button.add-to-watchlist:hover {
   background-color: transparent;
-  border: 2px solid #e89c1e;
+  border: 2px solid #ca282c;
 }
 
 .popular-movies-button {
   width: 100%;
-  height: 50px;
 }
 
 .rating-box-contianer,
@@ -117,4 +116,15 @@ body {
   border: 2px solid hsl(0, 0%, 10%);
   letter-spacing: 1.2px;
   background-color: transparent;
+}
+
+.secondary-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 850px;
+}
+.secondary-loading img {
+  width: 100px;
 }

@@ -72,6 +72,11 @@
 .the-work .work-details .title-rate .rating button svg {
   margin: 0 5px 0 0;
 }
+.the-work .work-details .add-to-watchlist,
+.the-work .work-details .remove-item {
+  width: 200px;
+  align-self: center;
+}
 .the-work .character-name {
   color: hsl(0, 0%, 60%);
   margin: 0;

@@ -27,7 +27,6 @@ export default function Watchlist() {
       </div>
     );
   }
-  console.log(watchlist);
   return (
     <div className="watchlist-section">
       <h1>Your Watchlist</h1>

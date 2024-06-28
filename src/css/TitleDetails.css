@@ -13,6 +13,10 @@
   display: flex;
   width: 100%;
 }
+.details-card .popular-movies-button,
+.details-card .remove-item {
+  width: 200px;
+}
 .details-card .title-type {
   position: absolute;
   background-color: hsl(0, 0%, 10%);

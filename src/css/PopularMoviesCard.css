@@ -75,14 +75,3 @@ button.popular-movies-button {
 button.popular-movies-button:hover {
   border: 2px solid #e89c1e;
 }
-
-.popular-movies-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 850px;
-}
-.popular-movies-loading img {
-  width: 100px;
-}

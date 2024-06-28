@@ -21,7 +21,6 @@
   .work-details {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     width: 100%;
     margin-left: 40px;
     padding: 0 30px 0 0;
@@ -70,10 +69,14 @@
           }
           svg {
             margin: 0 5px 0 0;
-            // font-size: large;
           }
         }
       }
+    }
+    .add-to-watchlist,
+    .remove-item {
+      width: 200px;
+      align-self: center;
     }
   }
   .character-name {

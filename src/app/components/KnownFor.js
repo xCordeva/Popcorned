@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import PersonsWork from "./PersonsWork";
 import "@/css/KnownFor.css";
+import { useSelector } from "react-redux";
+import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
+import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 
 const api_key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -13,17 +16,17 @@ const fetchTvShowDetails = async (showId) => {
   const data = await response.json();
   return data.number_of_episodes;
 };
-const fetchTopCast = async (mediaType, mediaId) => {
+const fetchCast = async (mediaType, mediaId) => {
   const response = await fetch(
     `https://api.themoviedb.org/3/${mediaType}/${mediaId}/credits?api_key=${api_key}`
   );
   const data = await response.json();
-  return data.cast.slice(0, 2); // Get the top 2 cast members
+  return data.cast; // Get the top 2 cast members
 };
 
 const KnownFor = ({ id, details }) => {
   const [knownFor, setKnownFor] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchKnownFor = async () => {
       try {
@@ -51,11 +54,11 @@ const KnownFor = ({ id, details }) => {
         const tvShowsWithDetails = await Promise.all(
           tvShows.map(async (show) => {
             const totalEpisodes = await fetchTvShowDetails(show.id);
-            const topCast = await fetchTopCast("tv", show.id);
+            const cast = await fetchCast("tv", show.id);
             return {
               ...show,
               totalEpisodes,
-              topCast,
+              cast,
               appearancePercentage: (show.episode_count / totalEpisodes) * 100,
             };
           })
@@ -63,10 +66,10 @@ const KnownFor = ({ id, details }) => {
 
         const moviesWithDetails = await Promise.all(
           movies.map(async (movie) => {
-            const topCast = await fetchTopCast("movie", movie.id);
+            const cast = await fetchCast("movie", movie.id);
             return {
               ...movie,
-              topCast,
+              cast,
             };
           })
         );
@@ -127,8 +130,22 @@ const KnownFor = ({ id, details }) => {
     };
 
     fetchKnownFor();
+    setLoading(false);
   }, [id]);
 
+  const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
+  const { watchlist, isLoading } = useFetchWatchlist();
+  if (loading || (watchlist && isLoading)) {
+    return (
+      <div className="secondary-loading">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+          alt="loading-gif"
+        />
+        <p>Loading...</p>
+      </div>
+    );
+  }
   return (
     <div className="known-for">
       <h1>Known For</h1>
@@ -147,6 +164,7 @@ const KnownFor = ({ id, details }) => {
           Show all the work
         </Link>
       </div>
+      {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
     </div>
   );
 };
