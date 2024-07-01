@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import TopCast from "@/app/components/TopCast";
 import TitleDetails from "@/app/components/TitleDetails";
 import KnownFor from "@/app/components/KnownFor";
+import UserReviews from "@/app/components/UserReviews";
 
 const titleDetails = ({ params }) => {
   const searchParams = useSearchParams();
@@ -85,6 +86,7 @@ const titleDetails = ({ params }) => {
             details={details}
           ></KnownFor>
         )}
+        {type !== "person" && <UserReviews></UserReviews>}
       </div>
     </div>
   );
