@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function LeaveReview() {
   const [hoveredStar, setHoveredStar] = useState(0);
+  const [clickedStar, setClickedStar] = useState(0);
 
   const handleMouseEnter = (index) => {
     setHoveredStar(index);
@@ -13,6 +14,10 @@ export default function LeaveReview() {
 
   const handleMouseLeave = () => {
     setHoveredStar(0);
+  };
+
+  const handleRateClick = (index) => {
+    setClickedStar(index);
   };
 
   return (
@@ -26,12 +31,17 @@ export default function LeaveReview() {
           {[...Array(10)].map((_, index) => (
             <FontAwesomeIcon
               key={index}
-              icon={index < hoveredStar ? faStar : faStarReg}
+              icon={index < (hoveredStar || clickedStar) ? faStar : faStarReg}
               onMouseEnter={() => handleMouseEnter(index + 1)}
               onMouseLeave={handleMouseLeave}
+              onClick={() => handleRateClick(index + 1)}
             />
           ))}
         </div>
+        <p className="rating">
+          <FontAwesomeIcon icon={faStar} />
+          <span>{hoveredStar || clickedStar}</span>/10
+        </p>
         <textarea type="text" />
         <button className="submit-button">Submit Review</button>
       </div>

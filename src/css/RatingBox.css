@@ -24,6 +24,18 @@
 .rating-box-contianer .rating-box .rating-button:hover {
   background-color: #212121;
 }
+.rating-box-contianer .rating-box .rating {
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  margin: 0 auto;
+}
+.rating-box-contianer .rating-box .rating span {
+  width: 30px;
+}
+.rating-box-contianer .rating-box .rating svg {
+  margin: 0 10px;
+}
 .rating-box-contianer .rating-box .rating-review h3 {
   text-align: center;
 }

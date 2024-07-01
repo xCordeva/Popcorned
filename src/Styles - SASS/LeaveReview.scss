@@ -22,6 +22,21 @@
         cursor: pointer;
       }
     }
+    .rating {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      margin: 0 0 30px 0;
+      color: grey;
+      font-size: 2rem;
+      span {
+        width: 30px;
+      }
+      svg {
+        margin: 0 10px;
+        color: variables.$main-yellow;
+      }
+    }
     textarea {
       padding: 20px 5px 20px 20px;
       border-radius: 4px;
@@ -59,7 +74,7 @@
       border-radius: 3px;
       background-color: variables.$sec-grey;
       font-weight: 800;
-      margin: 30px 0 0 0;
+      margin: 30px 0 20px 0;
       &:hover {
         background-color: darken($color: variables.$sec-grey, $amount: 2%);
       }

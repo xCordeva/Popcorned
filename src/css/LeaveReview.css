@@ -23,6 +23,21 @@
 .leave-review .review-details .rating-stars svg {
   cursor: pointer;
 }
+.leave-review .review-details .rating {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin: 0 0 30px 0;
+  color: grey;
+  font-size: 2rem;
+}
+.leave-review .review-details .rating span {
+  width: 30px;
+}
+.leave-review .review-details .rating svg {
+  margin: 0 10px;
+  color: #e89c1e;
+}
 .leave-review .review-details textarea {
   padding: 20px 5px 20px 20px;
   border-radius: 4px;
@@ -60,7 +75,7 @@
   border-radius: 3px;
   background-color: hsl(0, 0%, 15%);
   font-weight: 800;
-  margin: 30px 0 0 0;
+  margin: 30px 0 20px 0;
 }
 .leave-review .review-details .submit-button:hover {
   background-color: #212121;

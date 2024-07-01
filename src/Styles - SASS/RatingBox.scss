@@ -27,10 +27,21 @@
         background-color: darken($color: variables.$sec-grey, $amount: 2%);
       }
     }
+    .rating {
+      text-align: center;
+      width: 100%;
+      justify-content: center;
+      margin: 0 auto;
+      span {
+        width: 30px;
+      }
+      svg {
+        margin: 0 10px;
+      }
+    }
     .rating-review {
       h3 {
         text-align: center;
-
         span {
           color: grey;
         }
