@@ -1,0 +1,67 @@
+.leave-review {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: #080808;
+  padding: 1% 5%;
+  border-radius: 5px;
+}
+.leave-review .review-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.leave-review .review-details h2 {
+  margin: 0;
+}
+.leave-review .review-details .rating-stars {
+  font-size: 2rem;
+  color: #e89c1e;
+  margin: 30px 0;
+}
+.leave-review .review-details .rating-stars svg {
+  cursor: pointer;
+}
+.leave-review .review-details textarea {
+  padding: 20px 5px 20px 20px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  width: calc(100% - 25px);
+  color: white;
+  background-color: hsl(0, 0%, 15%);
+  font-size: 1.3rem;
+  height: 80px;
+  overflow-x: hidden;
+  resize: none;
+}
+.leave-review .review-details textarea::-webkit-scrollbar {
+  width: 8px;
+}
+.leave-review .review-details textarea::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 15%);
+  border-radius: 0 0 5px 5px;
+}
+.leave-review .review-details textarea::-webkit-scrollbar-thumb {
+  background-color: #e89c1e;
+  border-radius: 10px;
+}
+.leave-review .review-details .submit-button {
+  cursor: pointer;
+  color: white;
+  white-space: nowrap;
+  max-width: fit-content;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 3px;
+  background-color: hsl(0, 0%, 15%);
+  font-weight: 800;
+  margin: 30px 0 0 0;
+}
+.leave-review .review-details .submit-button:hover {
+  background-color: #212121;
+}

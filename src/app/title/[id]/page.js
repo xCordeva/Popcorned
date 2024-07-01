@@ -7,6 +7,7 @@ import TopCast from "@/app/components/TopCast";
 import TitleDetails from "@/app/components/TitleDetails";
 import KnownFor from "@/app/components/KnownFor";
 import UserReviews from "@/app/components/UserReviews";
+import LeaveReview from "@/app/components/LeaveReview";
 
 const titleDetails = ({ params }) => {
   const searchParams = useSearchParams();
@@ -87,6 +88,7 @@ const titleDetails = ({ params }) => {
           ></KnownFor>
         )}
         {type !== "person" && <UserReviews></UserReviews>}
+        {type !== "person" && <LeaveReview></LeaveReview>}
       </div>
     </div>
   );
