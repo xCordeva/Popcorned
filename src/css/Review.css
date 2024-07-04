@@ -1,0 +1,96 @@
+.review {
+  display: flex;
+  align-items: center;
+  background-color: hsl(0, 0%, 10%);
+  padding: 20px;
+  border-radius: 6px;
+  margin: 30px 0;
+}
+.review img {
+  align-self: flex-start;
+  width: 100px;
+  margin-right: 20px;
+  border-radius: 4px;
+}
+.review .username-date-time {
+  width: 100%;
+}
+.review .review-details,
+.review .edit-review-textarea {
+  width: 100%;
+  height: fit-content;
+  background-color: hsl(0, 0%, 15%);
+  padding: 4px;
+  border-radius: 4px;
+  max-height: 100px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+.review .review-details::-webkit-scrollbar,
+.review .edit-review-textarea::-webkit-scrollbar {
+  width: 8px;
+}
+.review .review-details::-webkit-scrollbar-track,
+.review .edit-review-textarea::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 15%);
+  border-radius: 0 0 5px 5px;
+}
+.review .review-details::-webkit-scrollbar-thumb,
+.review .edit-review-textarea::-webkit-scrollbar-thumb {
+  background-color: #ca282c;
+  border-radius: 10px;
+}
+.review .review-details {
+  height: fit-content;
+  resize: none;
+  visibility: visible;
+}
+.review .review-details.hide {
+  display: none;
+  overflow: hidden;
+  height: 0;
+}
+.review .edit-review-textarea {
+  visibility: hidden;
+  color: white;
+  resize: none;
+  font-weight: 600;
+  transition: height 0.5s ease;
+  height: 0;
+  border: 2px solid #e89c1e;
+  outline: none;
+}
+.review .edit-review-textarea.show {
+  visibility: visible;
+  height: 100px;
+}
+.review .date-time {
+  margin: 5px 0;
+  color: hsl(0, 0%, 65%);
+}
+.review .username-rate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.review .username-rate .username {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 1000;
+  margin: 0;
+}
+.review .username-rate .rating {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+}
+.review .username-rate .rating svg {
+  color: #e89c1e;
+}
+.review .username-rate .rating p {
+  margin: 15px 15px 15px 5px;
+  color: white;
+}
+.review .username-rate .rating p span {
+  color: gray;
+}

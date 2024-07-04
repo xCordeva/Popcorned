@@ -10,6 +10,8 @@ import RateNoReview from "./RateNoReview";
 import { openRateNoReviewPopup } from "@/features/RateNoReviewPopup";
 import GiveRatingPopupMessage from "./GiveRatingPopupMessage";
 import useAuth from "@/Custom Hooks/useAuth";
+import AlreadyReviewed from "./AlreadyReviewed";
+import { openAlreadyReviewedPopup } from "@/features/AlreadyReviewedPopup";
 
 export default function LeaveReview({ id, type }) {
   const [hoveredStar, setHoveredStar] = useState(0);
@@ -23,6 +25,9 @@ export default function LeaveReview({ id, type }) {
 
   const isRateNoReviewOpen = useSelector(
     (state) => state.RateNoReviewPopup.value
+  );
+  const isAlreadyReviewedOpen = useSelector(
+    (state) => state.AlreadyReviewedPopup.value
   );
   const refetchReviews = useSelector((state) => state.RefetchReviews.value);
 
@@ -40,6 +45,13 @@ export default function LeaveReview({ id, type }) {
 
   const { addNewReview, isLoading, reviews } = useFetchReviews();
   const dispatch = useDispatch();
+
+  const userAlreadyReviewed = reviews.find(
+    (review) =>
+      review.titleId === id &&
+      review.titleType === type &&
+      review.userId === user.uid
+  );
 
   const handleSubmit = () => {
     if (clickedStar > 0 && !reviewText) {
@@ -62,6 +74,9 @@ export default function LeaveReview({ id, type }) {
       setTimeout(() => {
         setShowGiveRatingPopup(false);
       }, 2000);
+    } else if (userAlreadyReviewed) {
+      dispatch(openAlreadyReviewedPopup(true));
+      return;
     } else {
       setShowEmptyFieldsMessage(true);
       setTimeout(() => {
@@ -117,6 +132,9 @@ export default function LeaveReview({ id, type }) {
       </div>
       {isRateNoReviewOpen && <RateNoReview></RateNoReview>}
       {showGiveRatingPopup && <GiveRatingPopupMessage></GiveRatingPopupMessage>}
+      {isAlreadyReviewedOpen && (
+        <AlreadyReviewed review={userAlreadyReviewed}></AlreadyReviewed>
+      )}
     </div>
   );
 }

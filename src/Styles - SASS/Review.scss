@@ -1,0 +1,95 @@
+@use "variables.scss";
+.review {
+  display: flex;
+  align-items: center;
+  background-color: variables.$main-grey;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 30px 0;
+  img {
+    align-self: flex-start;
+    width: 100px;
+    margin-right: 20px;
+    border-radius: 4px;
+  }
+  .username-date-time {
+    width: 100%;
+  }
+  .review-details,
+  .edit-review-textarea {
+    width: 100%;
+    height: fit-content;
+    background-color: variables.$sec-grey;
+    padding: 4px;
+    border-radius: 4px;
+    max-height: 100px;
+    line-height: 1.5;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: variables.$sec-grey;
+      border-radius: 0 0 5px 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: variables.$main-red;
+      border-radius: 10px;
+    }
+  }
+  .review-details {
+    height: fit-content;
+    resize: none;
+    visibility: visible;
+    &.hide {
+      display: none;
+      overflow: hidden;
+      height: 0;
+    }
+  }
+  .edit-review-textarea {
+    visibility: hidden;
+    color: white;
+    resize: none;
+    font-weight: 600;
+    transition: height 0.5s ease;
+    height: 0;
+    border: 2px solid variables.$main-yellow;
+    outline: none;
+    &.show {
+      visibility: visible;
+      height: 100px;
+    }
+  }
+  .date-time {
+    margin: 5px 0;
+    color: hsl(0, 0%, 65%);
+  }
+  .username-rate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .username {
+      width: 100%;
+      font-size: 1.5rem;
+      font-weight: 1000;
+      margin: 0;
+    }
+    .rating {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      svg {
+        color: variables.$main-yellow;
+      }
+      p {
+        margin: 15px 15px 15px 5px;
+        color: white;
+        span {
+          color: gray;
+        }
+      }
+    }
+  }
+}

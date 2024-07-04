@@ -48,6 +48,7 @@ body {
   width: 100%;
 }
 
+.already-reviewed-contianer,
 .rate-no-review-contianer,
 .give-rating-popup-contianer,
 .rating-box-contianer,
@@ -63,19 +64,28 @@ body {
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+.already-reviewed-contianer .rating-box,
+.already-reviewed-contianer .already-reviewed-box,
+.already-reviewed-contianer .give-rating-popup-box,
+.already-reviewed-contianer .rate-no-review-box,
+.already-reviewed-contianer .remove-watchlist-box,
 .rate-no-review-contianer .rating-box,
+.rate-no-review-contianer .already-reviewed-box,
 .rate-no-review-contianer .give-rating-popup-box,
 .rate-no-review-contianer .rate-no-review-box,
 .rate-no-review-contianer .remove-watchlist-box,
 .give-rating-popup-contianer .rating-box,
+.give-rating-popup-contianer .already-reviewed-box,
 .give-rating-popup-contianer .give-rating-popup-box,
 .give-rating-popup-contianer .rate-no-review-box,
 .give-rating-popup-contianer .remove-watchlist-box,
 .rating-box-contianer .rating-box,
+.rating-box-contianer .already-reviewed-box,
 .rating-box-contianer .give-rating-popup-box,
 .rating-box-contianer .rate-no-review-box,
 .rating-box-contianer .remove-watchlist-box,
 .remove-watchlist-box-contianer .rating-box,
+.remove-watchlist-box-contianer .already-reviewed-box,
 .remove-watchlist-box-contianer .give-rating-popup-box,
 .remove-watchlist-box-contianer .rate-no-review-box,
 .remove-watchlist-box-contianer .remove-watchlist-box {
@@ -88,19 +98,28 @@ body {
   flex-direction: column;
   transition: top 0.3s ease;
 }
+.already-reviewed-contianer .rating-box .x-mark,
+.already-reviewed-contianer .already-reviewed-box .x-mark,
+.already-reviewed-contianer .give-rating-popup-box .x-mark,
+.already-reviewed-contianer .rate-no-review-box .x-mark,
+.already-reviewed-contianer .remove-watchlist-box .x-mark,
 .rate-no-review-contianer .rating-box .x-mark,
+.rate-no-review-contianer .already-reviewed-box .x-mark,
 .rate-no-review-contianer .give-rating-popup-box .x-mark,
 .rate-no-review-contianer .rate-no-review-box .x-mark,
 .rate-no-review-contianer .remove-watchlist-box .x-mark,
 .give-rating-popup-contianer .rating-box .x-mark,
+.give-rating-popup-contianer .already-reviewed-box .x-mark,
 .give-rating-popup-contianer .give-rating-popup-box .x-mark,
 .give-rating-popup-contianer .rate-no-review-box .x-mark,
 .give-rating-popup-contianer .remove-watchlist-box .x-mark,
 .rating-box-contianer .rating-box .x-mark,
+.rating-box-contianer .already-reviewed-box .x-mark,
 .rating-box-contianer .give-rating-popup-box .x-mark,
 .rating-box-contianer .rate-no-review-box .x-mark,
 .rating-box-contianer .remove-watchlist-box .x-mark,
 .remove-watchlist-box-contianer .rating-box .x-mark,
+.remove-watchlist-box-contianer .already-reviewed-box .x-mark,
 .remove-watchlist-box-contianer .give-rating-popup-box .x-mark,
 .remove-watchlist-box-contianer .rate-no-review-box .x-mark,
 .remove-watchlist-box-contianer .remove-watchlist-box .x-mark {
@@ -131,6 +150,43 @@ body {
 .all-cast-page-not-found img,
 .watchlist-page-loading img {
   width: 100px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65px;
+  overflow: hidden;
+  transition: height 0.4s ease;
+  margin: 20px 0 0 0;
+}
+.buttons button {
+  padding: 8px 30px;
+  margin: 0 30px 20px;
+  width: 180px;
+  cursor: pointer;
+  font-weight: 800;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: scale 0.4s ease, background-color 0.4s ease;
+}
+.buttons button:nth-last-of-type(1) {
+  background-color: hsl(0, 0%, 20%);
+}
+.buttons button:nth-last-of-type(1):hover {
+  background-color: transparent;
+  border: 2px solid hsl(0, 0%, 20%);
+  scale: 1.1;
+}
+.buttons button:nth-last-of-type(2) {
+  background-color: hsl(0, 0%, 20%);
+}
+.buttons button:nth-last-of-type(2):hover {
+  background-color: transparent;
+  scale: 1.1;
+  border: 2px solid hsl(0, 0%, 20%);
 }
 
 .remove-item {

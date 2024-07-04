@@ -8,6 +8,7 @@ import RemoveWatchlistPopupReducer from "./RemoveWatchlistPopup";
 import RefetchWatchlistReducer from "./RefetchWatchlist";
 import RefetchReviewsReducer from "./RefetchReviews";
 import RateNoReviewPopupReducer from "./RateNoReviewPopup";
+import AlreadyReviewedPopupReducer from "./AlreadyReviewedPopup";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     UserSearch: UserSearchReducer,
     RatingPopup: RatingPopupReducer,
     RateNoReviewPopup: RateNoReviewPopupReducer,
+    AlreadyReviewedPopup: AlreadyReviewedPopupReducer,
     RemoveWatchlistPopup: RemoveWatchlistPopupReducer,
     RefetchWatchlist: RefetchWatchlistReducer,
     RefetchReviews: RefetchReviewsReducer,

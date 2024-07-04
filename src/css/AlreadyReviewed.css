@@ -1,0 +1,10 @@
+.already-reviewed-box {
+  width: 60%;
+  display: flex;
+}
+.already-reviewed-box .review {
+  background-color: hsl(0, 0%, 20%);
+}
+.already-reviewed-box .review .review-details {
+  text-align: left;
+}
