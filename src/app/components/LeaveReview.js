@@ -6,14 +6,21 @@ import { useState } from "react";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import { useDispatch, useSelector } from "react-redux";
 import { triggerRefetch } from "@/features/RefetchReviews";
-import { serverTimestamp } from "firebase/firestore";
 import RateNoReview from "./RateNoReview";
 import { openRateNoReviewPopup } from "@/features/RateNoReviewPopup";
+import GiveRatingPopupMessage from "./GiveRatingPopupMessage";
 
 export default function LeaveReview({ id, type }) {
   const [hoveredStar, setHoveredStar] = useState(0);
   const [clickedStar, setClickedStar] = useState(0);
   const [reviewText, setReviewText] = useState("");
+
+  const [showGiveRatingPopup, setShowGiveRatingPopup] = useState(false);
+
+  const isRateNoReviewOpen = useSelector(
+    (state) => state.RateNoReviewPopup.value
+  );
+  const refetchReviews = useSelector((state) => state.RefetchReviews.value);
 
   const handleMouseEnter = (index) => {
     setHoveredStar(index);
@@ -26,8 +33,6 @@ export default function LeaveReview({ id, type }) {
   const handleRateClick = (index) => {
     setClickedStar(index);
   };
-
-  const refetchReviews = useSelector((state) => state.RefetchReviews.value);
 
   const { addNewReview, isLoading, reviews } = useFetchReviews();
   const dispatch = useDispatch();
@@ -48,13 +53,16 @@ export default function LeaveReview({ id, type }) {
       });
       setClickedStar(0);
       setReviewText("");
+    } else if (reviewText && clickedStar === 0) {
+      setShowGiveRatingPopup(true);
+      setTimeout(() => {
+        setShowGiveRatingPopup(false);
+      }, 2000);
     } else {
       alert("Please provide a rating and write a review.");
     }
   };
-  const isRateNoReviewOpen = useSelector(
-    (state) => state.RateNoReviewPopup.value
-  );
+
   return (
     <div className="leave-review">
       <h1>Leave a Review</h1>
@@ -91,6 +99,7 @@ export default function LeaveReview({ id, type }) {
         </button>
       </div>
       {isRateNoReviewOpen && <RateNoReview></RateNoReview>}
+      {showGiveRatingPopup && <GiveRatingPopupMessage></GiveRatingPopupMessage>}
     </div>
   );
 }
