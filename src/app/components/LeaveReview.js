@@ -1,5 +1,5 @@
 import "@/css/LeaveReview.css";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarReg } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import { triggerRefetch } from "@/features/RefetchReviews";
 import RateNoReview from "./RateNoReview";
 import { openRateNoReviewPopup } from "@/features/RateNoReviewPopup";
 import GiveRatingPopupMessage from "./GiveRatingPopupMessage";
+import useAuth from "@/Custom Hooks/useAuth";
 
 export default function LeaveReview({ id, type }) {
   const [hoveredStar, setHoveredStar] = useState(0);
@@ -16,6 +17,9 @@ export default function LeaveReview({ id, type }) {
   const [reviewText, setReviewText] = useState("");
 
   const [showGiveRatingPopup, setShowGiveRatingPopup] = useState(false);
+  const [showEmptyFieldsMessage, setShowEmptyFieldsMessage] = useState(false);
+
+  const { user } = useAuth();
 
   const isRateNoReviewOpen = useSelector(
     (state) => state.RateNoReviewPopup.value
@@ -59,7 +63,10 @@ export default function LeaveReview({ id, type }) {
         setShowGiveRatingPopup(false);
       }, 2000);
     } else {
-      alert("Please provide a rating and write a review.");
+      setShowEmptyFieldsMessage(true);
+      setTimeout(() => {
+        setShowEmptyFieldsMessage(false);
+      }, 3000);
     }
   };
 
@@ -68,7 +75,9 @@ export default function LeaveReview({ id, type }) {
       <h1>Leave a Review</h1>
       <div className="review-details">
         <h2>Give a Rating</h2>
-        <div className="rating-stars">
+        <div
+          className={`rating-stars  ${showEmptyFieldsMessage ? `shaking` : ``}`}
+        >
           {[...Array(10)].map((_, index) => (
             <FontAwesomeIcon
               key={index}
@@ -84,12 +93,20 @@ export default function LeaveReview({ id, type }) {
           <span>{hoveredStar || clickedStar}</span>/10
         </p>
         <textarea
-          className="textarea-empty"
+          className={`${showEmptyFieldsMessage ? `textarea-empty` : ``}`}
           type="text"
           placeholder="Write your review here..."
           value={reviewText}
           onChange={(event) => setReviewText(event.target.value)}
         />
+        <p
+          className={`field-cant-be-empty ${
+            showEmptyFieldsMessage ? `show` : ``
+          }`}
+        >
+          <FontAwesomeIcon icon={faCircleExclamation} /> This field can not be
+          empty
+        </p>
         <button
           className="submit-button"
           onClick={handleSubmit}

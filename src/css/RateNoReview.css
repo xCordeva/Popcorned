@@ -5,6 +5,7 @@
   height: 65px;
   overflow: hidden;
   transition: height 0.4s ease;
+  margin: 20px 0 0 0;
 }
 .rate-no-review-contianer .rate-no-review-box .buttons button {
   padding: 8px 30px;
