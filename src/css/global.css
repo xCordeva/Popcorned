@@ -48,6 +48,7 @@ body {
   width: 100%;
 }
 
+.rate-no-review-contianer,
 .rating-box-contianer,
 .remove-watchlist-box-contianer {
   position: fixed;
@@ -61,9 +62,14 @@ body {
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+.rate-no-review-contianer .rating-box,
+.rate-no-review-contianer .rate-no-review-box,
+.rate-no-review-contianer .remove-watchlist-box,
 .rating-box-contianer .rating-box,
+.rating-box-contianer .rate-no-review-box,
 .rating-box-contianer .remove-watchlist-box,
 .remove-watchlist-box-contianer .rating-box,
+.remove-watchlist-box-contianer .rate-no-review-box,
 .remove-watchlist-box-contianer .remove-watchlist-box {
   background-color: hsl(0, 0%, 10%);
   padding: 20px;
@@ -73,9 +79,14 @@ body {
   flex-direction: column;
   transition: top 0.3s ease;
 }
+.rate-no-review-contianer .rating-box .x-mark,
+.rate-no-review-contianer .rate-no-review-box .x-mark,
+.rate-no-review-contianer .remove-watchlist-box .x-mark,
 .rating-box-contianer .rating-box .x-mark,
+.rating-box-contianer .rate-no-review-box .x-mark,
 .rating-box-contianer .remove-watchlist-box .x-mark,
 .remove-watchlist-box-contianer .rating-box .x-mark,
+.remove-watchlist-box-contianer .rate-no-review-box .x-mark,
 .remove-watchlist-box-contianer .remove-watchlist-box .x-mark {
   position: absolute;
   top: 5%;

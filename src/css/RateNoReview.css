@@ -1,0 +1,93 @@
+.rate-no-review-contianer .rate-no-review-box .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65px;
+  overflow: hidden;
+  transition: height 0.4s ease;
+}
+.rate-no-review-contianer .rate-no-review-box .buttons button {
+  padding: 8px 30px;
+  margin: 0 30px 20px;
+  width: 180px;
+  cursor: pointer;
+  font-weight: 800;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: scale 0.4s ease, background-color 0.4s ease;
+}
+.rate-no-review-contianer .rate-no-review-box .buttons button:nth-last-of-type(1) {
+  background-color: hsl(0, 0%, 20%);
+}
+.rate-no-review-contianer .rate-no-review-box .buttons button:nth-last-of-type(1):hover {
+  background-color: transparent;
+  border: 2px solid hsl(0, 0%, 20%);
+  scale: 1.1;
+}
+.rate-no-review-contianer .rate-no-review-box .buttons button:nth-last-of-type(2) {
+  background-color: hsl(0, 0%, 20%);
+}
+.rate-no-review-contianer .rate-no-review-box .buttons button:nth-last-of-type(2):hover {
+  background-color: transparent;
+  scale: 1.1;
+  border: 2px solid hsl(0, 0%, 20%);
+}
+.rate-no-review-contianer .rate-no-review-box .hide-buttons {
+  height: 0;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-button {
+  cursor: pointer;
+  color: white;
+  white-space: nowrap;
+  padding: 10px 15px;
+  align-self: center;
+  border: none;
+  border-radius: 3px;
+  background-color: hsl(0, 0%, 15%);
+  font-weight: 800;
+  margin: 30px 0 0 0;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-button:hover {
+  background-color: #212121;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-review {
+  display: flex;
+  overflow: hidden;
+  height: 0;
+  flex-direction: column;
+  transition: height 0.4s ease;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-review h3 {
+  text-align: center;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-review h3 span {
+  color: grey;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-review textarea {
+  padding: 20px 5px 20px 20px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  width: calc(100% - 25px);
+  color: white;
+  background-color: hsl(0, 0%, 15%);
+  font-size: 1.1rem;
+  height: 80px;
+  overflow-x: hidden;
+  resize: none;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-review textarea::-webkit-scrollbar {
+  width: 8px;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-review textarea::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 15%);
+  border-radius: 0 0 5px 5px;
+}
+.rate-no-review-contianer .rate-no-review-box .rating-review textarea::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 10px;
+}
+.rate-no-review-contianer .rate-no-review-box .show-rating-review {
+  height: 200px;
+}

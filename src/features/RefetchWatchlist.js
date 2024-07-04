@@ -14,6 +14,6 @@ export const refetchWatchlistSlice = createSlice({
   },
 });
 
-export const { triggerRefetch, refetchEventsState } =
+export const { triggerRefetch, refetchWatchlistState } =
   refetchWatchlistSlice.actions;
 export default refetchWatchlistSlice.reducer;

@@ -87,8 +87,8 @@ const titleDetails = ({ params }) => {
             details={details}
           ></KnownFor>
         )}
-        {type !== "person" && <UserReviews></UserReviews>}
-        {type !== "person" && <LeaveReview></LeaveReview>}
+        {type !== "person" && <UserReviews id={id} type={type}></UserReviews>}
+        {type !== "person" && <LeaveReview id={id} type={type}></LeaveReview>}
       </div>
     </div>
   );

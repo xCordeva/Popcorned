@@ -75,3 +75,8 @@
 .user-reviews .review .username-rate .rating p span {
   color: gray;
 }
+.user-reviews .no-reviews {
+  text-align: center;
+  margin: 20px 0 40px 0;
+  line-height: 30px;
+}

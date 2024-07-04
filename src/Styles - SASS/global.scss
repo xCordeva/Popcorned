@@ -47,7 +47,9 @@ body {
 .popular-movies-button {
   width: 100%;
 }
+
 // the rating and remove from watchlist popups
+.rate-no-review-contianer,
 .rating-box-contianer,
 .remove-watchlist-box-contianer {
   position: fixed;
@@ -61,6 +63,7 @@ body {
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
   .rating-box,
+  .rate-no-review-box,
   .remove-watchlist-box {
     background-color: variables.$main-grey;
     padding: 20px;
