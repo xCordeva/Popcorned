@@ -43,7 +43,7 @@ export default function LeaveReview({ id, type }) {
     (review) =>
       review.titleId === id &&
       review.titleType === type &&
-      review.userId === user.uid
+      (user ? review.userId === user.uid : false)
   );
 
   useEffect(() => {

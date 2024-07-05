@@ -8,8 +8,8 @@ import {
   orderBy,
   doc,
   deleteDoc,
-  serverTimestamp,
   setDoc,
+  collectionGroup,
 } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import useAuth from "./useAuth";
@@ -33,23 +33,22 @@ const useFetchReviews = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const uid = await getUserId();
-      if (!uid) {
+      try {
+        const reviewsQuery = query(
+          collectionGroup(db, "reviews"),
+          orderBy("createdAt", "desc")
+        );
+        const querySnapshot = await getDocs(reviewsQuery);
+        const reviewsData = querySnapshot.docs.map((doc) => ({
+          firebaseItemId: doc.id,
+          ...doc.data(),
+        }));
+        setReviews(reviewsData);
         setIsLoading(false);
-        return;
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+        setIsLoading(false);
       }
-
-      const reviewsRef = query(
-        collection(db, `users/${uid}/reviews`),
-        orderBy("createdAt", "desc")
-      );
-      const querySnapshot = await getDocs(reviewsRef);
-      const reviewsData = querySnapshot.docs.map((doc) => ({
-        firebaseItemId: doc.id,
-        ...doc.data(),
-      }));
-      setReviews(reviewsData);
-      setIsLoading(false);
     };
 
     fetchData();
