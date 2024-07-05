@@ -71,26 +71,5 @@
       height: 0;
       transition: height 0.4s ease, top 0.4s ease;
     }
-    .rate-submitted {
-      bottom: 0;
-      position: relative;
-      height: auto;
-      visibility: visible;
-      transition: height 0.4s ease, bottom 0.4s ease;
-      svg {
-        font-size: 4rem;
-        color: variables.$main-yellow;
-      }
-    }
-    .hide-rate-submitted {
-      bottom: -800px;
-      height: 0;
-      visibility: hidden;
-      transition: height 0.4s ease, bottom 0.4s ease;
-      svg {
-        font-size: 4rem;
-        color: variables.$main-yellow;
-      }
-    }
   }
 }

@@ -26,6 +26,8 @@ export default function LeaveReview({ id, type }) {
   const [showEmptyFieldsMessage, setShowEmptyFieldsMessage] = useState(false);
   const [starsChanged, setStarsChanged] = useState(false);
   const [rateUpdated, setRateUpdated] = useState(false);
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [hideLeaveReviewSection, setHideLeaveReviewSection] = useState(false);
 
   const { user } = useAuth();
   const dispatch = useDispatch();
@@ -87,10 +89,15 @@ export default function LeaveReview({ id, type }) {
         },
         userAlreadyReviewed.firebaseItemId
       ).then(() => {
-        dispatch(triggerRefetch(!refetchReviews));
+        setReviewSubmitted(true);
+        setTimeout(() => {
+          setHideLeaveReviewSection(true);
+        }, 2000);
+        setTimeout(() => {
+          dispatch(triggerRefetch(!refetchReviews));
+        }, 2500);
       });
       setClickedStar(0);
-      setReviewText("");
     } else if (clickedStar > 0 && !reviewText) {
       dispatch(openRateNoReviewPopup(true));
     } else if (clickedStar > 0 && reviewText) {
@@ -102,10 +109,15 @@ export default function LeaveReview({ id, type }) {
         titleType: type,
         createdAt: { seconds: timestamp },
       }).then(() => {
-        dispatch(triggerRefetch(!refetchReviews));
+        setReviewSubmitted(true);
+        setTimeout(() => {
+          setHideLeaveReviewSection(true);
+        }, 2000);
+        setTimeout(() => {
+          dispatch(triggerRefetch(!refetchReviews));
+        }, 2500);
       });
       setClickedStar(0);
-      setReviewText("");
     } else if (reviewText && clickedStar === 0) {
       setShowGiveRatingPopup(true);
       setTimeout(() => setShowGiveRatingPopup(false), 2000);
@@ -115,7 +127,7 @@ export default function LeaveReview({ id, type }) {
       setTimeout(() => {
         setShowEmptyFieldsMessage(false);
         setShakingRedStars(false);
-      }, 3000);
+      }, 2500);
     }
   };
 
@@ -134,66 +146,89 @@ export default function LeaveReview({ id, type }) {
   };
 
   return (
-    <div className="leave-review">
-      <h1>Leave a Review</h1>
-      <div className="review-details">
-        <h2>
-          {userAlreadyReviewed
-            ? "You have already rated this title"
-            : "Give a Rating"}
-        </h2>
-        <div className={`rating-stars ${shakingRedStars ? "shaking" : ""}`}>
-          {[...Array(10)].map((_, index) => (
-            <FontAwesomeIcon
-              key={index}
-              icon={index < (hoveredStar || clickedStar) ? faStar : faStarReg}
-              onMouseEnter={() => handleMouseEnter(index + 1)}
-              onMouseLeave={handleMouseLeave}
-              onClick={() => handleRateClick(index + 1)}
-            />
-          ))}
+    <div
+      className={`leave-review ${
+        hideLeaveReviewSection ? `hide-leave-review` : ``
+      }`}
+    >
+      <div
+        className={`leave-review-content-contianer ${
+          reviewSubmitted ? `hide-leave-review-content-contianer` : ``
+        }`}
+      >
+        <h1>Leave a Review</h1>
+        <div className="review-details">
+          <h2>
+            {userAlreadyReviewed
+              ? "You have already rated this title"
+              : "Give a Rating"}
+          </h2>
+          <div className={`rating-stars ${shakingRedStars ? "shaking" : ""}`}>
+            {[...Array(10)].map((_, index) => (
+              <FontAwesomeIcon
+                key={index}
+                icon={index < (hoveredStar || clickedStar) ? faStar : faStarReg}
+                onMouseEnter={() => handleMouseEnter(index + 1)}
+                onMouseLeave={handleMouseLeave}
+                onClick={() => handleRateClick(index + 1)}
+              />
+            ))}
+          </div>
+          <button
+            className={`rate-button ${starsChanged ? "show-rate-button" : ""}`}
+            onClick={updateRating}
+          >
+            <FontAwesomeIcon icon={faStarReg} />
+            Update Rating
+          </button>
+          <p
+            className={`${rateUpdated ? "show-rate-updated" : "rate-updated"}`}
+          >
+            Updated
+            <FontAwesomeIcon icon={faCircleCheck} />
+          </p>
+          <p className="rating">
+            <FontAwesomeIcon icon={faStar} />
+            <span>{hoveredStar || clickedStar}</span>/10
+          </p>
+          <textarea
+            className={`${showEmptyFieldsMessage ? "textarea-empty" : ""}`}
+            type="text"
+            placeholder="Write your review here..."
+            value={reviewText}
+            onChange={(event) => setReviewText(event.target.value)}
+          />
+          <p
+            className={`field-cant-be-empty ${
+              showEmptyFieldsMessage ? "show" : ""
+            }`}
+          >
+            <FontAwesomeIcon icon={faCircleExclamation} /> This field cannot be
+            empty
+          </p>
+          <button className="submit-button" onClick={handleSubmit}>
+            Submit Review
+          </button>
         </div>
-        <button
-          className={`rate-button ${starsChanged ? "show-rate-button" : ""}`}
-          onClick={updateRating}
-        >
-          <FontAwesomeIcon icon={faStarReg} />
-          Update Rating
-        </button>
-        <p className={`${rateUpdated ? "show-rate-updated" : "rate-updated"}`}>
-          Updated
-          <FontAwesomeIcon icon={faCircleCheck} />
-        </p>
-        <p className="rating">
-          <FontAwesomeIcon icon={faStar} />
-          <span>{hoveredStar || clickedStar}</span>/10
-        </p>
-        <textarea
-          className={`${showEmptyFieldsMessage ? "textarea-empty" : ""}`}
-          type="text"
-          placeholder="Write your review here..."
-          value={reviewText}
-          onChange={(event) => setReviewText(event.target.value)}
-        />
-        <p
-          className={`field-cant-be-empty ${
-            showEmptyFieldsMessage ? "show" : ""
-          }`}
-        >
-          <FontAwesomeIcon icon={faCircleExclamation} /> This field cannot be
-          empty
-        </p>
-        <button className="submit-button" onClick={handleSubmit}>
-          Submit Review
-        </button>
+        {!userAlreadyReviewed && isRateNoReviewOpen && (
+          <RateNoReview id={id} type={type} rate={clickedStar} />
+        )}
+        {showGiveRatingPopup && <GiveRatingPopupMessage />}
+        {isAlreadyReviewedOpen && (
+          <AlreadyReviewed review={userAlreadyReviewed} />
+        )}
       </div>
-      {!userAlreadyReviewed && isRateNoReviewOpen && (
-        <RateNoReview id={id} type={type} rate={clickedStar} />
-      )}
-      {showGiveRatingPopup && <GiveRatingPopupMessage />}
-      {isAlreadyReviewedOpen && (
-        <AlreadyReviewed review={userAlreadyReviewed} />
-      )}
+      <div
+        id="leave-review-box-rate-submitted"
+        className={`hide-rate-submitted ${
+          reviewSubmitted ? `rate-submitted` : ``
+        }`}
+      >
+        <FontAwesomeIcon icon={faCircleCheck} />
+        <h1>
+          Your {reviewText === "" ? `rate` : `review`} has been submitted!
+        </h1>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,7 @@
   border-radius: 5px;
   position: relative;
   overflow: hidden;
+  height: 520px;
   .review-details {
     display: flex;
     flex-direction: column;
@@ -149,6 +150,27 @@
   .show-rate-updated svg {
     margin-left: 10px;
   }
+  .leave-review-content-contianer {
+    width: 100%;
+    top: 0;
+    position: relative;
+    height: auto;
+    transition: height 0.4s ease, top 0.4s ease;
+  }
+  .hide-leave-review-content-contianer {
+    top: -500px;
+    height: 0;
+    transition: height 0.4s ease, top 0.4s ease;
+  }
+  .rate-submitted#leave-review-box-rate-submitted {
+    height: 520px;
+  }
+  &.hide-leave-review {
+    padding: 0;
+    height: 0;
+  }
+
+  transition: height 0.5s ease, position 0.5s ease;
 }
 @keyframes tilt-n-move-shaking {
   0% {

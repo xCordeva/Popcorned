@@ -211,3 +211,30 @@ body {
 .secondary-loading img {
   width: 100px;
 }
+
+.hide-rate-submitted {
+  bottom: -800px;
+  height: 0;
+  visibility: hidden;
+  transition: height 0.4s ease, bottom 0.4s ease;
+}
+.hide-rate-submitted svg {
+  font-size: 4rem;
+  color: #e89c1e;
+}
+
+.rate-submitted {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  position: relative;
+  height: auto;
+  visibility: visible;
+  transition: height 0.4s ease, bottom 0.4s ease;
+}
+.rate-submitted svg {
+  font-size: 4rem;
+  color: #e89c1e;
+}
