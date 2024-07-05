@@ -1,10 +1,11 @@
-.already-reviewed-box {
+.leave-review .already-reviewed-box {
   width: 60%;
   display: flex;
 }
-.already-reviewed-box .review {
+.leave-review .already-reviewed-box .review {
   background-color: hsl(0, 0%, 20%);
 }
-.already-reviewed-box .review .review-details {
-  text-align: left;
+
+.review-details.rev-det {
+  align-items: flex-start;
 }

@@ -15,16 +15,9 @@ const AlreadyReviewed = ({ review }) => {
     <div className="already-reviewed-contianer">
       <div className="already-reviewed-box">
         <h2>Looks like you have already reviewed this title</h2>
-
-        <div
-          className={`rating-review ${
-            editReviewClicked ? `show-rating-review` : ``
-          } `}
-        >
+        <div className="rating-review">
           <Review review={review} editReview={editReviewClicked}></Review>
-          <div
-            className={`buttons ${editReviewClicked ? `hide-buttons` : ``} `}
-          >
+          <div className="buttons">
             <button onClick={() => dispatch(closeAlreadyReviewedPopup(false))}>
               Dismiss
             </button>

@@ -9,6 +9,7 @@ import {
   doc,
   deleteDoc,
   serverTimestamp,
+  setDoc,
 } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import useAuth from "./useAuth";
@@ -71,6 +72,15 @@ const useFetchReviews = () => {
     });
   };
 
+  const editReview = async (editedReview, reviewId) => {
+    const uid = await getUserId();
+    if (!uid) {
+      return;
+    }
+    const docRef = doc(db, `users/${uid}/reviews`, reviewId);
+    setDoc(docRef, { ...editedReview, userId: uid });
+  };
+
   // const removeFromWatchlist = async (itemId) => {
   //   const uid = await getUserId();
   //   if (!uid) {
@@ -79,7 +89,7 @@ const useFetchReviews = () => {
   //   deleteDoc(doc(db, `users/${uid}/watchlist`, itemId));
   // };
 
-  return { reviews, addNewReview, isLoading };
+  return { reviews, addNewReview, isLoading, editReview };
 };
 
 export default useFetchReviews;

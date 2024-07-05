@@ -40,7 +40,7 @@ export default function Review({ review, index, editReview }) {
             </p>
           </div>
         </div>
-        <p className={`review-details ${editReview ? "hide" : ""}`}>
+        <p className={`review-details rev-det ${editReview ? "hide" : ""}`}>
           {review.reviewDetails}
         </p>
         <textarea
