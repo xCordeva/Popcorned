@@ -1,6 +1,7 @@
 @use "variables.scss";
 .rate-no-review-contianer {
   .rate-no-review-box {
+    overflow: hidden;
     .hide-buttons {
       height: 0;
     }
@@ -58,6 +59,38 @@
     }
     .show-rating-review {
       height: 200px;
+    }
+    .rate-no-review-content-container {
+      top: 0;
+      position: relative;
+      height: auto;
+      transition: height 0.4s ease, top 0.4s ease;
+    }
+    .hide-rate-no-review-content-container {
+      top: -500px;
+      height: 0;
+      transition: height 0.4s ease, top 0.4s ease;
+    }
+    .rate-submitted {
+      bottom: 0;
+      position: relative;
+      height: auto;
+      visibility: visible;
+      transition: height 0.4s ease, bottom 0.4s ease;
+      svg {
+        font-size: 4rem;
+        color: variables.$main-yellow;
+      }
+    }
+    .hide-rate-submitted {
+      bottom: -800px;
+      height: 0;
+      visibility: hidden;
+      transition: height 0.4s ease, bottom 0.4s ease;
+      svg {
+        font-size: 4rem;
+        color: variables.$main-yellow;
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeRateNoReviewPopup } from "@/features/RateNoReviewPopup";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import { triggerRefetch } from "@/features/RefetchReviews";
+import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
 const RateNoReview = ({ rate, id, type }) => {
   const [leaveReviewClicked, setLeaveReviewClicked] = useState(false);
@@ -14,20 +15,11 @@ const RateNoReview = ({ rate, id, type }) => {
 
   const { addNewReview } = useFetchReviews();
   const refetchReviews = useSelector((state) => state.RefetchReviews.value);
+  const [rateSubmitted, setRateSubmitted] = useState(false);
 
-  const submitRateNoReview = () => {
-    const timestamp = Math.floor(Date.now() / 1000); // adding the timestamp manually since using the firebase server timestamp does not show immediately
-    addNewReview({
-      reviewDetails: reviewText,
-      rating: rate,
-      titleId: id,
-      titleType: type,
-      createdAt: { seconds: timestamp },
-    });
-    dispatch(closeRateNoReviewPopup(false));
-  };
-  const submitRateWithReview = () => {
-    const timestamp = Math.floor(Date.now() / 1000); // adding the timestamp manually since using the firebase server timestamp does not show immediately
+  const submitReview = () => {
+    const timestamp = Math.floor(Date.now() / 1000);
+
     addNewReview({
       reviewDetails: reviewText,
       rating: rate,
@@ -35,48 +27,66 @@ const RateNoReview = ({ rate, id, type }) => {
       titleType: type,
       createdAt: { seconds: timestamp },
     }).then(() => {
-      dispatch(triggerRefetch(!refetchReviews));
+      setRateSubmitted(true);
+
+      setTimeout(() => {
+        dispatch(triggerRefetch(!refetchReviews));
+        setRateSubmitted(false);
+        setReviewText("");
+        dispatch(closeRateNoReviewPopup(false));
+      }, 2000);
     });
-    setReviewText("");
-    dispatch(closeRateNoReviewPopup(false));
   };
 
   return (
     <div className="rate-no-review-contianer">
       <div className="rate-no-review-box">
-        <h2>Do you want to submit a rating without a review?</h2>
-
         <div
-          className={`buttons ${leaveReviewClicked ? `hide-buttons` : null} `}
+          className={`rate-no-review-content-container ${
+            rateSubmitted ? `hide-rate-no-review-content-container` : ``
+          }`}
         >
-          <button onClick={() => submitRateNoReview()}>Yes</button>
-          <button onClick={() => setLeaveReviewClicked(true)}>
-            Leave a Review
-          </button>
-        </div>
-        <div
-          className={`rating-review ${
-            leaveReviewClicked ? `show-rating-review` : null
-          } `}
-        >
-          <textarea
-            type="text"
-            placeholder="Write your review here..."
-            onChange={(event) => setReviewText(event.target.value)}
-            value={reviewText}
-          />
-
-          <button
-            className="rating-button"
-            onClick={() => submitRateWithReview()}
+          <h2>Do you want to submit a rating without a review?</h2>
+          <div
+            className={`buttons ${leaveReviewClicked ? `hide-buttons` : null} `}
           >
-            Submit Review
-          </button>
-          <FontAwesomeIcon
-            icon={faXmark}
-            className="x-mark"
-            onClick={() => dispatch(closeRateNoReviewPopup(false))}
-          />
+            <button onClick={() => submitReview()}>Yes</button>
+            <button onClick={() => setLeaveReviewClicked(true)}>
+              Leave a Review
+            </button>
+          </div>
+          <div
+            className={`rating-review ${
+              leaveReviewClicked ? `show-rating-review` : null
+            } `}
+          >
+            <textarea
+              type="text"
+              placeholder="Write your review here..."
+              onChange={(event) => setReviewText(event.target.value)}
+              value={reviewText}
+            />
+
+            <button className="rating-button" onClick={() => submitReview()}>
+              Submit Review
+            </button>
+          </div>
+        </div>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="x-mark"
+          onClick={() => dispatch(closeRateNoReviewPopup(false))}
+        />
+
+        <div
+          className={`${
+            rateSubmitted ? `rate-submitted` : `hide-rate-submitted`
+          }`}
+        >
+          <FontAwesomeIcon icon={faCircleCheck} />
+          <h1>
+            Your {reviewText === "" ? `rate` : `review`} has been submitted!
+          </h1>
         </div>
       </div>
     </div>
