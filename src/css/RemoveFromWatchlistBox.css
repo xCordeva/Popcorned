@@ -7,10 +7,12 @@
 }
 .remove-watchlist-box .buttons button:nth-last-of-type(1):hover {
   border: 2px solid red;
+  background-color: transparent;
 }
 .remove-watchlist-box .buttons button:nth-last-of-type(2) {
   background-color: hsl(120, 100%, 35%);
 }
 .remove-watchlist-box .buttons button:nth-last-of-type(2):hover {
   border: 2px solid hsl(120, 100%, 35%);
+  background-color: transparent;
 }

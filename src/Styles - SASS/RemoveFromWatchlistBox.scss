@@ -7,12 +7,14 @@
         background-color: hsl(0, 100%, 50%);
         &:hover {
           border: 2px solid red;
+          background-color: transparent;
         }
       }
       &:nth-last-of-type(2) {
         background-color: hsl(120, 100%, 35%);
         &:hover {
           border: 2px solid hsl(120, 100%, 35%);
+          background-color: transparent;
         }
       }
     }
