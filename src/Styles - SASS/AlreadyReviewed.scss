@@ -2,11 +2,24 @@
   .already-reviewed-box {
     width: 60%;
     display: flex;
+    overflow: hidden;
     .review {
       background-color: hsl(0, 0%, 20%);
     }
+
+    .review-details.rev-det {
+      align-items: flex-start;
+    }
+    .already-reviewed-content-contianer {
+      top: 0;
+      position: relative;
+      height: auto;
+      transition: height 0.4s ease, top 0.4s ease;
+    }
+    .hide-already-reviewed-content-contianer {
+      top: -500px;
+      height: 0;
+      transition: height 0.4s ease, top 0.4s ease;
+    }
   }
-}
-.review-details.rev-det {
-  align-items: flex-start;
 }

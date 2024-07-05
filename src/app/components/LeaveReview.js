@@ -1,9 +1,6 @@
 import "@/css/LeaveReview.css";
-import {
-  faStar,
-  faCircleExclamation,
-  faCircleCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarReg } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";

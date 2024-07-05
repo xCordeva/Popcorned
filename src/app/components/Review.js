@@ -1,7 +1,6 @@
 import "@/css/Review.css";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 
 const formatDate = (timestamp) => {
   const date = new Date(timestamp * 1000);
@@ -9,9 +8,13 @@ const formatDate = (timestamp) => {
   return date.toLocaleDateString(undefined, options);
 };
 
-export default function Review({ review, index, editReview }) {
-  const [editedReview, setEditedReview] = useState(review.reviewDetails);
-
+export default function Review({
+  review,
+  editReview,
+  index,
+  editedReviewText,
+  setEditedReviewText,
+}) {
   return (
     <div className="review" key={index}>
       <img
@@ -45,8 +48,8 @@ export default function Review({ review, index, editReview }) {
         </p>
         <textarea
           className={`edit-review-textarea ${editReview ? "show" : ""}`}
-          value={editedReview}
-          onChange={(event) => setEditedReview(event.target.value)}
+          value={editedReviewText}
+          onChange={(event) => setEditedReviewText(event.target.value)}
         ></textarea>
       </div>
     </div>
