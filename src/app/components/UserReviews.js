@@ -2,6 +2,7 @@ import "@/css/UserReviews.css";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import useAuth from "@/Custom Hooks/useAuth";
 import Review from "./Review";
+import Link from "next/link";
 
 export default function UserReviews({ id, type }) {
   const { reviews } = useFetchReviews();
@@ -14,13 +15,26 @@ export default function UserReviews({ id, type }) {
 
   return (
     <div className="user-reviews">
-      <h1>User Reviews</h1>
+      <div className="title-reviews-number">
+        <h1>User Reviews</h1>
+        {filteredReviews.length > 0 && (
+          <h2>
+            {filteredReviews.length}{" "}
+            {filteredReviews.length === 1 ? `Review` : `Reviews`}
+          </h2>
+        )}
+      </div>
       <div className="reviews">
         {filteredReviews.length > 0 ? (
-          filteredReviews.map((review, index) =>
+          filteredReviews.slice(0, 2).map((review, index) =>
             review.reviewDetails ? (
               <Review review={review} index={index}></Review>
-            ) : null
+            ) : (
+              <div className="no-reviews">
+                No reviews yet. <br />
+                Be the first to share your thoughts on this title!
+              </div>
+            )
           )
         ) : (
           <div className="no-reviews">
@@ -28,6 +42,16 @@ export default function UserReviews({ id, type }) {
             Be the first to share your thoughts on this title!
           </div>
         )}
+        {filteredReviews.length > 2 ? (
+          <Link
+            href={{
+              pathname: `/title/${id}/reviews`,
+              query: { type },
+            }}
+          >
+            <h1>Show all user reviews</h1>
+          </Link>
+        ) : null}
       </div>
     </div>
   );

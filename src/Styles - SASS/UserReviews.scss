@@ -12,4 +12,20 @@
     margin: 20px 0 40px 0;
     line-height: 30px;
   }
+  .title-reviews-number {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  a {
+    width: 100%;
+    text-decoration: none;
+    text-align: center;
+    color: hsl(0, 0%, 50%);
+    transition: all 0.5s ease;
+    &:hover {
+      color: white;
+      letter-spacing: 1px;
+    }
+  }
 }
