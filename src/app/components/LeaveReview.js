@@ -144,6 +144,7 @@ export default function LeaveReview({ id, type }) {
 
   return (
     <div
+      id="leave-review"
       className={`leave-review ${
         hideLeaveReviewSection ? `hide-leave-review` : ``
       }`}

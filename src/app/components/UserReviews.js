@@ -12,15 +12,18 @@ export default function UserReviews({ id, type }) {
   const filteredReviews = reviews.filter(
     (review) => review.titleId === id && review.titleType === type
   );
+  const reviewsWithDetails = filteredReviews.filter(
+    (review) => review.reviewDetails !== ""
+  );
 
   return (
     <div className="user-reviews">
       <div className="title-reviews-number">
         <h1>User Reviews</h1>
-        {filteredReviews.length > 0 && (
+        {reviewsWithDetails.length > 0 && (
           <h2>
-            {filteredReviews.length}{" "}
-            {filteredReviews.length === 1 ? `Review` : `Reviews`}
+            {reviewsWithDetails.length}{" "}
+            {reviewsWithDetails.length === 1 ? "Review" : "Reviews"}
           </h2>
         )}
       </div>

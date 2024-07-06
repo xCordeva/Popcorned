@@ -130,6 +130,7 @@ body {
 }
 
 .all-cast-page-loading,
+.reviews-page-loading,
 .all-cast-page-not-found,
 .details-page-loading,
 .details-page-not-found,
@@ -143,6 +144,7 @@ body {
   height: 100dvh;
 }
 .all-cast-page-loading img,
+.reviews-page-loading img,
 .all-cast-page-not-found img,
 .details-page-loading img,
 .details-page-not-found img,
