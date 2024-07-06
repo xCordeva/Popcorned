@@ -55,7 +55,7 @@ const titleDetails = ({ params }) => {
 
   if (loading)
     return (
-      <div className="details-page-loading">
+      <div className="page-loading">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/popcorn-gif.gif?alt=media&token=40bd37ee-6317-4211-87f2-2eca181e52e9"
           alt="loading-gif"
@@ -65,7 +65,7 @@ const titleDetails = ({ params }) => {
     );
   if (!details)
     return (
-      <div className="details-page-not-found">
+      <div className="page-not-found">
         <h1>404 Not Found!</h1>
         <p>Oops we couldn't find anything with that title...</p>
       </div>

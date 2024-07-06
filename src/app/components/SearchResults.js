@@ -31,7 +31,7 @@ const SearchResults = ({ status, searchButtonClicked, userSearch }) => {
       </div>
     );
   }
-  console.log(combinedResults);
+
   return (
     <div
       className="search-results"

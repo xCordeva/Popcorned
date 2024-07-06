@@ -8,10 +8,7 @@ import {
 } from "react-accessible-accordion";
 import "react-accessible-accordion/dist/fancy-example.css";
 
-export default function Career({ id, type, works, personDetails }) {
-  console.log(works);
-  console.log(personDetails);
-
+export default function Career({ works, personDetails }) {
   return (
     <div className="person-career">
       <h1>{personDetails.name}'s Career</h1>
