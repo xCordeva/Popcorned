@@ -15,6 +15,8 @@ import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 import { triggerRefetch } from "@/features/RefetchWatchlist";
 import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
+import useFetchReviews from "@/Custom Hooks/useFetchReviews";
+import useAuth from "@/Custom Hooks/useAuth";
 
 const TitleDetails = ({ details, cast, type }) => {
   const formatRuntime = (minutes) => {
@@ -162,7 +164,9 @@ const TitleDetails = ({ details, cast, type }) => {
                 Rate
               </button>
             </div>
-            {ratingPopupOpen && <RatingBox></RatingBox>}
+            {ratingPopupOpen && (
+              <RatingBox type={type} id={details.id}></RatingBox>
+            )}
           </div>
         ) : (
           <div className="birth-location">

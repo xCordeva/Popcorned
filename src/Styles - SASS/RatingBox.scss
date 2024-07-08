@@ -1,6 +1,12 @@
 @use "variables.scss";
 .rating-box-contianer {
   .rating-box {
+    width: 450px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     .rating-stars {
       font-size: 2rem;
       color: variables.$main-yellow;
@@ -9,22 +15,33 @@
         cursor: pointer;
       }
     }
-    .rating-button {
-      cursor: pointer;
-      color: white;
-      white-space: nowrap;
-      max-width: fit-content;
-      padding: 10px 15px;
+    .rating-box-content-container {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      border: none;
-      border-radius: 3px;
-      background-color: variables.$sec-grey;
-      font-weight: 800;
-      margin: 30px 0 0 0;
-      &:hover {
-        background-color: darken($color: variables.$sec-grey, $amount: 2%);
+      flex-direction: column;
+      .rating-button {
+        cursor: pointer;
+        color: white;
+        white-space: nowrap;
+        max-width: fit-content;
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        border: none;
+        border-radius: 5px;
+        background-color: variables.$sec-grey;
+        font-weight: 800;
+        margin: 30px 0 0 0;
+        transition: all 0.3s ease;
+        &:hover {
+          background-color: darken($color: variables.$sec-grey, $amount: 2%);
+        }
+        svg {
+          color: variables.$main-yellow;
+          margin-right: 10px;
+        }
       }
     }
     .rating {
@@ -70,6 +87,17 @@
           border-radius: 10px;
         }
       }
+    }
+    .rating-box-content-container {
+      top: 0;
+      position: relative;
+      height: auto;
+      transition: height 0.4s ease, top 0.4s ease;
+    }
+    .hide-rating-box-content-container {
+      top: -500px;
+      height: 0;
+      transition: height 0.4s ease, top 0.4s ease;
     }
   }
 }

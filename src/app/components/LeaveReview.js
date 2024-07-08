@@ -41,7 +41,7 @@ export default function LeaveReview({ id, type }) {
 
   const userAlreadyReviewed = reviews.find(
     (review) =>
-      review.titleId === id &&
+      review.titleId == id &&
       review.titleType === type &&
       (user ? review.userId === user.uid : false)
   );

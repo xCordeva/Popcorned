@@ -1,3 +1,11 @@
+.rating-box-contianer .rating-box {
+  width: 450px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 .rating-box-contianer .rating-box .rating-stars {
   font-size: 2rem;
   color: #e89c1e;
@@ -6,23 +14,34 @@
 .rating-box-contianer .rating-box .rating-stars svg {
   cursor: pointer;
 }
-.rating-box-contianer .rating-box .rating-button {
+.rating-box-contianer .rating-box .rating-box-content-container {
+  display: flex;
+  flex-direction: column;
+}
+.rating-box-contianer .rating-box .rating-box-content-container .rating-button {
   cursor: pointer;
   color: white;
   white-space: nowrap;
   max-width: fit-content;
-  padding: 10px 15px;
+  font-size: 1.1rem;
+  padding: 10px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: center;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   background-color: hsl(0, 0%, 15%);
   font-weight: 800;
   margin: 30px 0 0 0;
+  transition: all 0.3s ease;
 }
-.rating-box-contianer .rating-box .rating-button:hover {
+.rating-box-contianer .rating-box .rating-box-content-container .rating-button:hover {
   background-color: #212121;
+}
+.rating-box-contianer .rating-box .rating-box-content-container .rating-button svg {
+  color: #e89c1e;
+  margin-right: 10px;
 }
 .rating-box-contianer .rating-box .rating {
   text-align: center;
@@ -65,4 +84,15 @@
 .rating-box-contianer .rating-box .rating-review textarea::-webkit-scrollbar-thumb {
   background-color: black;
   border-radius: 10px;
+}
+.rating-box-contianer .rating-box .rating-box-content-container {
+  top: 0;
+  position: relative;
+  height: auto;
+  transition: height 0.4s ease, top 0.4s ease;
+}
+.rating-box-contianer .rating-box .hide-rating-box-content-container {
+  top: -500px;
+  height: 0;
+  transition: height 0.4s ease, top 0.4s ease;
 }
