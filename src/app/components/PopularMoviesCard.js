@@ -12,6 +12,8 @@ import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 import { useDispatch, useSelector } from "react-redux";
 import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 import { triggerRefetch } from "@/features/RefetchWatchlist";
+import useAuth from "@/Custom Hooks/useAuth";
+import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 
 const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -45,10 +47,14 @@ const PopularMoviesCard = ({ movie }) => {
     dispatch(openRemoveWatchlistPopup(itemId));
   };
   const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
-
+  const { user } = useAuth();
   const handleAddToWatchlist = (result, type, topCast) => {
-    dispatch(triggerRefetch(!refetchWatchlist));
-    addToWatchlist(result, type, topCast);
+    if (!user) {
+      dispatch(showSignInMessagePopup(true));
+    } else {
+      dispatch(triggerRefetch(!refetchWatchlist));
+      addToWatchlist(result, type, topCast);
+    }
   };
   if (watchlist && isLoading) {
     return (

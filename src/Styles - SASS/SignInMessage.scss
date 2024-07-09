@@ -1,0 +1,13 @@
+.sign-in-box-contianer {
+  overflow-y: auto;
+  overflow-x: hidden;
+  .sign-in-box {
+    align-self: flex-start;
+    max-width: 500px;
+    height: 70px;
+    position: relative;
+    text-align: center;
+    top: 75px;
+    box-shadow: 0 0 15px black;
+  }
+}

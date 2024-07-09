@@ -15,7 +15,10 @@ import { userSearchInput, fetchAll } from "@/features/UserSearch";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 import RemoveFromWatchlistBox from "@/app/components/RemoveFromWatchlistBox";
 import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
-import RefetchWatchlist, { triggerRefetch } from "@/features/RefetchWatchlist";
+import { triggerRefetch } from "@/features/RefetchWatchlist";
+import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
+import useAuth from "@/Custom Hooks/useAuth";
+import SignInMessage from "@/app/components/SignInMessage";
 
 const SearchPage = ({ params }) => {
   const dispatch = useDispatch();
@@ -27,15 +30,14 @@ const SearchPage = ({ params }) => {
   const userSearch = useSelector((state) => state.UserSearch.searchInput);
   const [loading, setLoading] = useState(true);
   const status = useSelector((state) => state.UserSearch.status);
-
+  const { user } = useAuth();
   useEffect(() => {
     dispatch(userSearchInput(searchInput));
     dispatch(fetchAll(searchInput));
     setLoading(false);
   }, [searchInput, userSearch, dispatch]);
 
-  const { addToWatchlist, removeFromWatchlist, watchlist, isLoading } =
-    useFetchWatchlist();
+  const { addToWatchlist, watchlist, isLoading } = useFetchWatchlist();
 
   if (!searchInput && !userSearch) {
     return (
@@ -57,10 +59,18 @@ const SearchPage = ({ params }) => {
   const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
 
   const handleAddToWatchlist = (result, type, topCast) => {
-    dispatch(triggerRefetch(!refetchWatchlist));
-    addToWatchlist(result, type, topCast);
+    if (!user) {
+      dispatch(showSignInMessagePopup(true));
+    } else {
+      dispatch(triggerRefetch(!refetchWatchlist));
+      addToWatchlist(result, type, topCast);
+    }
   };
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
+
+  const showMessagePopup = useSelector(
+    (state) => state.SignInMessagePopup.value
+  );
   if (loading || status === "loading" || isLoading) {
     return (
       <div className="search-page-loading">
@@ -203,6 +213,7 @@ const SearchPage = ({ params }) => {
         )}
       </div>
       {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
+      {showMessagePopup && <SignInMessage></SignInMessage>}
     </div>
   );
 };

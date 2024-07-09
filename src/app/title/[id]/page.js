@@ -8,6 +8,8 @@ import TitleDetails from "@/app/components/TitleDetails";
 import KnownFor from "@/app/components/KnownFor";
 import UserReviews from "@/app/components/UserReviews";
 import LeaveReview from "@/app/components/LeaveReview";
+import SignInMessage from "@/app/components/SignInMessage";
+import { useSelector } from "react-redux";
 
 const titleDetails = ({ params }) => {
   const searchParams = useSearchParams();
@@ -52,7 +54,9 @@ const titleDetails = ({ params }) => {
       fetchDetails();
     }
   }, [id, type]);
-
+  const showSignInMessagePopup = useSelector(
+    (state) => state.SignInMessagePopup.value
+  );
   if (loading)
     return (
       <div className="page-loading">
@@ -90,6 +94,7 @@ const titleDetails = ({ params }) => {
         {type !== "person" && <UserReviews id={id} type={type}></UserReviews>}
         {type !== "person" && <LeaveReview id={id} type={type}></LeaveReview>}
       </div>
+      {showSignInMessagePopup && <SignInMessage></SignInMessage>}
     </div>
   );
 };

@@ -10,6 +10,8 @@ import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 import { useDispatch, useSelector } from "react-redux";
 import { triggerRefetch } from "@/features/RefetchWatchlist";
 import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
+import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
+import useAuth from "@/Custom Hooks/useAuth";
 
 export default function PersonsWork({ work }) {
   const dispatch = useDispatch();
@@ -22,11 +24,16 @@ export default function PersonsWork({ work }) {
     dispatch(openRemoveWatchlistPopup(itemId));
   };
   const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
-
+  const { user } = useAuth();
   const handleAddToWatchlist = (event, result, type, topCast) => {
-    event.preventDefault();
-    dispatch(triggerRefetch(!refetchWatchlist));
-    addToWatchlist(result, type, topCast);
+    if (!user) {
+      event.preventDefault();
+      dispatch(showSignInMessagePopup(true));
+    } else {
+      event.preventDefault();
+      dispatch(triggerRefetch(!refetchWatchlist));
+      addToWatchlist(result, type, topCast);
+    }
   };
 
   return (

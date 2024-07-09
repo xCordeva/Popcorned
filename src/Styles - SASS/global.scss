@@ -49,6 +49,7 @@ body {
 }
 
 // the rating and remove from watchlist popups
+.sign-in-box-contianer,
 .already-reviewed-contianer,
 .rate-no-review-contianer,
 .give-rating-popup-contianer,
@@ -64,6 +65,7 @@ body {
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+  .sign-in-box,
   .rating-box,
   .already-reviewed-box,
   .give-rating-popup-box,

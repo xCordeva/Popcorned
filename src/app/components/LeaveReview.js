@@ -13,6 +13,7 @@ import RateNoReview from "./RateNoReview";
 import GiveRatingPopupMessage from "./GiveRatingPopupMessage";
 import useAuth from "@/Custom Hooks/useAuth";
 import AlreadyReviewed from "./AlreadyReviewed";
+import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 
 export default function LeaveReview({ id, type }) {
   const [hoveredStar, setHoveredStar] = useState(0);
@@ -62,69 +63,73 @@ export default function LeaveReview({ id, type }) {
   };
 
   const handleSubmit = () => {
-    if (
-      userAlreadyReviewed &&
-      userAlreadyReviewed.reviewDetails !== "" &&
-      clickedStar > 0 &&
-      reviewText
-    ) {
-      dispatch(openAlreadyReviewedPopup(true));
-    } else if (userAlreadyReviewed && clickedStar > 0 && !reviewText) {
-      setShowEmptyFieldsMessage(true);
-      setTimeout(() => setShowEmptyFieldsMessage(false), 3000);
-    } else if (
-      userAlreadyReviewed &&
-      userAlreadyReviewed.reviewDetails === "" &&
-      clickedStar > 0 &&
-      reviewText
-    ) {
-      editReview(
-        {
-          ...userAlreadyReviewed,
+    if (!user) {
+      dispatch(showSignInMessagePopup(true));
+    } else {
+      if (
+        userAlreadyReviewed &&
+        userAlreadyReviewed.reviewDetails !== "" &&
+        clickedStar > 0 &&
+        reviewText
+      ) {
+        dispatch(openAlreadyReviewedPopup(true));
+      } else if (userAlreadyReviewed && clickedStar > 0 && !reviewText) {
+        setShowEmptyFieldsMessage(true);
+        setTimeout(() => setShowEmptyFieldsMessage(false), 3000);
+      } else if (
+        userAlreadyReviewed &&
+        userAlreadyReviewed.reviewDetails === "" &&
+        clickedStar > 0 &&
+        reviewText
+      ) {
+        editReview(
+          {
+            ...userAlreadyReviewed,
+            rating: clickedStar,
+            reviewDetails: reviewText,
+          },
+          userAlreadyReviewed.firebaseItemId
+        ).then(() => {
+          setReviewSubmitted(true);
+          setTimeout(() => {
+            setHideLeaveReviewSection(true);
+          }, 2000);
+          setTimeout(() => {
+            dispatch(triggerRefetch(!refetchReviews));
+          }, 2500);
+        });
+        setClickedStar(0);
+      } else if (clickedStar > 0 && !reviewText) {
+        dispatch(openRateNoReviewPopup(true));
+      } else if (clickedStar > 0 && reviewText) {
+        const timestamp = Math.floor(Date.now() / 1000);
+        addNewReview({
           rating: clickedStar,
           reviewDetails: reviewText,
-        },
-        userAlreadyReviewed.firebaseItemId
-      ).then(() => {
-        setReviewSubmitted(true);
+          titleId: id,
+          titleType: type,
+          createdAt: { seconds: timestamp },
+        }).then(() => {
+          setReviewSubmitted(true);
+          setTimeout(() => {
+            setHideLeaveReviewSection(true);
+          }, 2000);
+          setTimeout(() => {
+            dispatch(triggerRefetch(!refetchReviews));
+          }, 2500);
+        });
+        setClickedStar(0);
+      } else if (reviewText && clickedStar === 0) {
+        setShowGiveRatingPopup(true);
+        setTimeout(() => setShowGiveRatingPopup(false), 2000);
+      } else {
+        setShowEmptyFieldsMessage(true);
+        setShakingRedStars(true);
         setTimeout(() => {
-          setHideLeaveReviewSection(true);
-        }, 2000);
-        setTimeout(() => {
-          dispatch(triggerRefetch(!refetchReviews));
+          setShowEmptyFieldsMessage(false);
+          setShakingRedStars(false);
         }, 2500);
-      });
-      setClickedStar(0);
-    } else if (clickedStar > 0 && !reviewText) {
-      dispatch(openRateNoReviewPopup(true));
-    } else if (clickedStar > 0 && reviewText) {
-      const timestamp = Math.floor(Date.now() / 1000);
-      addNewReview({
-        rating: clickedStar,
-        reviewDetails: reviewText,
-        titleId: id,
-        titleType: type,
-        createdAt: { seconds: timestamp },
-      }).then(() => {
-        setReviewSubmitted(true);
-        setTimeout(() => {
-          setHideLeaveReviewSection(true);
-        }, 2000);
-        setTimeout(() => {
-          dispatch(triggerRefetch(!refetchReviews));
-        }, 2500);
-      });
-      setClickedStar(0);
-    } else if (reviewText && clickedStar === 0) {
-      setShowGiveRatingPopup(true);
-      setTimeout(() => setShowGiveRatingPopup(false), 2000);
-    } else {
-      setShowEmptyFieldsMessage(true);
-      setShakingRedStars(true);
-      setTimeout(() => {
-        setShowEmptyFieldsMessage(false);
-        setShakingRedStars(false);
-      }, 2500);
+      }
     }
   };
 

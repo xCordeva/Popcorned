@@ -17,6 +17,8 @@ import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import useAuth from "@/Custom Hooks/useAuth";
+import SignInMessage from "./SignInMessage";
+import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 
 const TitleDetails = ({ details, cast, type }) => {
   const formatRuntime = (minutes) => {
@@ -95,12 +97,23 @@ const TitleDetails = ({ details, cast, type }) => {
     dispatch(openRemoveWatchlistPopup(itemId));
   };
   const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
-
+  const { user } = useAuth();
   const handleAddToWatchlist = (result, type, topCast) => {
-    dispatch(triggerRefetch(!refetchWatchlist));
-    addToWatchlist(result, type, topCast);
+    if (!user) {
+      dispatch(showSignInMessagePopup(true));
+    } else {
+      dispatch(triggerRefetch(!refetchWatchlist));
+      addToWatchlist(result, type, topCast);
+    }
   };
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
+  const handleRate = () => {
+    if (!user) {
+      dispatch(showSignInMessagePopup(true));
+    } else {
+      dispatch(openRatingPopup(true));
+    }
+  };
   return (
     <div className="details-card">
       <img
@@ -159,7 +172,7 @@ const TitleDetails = ({ details, cast, type }) => {
                 {details.vote_average.toFixed(1)}
                 <span>/10</span>
               </p>
-              <button onClick={() => dispatch(openRatingPopup(true))}>
+              <button onClick={() => handleRate()}>
                 <FontAwesomeIcon icon={faStarReg} />
                 Rate
               </button>

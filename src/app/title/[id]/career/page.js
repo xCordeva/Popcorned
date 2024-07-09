@@ -7,6 +7,7 @@ import "@/css/Career.css";
 import Career from "@/app/components/Career";
 import RemoveFromWatchlistBox from "@/app/components/RemoveFromWatchlistBox";
 import { useSelector } from "react-redux";
+import SignInMessage from "@/app/components/SignInMessage";
 
 const api_key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -141,7 +142,9 @@ export default function allCast({ params }) {
   }, [id]);
 
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
-
+  const showSignInMessagePopup = useSelector(
+    (state) => state.SignInMessagePopup.value
+  );
   if (loading)
     return (
       <div className="page-loading">
@@ -173,6 +176,7 @@ export default function allCast({ params }) {
         ></Career>
       </div>
       {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
+      {showSignInMessagePopup && <SignInMessage></SignInMessage>}
     </div>
   );
 }
