@@ -114,6 +114,7 @@ const TitleDetails = ({ details, cast, type }) => {
       dispatch(openRatingPopup(true));
     }
   };
+  console.log(details);
   return (
     <div className="details-card">
       <img
@@ -167,11 +168,19 @@ const TitleDetails = ({ details, cast, type }) => {
               {type === "movie" && <p>{formatRuntime(details.runtime)}</p>}
             </div>
             <div className="rating">
-              <FontAwesomeIcon icon={faStar} />
-              <p>
-                {details.vote_average.toFixed(1)}
-                <span>/10</span>
-              </p>
+              <div className="rate-vote-count">
+                <div className="rate-star">
+                  <FontAwesomeIcon icon={faStar} />
+                  <p>
+                    {details.vote_average.toFixed(1)}
+                    <span>/10</span>
+                  </p>
+                </div>
+                <p className="votes-count">
+                  Based on <span>{details.vote_count}</span>{" "}
+                  {details.vote_count == 1 ? `vote` : `votes`}
+                </p>
+              </div>
               <button onClick={() => handleRate()}>
                 <FontAwesomeIcon icon={faStarReg} />
                 Rate

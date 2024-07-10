@@ -64,9 +64,10 @@
     font-size: 2rem;
     svg {
       color: variables.$main-yellow;
+      margin: 15px 0 10px 5px;
     }
     p {
-      margin: 15px 15px 15px 5px;
+      margin: 15px 15px 10px 5px;
       color: white;
       span {
         color: gray;
@@ -92,6 +93,26 @@
       }
       svg {
         margin: 0 5px 0 0;
+      }
+    }
+    .rate-vote-count {
+      width: 150px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+    .rate-star {
+      display: flex;
+      align-items: center;
+    }
+    .votes-count {
+      font-size: 15px;
+      color: grey;
+      text-align: center;
+      margin: 0;
+      span {
+        color: white;
       }
     }
   }
