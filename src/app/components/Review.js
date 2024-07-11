@@ -1,5 +1,6 @@
 import "@/css/Review.css";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import useAuth from "@/Custom Hooks/useAuth";
+import { faStar, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const formatDate = (timestamp) => {
@@ -15,6 +16,7 @@ export default function Review({
   editedReviewText,
   setEditedReviewText,
 }) {
+  const { user } = useAuth();
   return (
     <div className="review" key={index}>
       <img
@@ -52,6 +54,12 @@ export default function Review({
           onChange={(event) => setEditedReviewText(event.target.value)}
         ></textarea>
       </div>
+      {user && review.userId === user.uid && (
+        <div className="user-control-icons">
+          <FontAwesomeIcon icon={faTrashCan} />
+          <FontAwesomeIcon icon={faPen} />
+        </div>
+      )}
     </div>
   );
 }

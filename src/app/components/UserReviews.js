@@ -5,7 +5,7 @@ import Review from "./Review";
 import Link from "next/link";
 
 export default function UserReviews({ id, type }) {
-  const { reviews } = useFetchReviews();
+  const { reviews, isLoading } = useFetchReviews();
 
   const { user } = useAuth();
 
@@ -15,6 +15,10 @@ export default function UserReviews({ id, type }) {
   const reviewsWithDetails = filteredReviews.filter(
     (review) => review.reviewDetails !== ""
   );
+
+  // if(isLoading){
+  //   return()
+  // }
 
   return (
     <div className="user-reviews">
