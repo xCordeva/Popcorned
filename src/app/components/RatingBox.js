@@ -113,7 +113,7 @@ const RatingBox = ({ type, id }) => {
           </p>
           <button className="rating-button" on onClick={() => submitReview()}>
             <FontAwesomeIcon icon={faStarReg} />
-            Rate
+            {userAlreadyReviewed ? `Update Rating` : `Rate`}
           </button>
         </div>
         <div
@@ -122,7 +122,9 @@ const RatingBox = ({ type, id }) => {
           }`}
         >
           <FontAwesomeIcon icon={faCircleCheck} />
-          <h1>Your rate has been submitted!</h1>
+          <h1>
+            Your rate has been {userAlreadyReviewed ? `updated` : `submitted`}!
+          </h1>
         </div>
         <FontAwesomeIcon
           icon={faXmark}

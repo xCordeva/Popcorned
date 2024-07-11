@@ -101,16 +101,31 @@
       align-items: center;
       display: flex;
       flex-direction: column;
+      padding: 0 5px 5px 5px;
+      transition: all 0.3s ease;
+      &.user-rate {
+        cursor: pointer;
+        &:hover {
+          background-color: variables.$main-grey;
+          border-radius: 4px;
+        }
+      }
     }
     .rate-star {
       display: flex;
       align-items: center;
+      .user-rating-star {
+        color: variables.$main-red;
+      }
     }
     .votes-count {
       font-size: 15px;
       color: grey;
       text-align: center;
       margin: 0;
+      &.user-rating-text {
+        color: white;
+      }
       span {
         color: white;
       }

@@ -101,16 +101,31 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  padding: 0 5px 5px 5px;
+  transition: all 0.3s ease;
+}
+.details-card .rating .rate-vote-count.user-rate {
+  cursor: pointer;
+}
+.details-card .rating .rate-vote-count.user-rate:hover {
+  background-color: hsl(0, 0%, 10%);
+  border-radius: 4px;
 }
 .details-card .rating .rate-star {
   display: flex;
   align-items: center;
+}
+.details-card .rating .rate-star .user-rating-star {
+  color: #ca282c;
 }
 .details-card .rating .votes-count {
   font-size: 15px;
   color: grey;
   text-align: center;
   margin: 0;
+}
+.details-card .rating .votes-count.user-rating-text {
+  color: white;
 }
 .details-card .rating .votes-count span {
   color: white;

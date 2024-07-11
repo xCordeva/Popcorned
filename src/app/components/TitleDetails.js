@@ -17,7 +17,6 @@ import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import useAuth from "@/Custom Hooks/useAuth";
-import SignInMessage from "./SignInMessage";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 
 const TitleDetails = ({ details, cast, type }) => {
@@ -114,7 +113,15 @@ const TitleDetails = ({ details, cast, type }) => {
       dispatch(openRatingPopup(true));
     }
   };
-  console.log(details);
+  const { reviews } = useFetchReviews();
+
+  const userAlreadyReviewed = reviews.find(
+    (review) =>
+      review.titleId == details.id &&
+      review.titleType === type &&
+      (user ? review.userId === user.uid : false)
+  );
+
   return (
     <div className="details-card">
       <img
@@ -181,10 +188,29 @@ const TitleDetails = ({ details, cast, type }) => {
                   {details.vote_count == 1 ? `vote` : `votes`}
                 </p>
               </div>
-              <button onClick={() => handleRate()}>
-                <FontAwesomeIcon icon={faStarReg} />
-                Rate
-              </button>
+              {userAlreadyReviewed ? (
+                <div
+                  className="rate-vote-count user-rate"
+                  onClick={() => handleRate()}
+                >
+                  <div className="rate-star">
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      className="user-rating-star"
+                    />
+                    <p>
+                      {userAlreadyReviewed.rating}
+                      <span>/10</span>
+                    </p>
+                  </div>
+                  <p className="votes-count user-rating-text">Your Rating</p>
+                </div>
+              ) : (
+                <button onClick={() => handleRate()}>
+                  <FontAwesomeIcon icon={faStarReg} />
+                  Rate
+                </button>
+              )}
             </div>
             {ratingPopupOpen && (
               <RatingBox type={type} id={details.id}></RatingBox>
