@@ -20,7 +20,7 @@ import useAuth from "@/Custom Hooks/useAuth";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 import RemoveReviewBox from "./RemoveReviewBox";
 
-const TitleDetails = ({ details, cast, type }) => {
+const TitleDetails = ({ details, cast, type, setClickedStar }) => {
   const formatRuntime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
