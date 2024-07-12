@@ -87,7 +87,7 @@
         color: variables.$main-yellow;
       }
       p {
-        margin: 15px 15px 15px 5px;
+        margin: 15px 0 15px 5px;
         color: white;
         span {
           color: gray;
@@ -98,7 +98,7 @@
   .user-control-icons {
     position: absolute;
     top: 6%;
-    right: 3%;
+    right: 2%;
     display: flex;
     align-items: center;
     justify-content: space-between;
