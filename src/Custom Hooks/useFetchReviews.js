@@ -80,15 +80,15 @@ const useFetchReviews = () => {
     setDoc(docRef, { ...editedReview, userId: uid });
   };
 
-  // const removeFromWatchlist = async (itemId) => {
-  //   const uid = await getUserId();
-  //   if (!uid) {
-  //     return;
-  //   }
-  //   deleteDoc(doc(db, `users/${uid}/watchlist`, itemId));
-  // };
+  const removeReview = async (itemId) => {
+    const uid = await getUserId();
+    if (!uid) {
+      return;
+    }
+    deleteDoc(doc(db, `users/${uid}/reviews`, itemId));
+  };
 
-  return { reviews, addNewReview, isLoading, editReview };
+  return { reviews, addNewReview, isLoading, editReview, removeReview };
 };
 
 export default useFetchReviews;

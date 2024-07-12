@@ -1,7 +1,9 @@
 import "@/css/Review.css";
 import useAuth from "@/Custom Hooks/useAuth";
+import { openRemoveReviewPopup } from "@/features/RemoveReviewPopup";
 import { faStar, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
 
 const formatDate = (timestamp) => {
   const date = new Date(timestamp * 1000);
@@ -17,6 +19,8 @@ export default function Review({
   setEditedReviewText,
 }) {
   const { user } = useAuth();
+  const dispatch = useDispatch();
+
   return (
     <div className="review" key={index}>
       <img
@@ -56,7 +60,12 @@ export default function Review({
       </div>
       {user && review.userId === user.uid && (
         <div className="user-control-icons">
-          <FontAwesomeIcon icon={faTrashCan} />
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            onClick={() => {
+              dispatch(openRemoveReviewPopup(review.firebaseItemId));
+            }}
+          />
           <FontAwesomeIcon icon={faPen} />
         </div>
       )}

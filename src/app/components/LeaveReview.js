@@ -15,9 +15,8 @@ import useAuth from "@/Custom Hooks/useAuth";
 import AlreadyReviewed from "./AlreadyReviewed";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 
-export default function LeaveReview({ id, type }) {
+export default function LeaveReview({ id, type, clickedStar, setClickedStar }) {
   const [hoveredStar, setHoveredStar] = useState(0);
-  const [clickedStar, setClickedStar] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [showGiveRatingPopup, setShowGiveRatingPopup] = useState(false);
   const [shakingRedStars, setShakingRedStars] = useState(false);

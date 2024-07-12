@@ -4,13 +4,13 @@ import useAuth from "@/Custom Hooks/useAuth";
 import Review from "./Review";
 import Link from "next/link";
 
-export default function UserReviews({ id, type }) {
+export default function UserReviews({ id, type, clickedStar, setClickedStar }) {
   const { reviews, isLoading } = useFetchReviews();
 
   const { user } = useAuth();
 
   const filteredReviews = reviews.filter(
-    (review) => review.titleId === id && review.titleType === type
+    (review) => review.titleId == id && review.titleType === type
   );
   const reviewsWithDetails = filteredReviews.filter(
     (review) => review.reviewDetails !== ""
@@ -33,9 +33,14 @@ export default function UserReviews({ id, type }) {
       </div>
       <div className="reviews">
         {filteredReviews.length > 0 ? (
-          filteredReviews.slice(0, 2).map((review, index) =>
+          reviewsWithDetails.slice(0, 2).map((review, index) =>
             review.reviewDetails ? (
-              <Review review={review} index={index}></Review>
+              <Review
+                review={review}
+                index={index}
+                clickedStar={clickedStar}
+                setClickedStar={setClickedStar}
+              ></Review>
             ) : (
               <div className="no-reviews">
                 No reviews yet. <br />

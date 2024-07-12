@@ -20,6 +20,7 @@ const titleDetails = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState(null);
   const [cast, setCast] = useState(null);
+  const [clickedStar, setClickedStar] = useState(0);
 
   useEffect(() => {
     if (id && type) {
@@ -79,7 +80,12 @@ const titleDetails = ({ params }) => {
     <div>
       <Navbar></Navbar>
       <div className="title-details-page">
-        <TitleDetails details={details} cast={cast} type={type}></TitleDetails>
+        <TitleDetails
+          details={details}
+          cast={cast}
+          type={type}
+          setClickedStar={setClickedStar}
+        ></TitleDetails>
         {(type === "movie" || type === "tv") && (
           <TopCast id={id} type={type} cast={cast}></TopCast>
         )}
@@ -92,7 +98,14 @@ const titleDetails = ({ params }) => {
           ></KnownFor>
         )}
         {type !== "person" && <UserReviews id={id} type={type}></UserReviews>}
-        {type !== "person" && <LeaveReview id={id} type={type}></LeaveReview>}
+        {type !== "person" && (
+          <LeaveReview
+            id={id}
+            type={type}
+            clickedStar={clickedStar}
+            setClickedStar={setClickedStar}
+          ></LeaveReview>
+        )}
       </div>
       {showSignInMessagePopup && <SignInMessage></SignInMessage>}
     </div>

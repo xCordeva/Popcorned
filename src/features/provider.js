@@ -5,6 +5,7 @@ import UserPopupReducer from "./UserPopup";
 import UserSearchReducer from "./UserSearch";
 import RatingPopupReducer from "./RatingPopup";
 import RemoveWatchlistPopupReducer from "./RemoveWatchlistPopup";
+import RemoveReviewPopupReducer from "./RemoveReviewPopup";
 import RefetchWatchlistReducer from "./RefetchWatchlist";
 import RefetchReviewsReducer from "./RefetchReviews";
 import RateNoReviewPopupReducer from "./RateNoReviewPopup";
@@ -20,6 +21,7 @@ const store = configureStore({
     AlreadyReviewedPopup: AlreadyReviewedPopupReducer,
     SignInMessagePopup: SignInMessagePopupReducer,
     RemoveWatchlistPopup: RemoveWatchlistPopupReducer,
+    RemoveReviewPopup: RemoveReviewPopupReducer,
     RefetchWatchlist: RefetchWatchlistReducer,
     RefetchReviews: RefetchReviewsReducer,
   },

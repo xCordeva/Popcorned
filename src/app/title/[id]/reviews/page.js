@@ -6,6 +6,8 @@ import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import RemoveReviewBox from "@/app/components/RemoveReviewBox";
 
 const api_key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -43,7 +45,9 @@ export default function page({ params }) {
     };
     fetchTitle();
   }, [id, type]);
-
+  const showRemoveReviewPopup = useSelector(
+    (state) => state.RemoveReviewPopup.value
+  );
   if (isLoading || loading)
     return (
       <div className="page-loading">
@@ -84,6 +88,7 @@ export default function page({ params }) {
           )}
         </div>
       </div>
+      {showRemoveReviewPopup && <RemoveReviewBox></RemoveReviewBox>}
     </div>
   );
 }

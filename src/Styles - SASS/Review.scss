@@ -12,6 +12,7 @@
     width: 100px;
     margin-right: 20px;
     border-radius: 4px;
+    margin-top: 10px;
   }
   .username-date-time {
     width: 100%;
@@ -101,7 +102,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 7%;
+    width: 50px;
     svg {
       &:hover {
         color: variables.$main-red;

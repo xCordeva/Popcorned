@@ -18,6 +18,7 @@ import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import useAuth from "@/Custom Hooks/useAuth";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
+import RemoveReviewBox from "./RemoveReviewBox";
 
 const TitleDetails = ({ details, cast, type }) => {
   const formatRuntime = (minutes) => {
@@ -95,6 +96,7 @@ const TitleDetails = ({ details, cast, type }) => {
     event.preventDefault();
     dispatch(openRemoveWatchlistPopup(itemId));
   };
+
   const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
   const { user } = useAuth();
   const handleAddToWatchlist = (result, type, topCast) => {
@@ -105,7 +107,12 @@ const TitleDetails = ({ details, cast, type }) => {
       addToWatchlist(result, type, topCast);
     }
   };
-  const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
+  const showRemoveFromWatchlistPopup = useSelector(
+    (state) => state.RemoveWatchlistPopup.value
+  );
+  const showRemoveReviewPopup = useSelector(
+    (state) => state.RemoveReviewPopup.value
+  );
   const handleRate = () => {
     if (!user) {
       dispatch(showSignInMessagePopup(true));
@@ -332,7 +339,12 @@ const TitleDetails = ({ details, cast, type }) => {
             </button>
           ))}
       </div>
-      {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
+      {showRemoveFromWatchlistPopup && (
+        <RemoveFromWatchlistBox></RemoveFromWatchlistBox>
+      )}
+      {showRemoveReviewPopup && (
+        <RemoveReviewBox setClickedStar={setClickedStar}></RemoveReviewBox>
+      )}
     </div>
   );
 };
