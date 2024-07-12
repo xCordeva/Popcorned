@@ -1,9 +1,17 @@
 import "@/css/Review.css";
 import useAuth from "@/Custom Hooks/useAuth";
+import useFetchReviews from "@/Custom Hooks/useFetchReviews";
+import { triggerRefetch } from "@/features/RefetchReviews";
 import { openRemoveReviewPopup } from "@/features/RemoveReviewPopup";
-import { faStar, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faPen,
+  faTrashCan,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const formatDate = (timestamp) => {
   const date = new Date(timestamp * 1000);
@@ -13,16 +21,35 @@ const formatDate = (timestamp) => {
 
 export default function Review({
   review,
-  editReview,
-  index,
-  editedReviewText,
-  setEditedReviewText,
+  editReviewAlreadyRevPopup,
+  editedReviewTextAlreadyRevPopup,
+  setEditedReviewTextAlreadyRevPopup,
 }) {
   const { user } = useAuth();
   const dispatch = useDispatch();
 
+  const [editReviewClicked, setEditReviewClicked] = useState(false);
+  const [editedReviewText, setEditedReviewText] = useState(
+    review.reviewDetails
+  );
+  const refetchReviews = useSelector((state) => state.RefetchReviews.value);
+
+  const { editReview } = useFetchReviews();
+
+  const handleEditReview = () => {
+    if (editReviewClicked || editReviewAlreadyRevPopup) {
+      editReview(
+        { ...review, reviewDetails: editedReviewText },
+        review.firebaseItemId
+      ).then(() => {
+        setEditReviewClicked(false);
+        dispatch(triggerRefetch(!refetchReviews));
+      });
+    }
+  };
+
   return (
-    <div className="review" key={index}>
+    <div className="review">
       <img
         src="https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
         alt=""
@@ -49,24 +76,47 @@ export default function Review({
             </p>
           </div>
         </div>
-        <p className={`review-details rev-det ${editReview ? "hide" : ""}`}>
+        <p
+          className={`review-details rev-det ${
+            editReviewClicked || editReviewAlreadyRevPopup ? "hide" : ""
+          }`}
+        >
           {review.reviewDetails}
         </p>
         <textarea
-          className={`edit-review-textarea ${editReview ? "show" : ""}`}
-          value={editedReviewText}
-          onChange={(event) => setEditedReviewText(event.target.value)}
+          className={`edit-review-textarea ${
+            editReviewClicked || editReviewAlreadyRevPopup ? "show" : ""
+          }`}
+          value={
+            editReviewAlreadyRevPopup
+              ? editedReviewTextAlreadyRevPopup
+              : editedReviewText
+          }
+          onChange={(event) =>
+            editReviewAlreadyRevPopup
+              ? setEditedReviewTextAlreadyRevPopup(event.target.value)
+              : setEditedReviewText(event.target.value)
+          }
         ></textarea>
       </div>
       {user && review.userId === user.uid && (
         <div className="user-control-icons">
           <FontAwesomeIcon
             icon={faTrashCan}
+            onClick={() =>
+              dispatch(openRemoveReviewPopup(review.firebaseItemId))
+            }
+          />
+          <FontAwesomeIcon
+            icon={
+              editReviewClicked || editReviewAlreadyRevPopup ? faCheck : faPen
+            }
             onClick={() => {
-              dispatch(openRemoveReviewPopup(review.firebaseItemId));
+              setEditReviewClicked(true);
+              setEditedReviewText(review.reviewDetails);
+              handleEditReview();
             }}
           />
-          <FontAwesomeIcon icon={faPen} />
         </div>
       )}
     </div>

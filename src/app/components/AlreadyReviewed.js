@@ -51,10 +51,10 @@ const AlreadyReviewed = ({ review }) => {
           <div className="rating-review">
             <Review
               review={review}
-              editReview={editReviewClicked}
-              editedReviewText={editedReviewText}
-              setEditedReviewText={setEditedReviewText}
-            ></Review>
+              editReviewAlreadyRevPopup={editReviewClicked}
+              editedReviewTextAlreadyRevPopup={editedReviewText}
+              setEditedReviewTextAlreadyRevPopup={setEditedReviewText}
+            />
             <div className="buttons">
               <button
                 onClick={() => dispatch(closeAlreadyReviewedPopup(false))}
