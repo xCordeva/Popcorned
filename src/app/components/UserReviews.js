@@ -16,9 +16,17 @@ export default function UserReviews({ id, type, clickedStar, setClickedStar }) {
     (review) => review.reviewDetails !== ""
   );
 
-  // if(isLoading){
-  //   return()
-  // }
+  if (isLoading) {
+    return (
+      <div className="secondary-loading user-reviews-loading">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+          alt="loading-gif"
+        />
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="user-reviews">

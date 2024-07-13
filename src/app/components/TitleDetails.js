@@ -195,7 +195,15 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
                   {details.vote_count == 1 ? `vote` : `votes`}
                 </p>
               </div>
-              {userAlreadyReviewed ? (
+              {isLoading ? (
+                <div className="your-rating-loading">
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+                    alt="loading-gif"
+                  />
+                  <p>Loading...</p>
+                </div>
+              ) : userAlreadyReviewed ? (
                 <div
                   className="rate-vote-count user-rate"
                   onClick={() => handleRate()}

@@ -224,6 +224,9 @@ body {
 .secondary-loading img {
   width: 100px;
 }
+.secondary-loading.user-reviews-loading {
+  height: 550px;
+}
 
 .hide-rate-submitted {
   bottom: -800px;

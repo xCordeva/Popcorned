@@ -160,6 +160,9 @@ body {
   img {
     width: 100px;
   }
+  &.user-reviews-loading {
+    height: 550px;
+  }
 }
 
 // the rate submission message

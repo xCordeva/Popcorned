@@ -179,6 +179,21 @@
 .details button {
   align-self: center;
 }
+.details .your-rating-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 160px;
+}
+.details .your-rating-loading img {
+  width: 20px;
+  height: 20px;
+  margin: 12px 0;
+}
+.details .your-rating-loading p {
+  font-size: 15px;
+}
 
 .date-time-rate {
   display: flex;
