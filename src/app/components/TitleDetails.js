@@ -19,6 +19,7 @@ import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import useAuth from "@/Custom Hooks/useAuth";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 import RemoveReviewBox from "./RemoveReviewBox";
+import { useState } from "react";
 
 const TitleDetails = ({ details, cast, type, setClickedStar }) => {
   const formatRuntime = (minutes) => {
@@ -90,7 +91,10 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
 
   const { addToWatchlist, watchlist, isLoading } = useFetchWatchlist();
 
-  const watchlistItem = watchlist.find((item) => item.id === details.id);
+  const watchlistItem = watchlist.find(
+    (item) => item.id === details.id && item.type === type
+  );
+  const [isAdded, setisAdded] = useState(true);
 
   const handleRemoveFromListClick = (event, itemId) => {
     event.preventDefault();
@@ -102,9 +106,11 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
   const handleAddToWatchlist = (result, type, topCast) => {
     if (!user) {
       dispatch(showSignInMessagePopup(true));
-    } else {
-      dispatch(triggerRefetch(!refetchWatchlist));
-      addToWatchlist(result, type, topCast);
+    } else if (!watchlistItem && isAdded) {
+      addToWatchlist(result, type, topCast).finally(() => {
+        setisAdded(false);
+        dispatch(triggerRefetch(!refetchWatchlist));
+      });
     }
   };
   const showRemoveFromWatchlistPopup = useSelector(
@@ -338,7 +344,7 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
           ) : (
             <button
               onClick={() =>
-                handleAddToWatchlist(details, "movie", cast.cast.slice(0, 2))
+                handleAddToWatchlist(details, type, cast.cast.slice(0, 2))
               }
               className="add-to-watchlist global-button"
             >
