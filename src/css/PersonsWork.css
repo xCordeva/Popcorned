@@ -77,6 +77,15 @@
   width: 200px;
   align-self: center;
 }
+.the-work .work-details .add-watchlist-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.the-work .work-details .add-watchlist-loading img {
+  width: 40px;
+  height: 40px;
+}
 .the-work .character-name {
   color: hsl(0, 0%, 60%);
   margin: 0;

@@ -9,11 +9,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
-import { triggerRefetch } from "@/features/RefetchWatchlist";
-import useAuth from "@/Custom Hooks/useAuth";
-import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
+import useAddToWatchlist from "@/Custom Hooks/useAddToWatchlist";
 
 const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -38,7 +36,7 @@ const PopularMoviesCard = ({ movie }) => {
     }
     fetchMovieCast();
   }, [movie.id]);
-  const { addToWatchlist, watchlist, isLoading } = useFetchWatchlist();
+  const { watchlist, isLoading } = useFetchWatchlist();
   const dispatch = useDispatch();
   const watchlistItem = watchlist.find((item) => item.id === movie.id);
 
@@ -46,16 +44,8 @@ const PopularMoviesCard = ({ movie }) => {
     event.preventDefault();
     dispatch(openRemoveWatchlistPopup(itemId));
   };
-  const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
-  const { user } = useAuth();
-  const handleAddToWatchlist = (result, type, topCast) => {
-    if (!user) {
-      dispatch(showSignInMessagePopup(true));
-    } else {
-      dispatch(triggerRefetch(!refetchWatchlist));
-      addToWatchlist(result, type, topCast);
-    }
-  };
+
+  const { handleAddToWatchlist } = useAddToWatchlist(movie.id);
   if (watchlist && isLoading) {
     return (
       <div className="secondary-loading">

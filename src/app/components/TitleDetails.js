@@ -12,14 +12,12 @@ import RatingBox from "./RatingBox";
 import { useDispatch, useSelector } from "react-redux";
 import { openRatingPopup } from "@/features/RatingPopup";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
-import { triggerRefetch } from "@/features/RefetchWatchlist";
-import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import useAuth from "@/Custom Hooks/useAuth";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 import RemoveReviewBox from "./RemoveReviewBox";
-import { useState } from "react";
+import useAddToWatchlist from "@/Custom Hooks/useAddToWatchlist";
 
 const TitleDetails = ({ details, cast, type, setClickedStar }) => {
   const formatRuntime = (minutes) => {
@@ -89,30 +87,17 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
   const ratingPopupOpen = useSelector((state) => state.RatingPopup.value);
   const dispatch = useDispatch();
 
-  const { addToWatchlist, watchlist, isLoading } = useFetchWatchlist();
+  const { watchlist, isLoading } = useFetchWatchlist();
 
   const watchlistItem = watchlist.find(
     (item) => item.id === details.id && item.type === type
   );
-  const [isAdded, setisAdded] = useState(true);
 
-  const handleRemoveFromListClick = (event, itemId) => {
-    event.preventDefault();
-    dispatch(openRemoveWatchlistPopup(itemId));
-  };
+  const { handleAddToWatchlist, handleRemoveFromListClick } =
+    useAddToWatchlist();
 
-  const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
   const { user } = useAuth();
-  const handleAddToWatchlist = (result, type, topCast) => {
-    if (!user) {
-      dispatch(showSignInMessagePopup(true));
-    } else if (!watchlistItem && isAdded) {
-      addToWatchlist(result, type, topCast).finally(() => {
-        setisAdded(false);
-        dispatch(triggerRefetch(!refetchWatchlist));
-      });
-    }
-  };
+
   const showRemoveFromWatchlistPopup = useSelector(
     (state) => state.RemoveWatchlistPopup.value
   );
@@ -330,33 +315,41 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
           )}
         </div>
 
-        {type !== "person" && isLoading ? (
-          <div className="add-watchlist-loading">
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
-              alt="loading-gif"
-            />
-          </div>
-        ) : watchlistItem ? (
-          <button
-            onClick={(event) =>
-              handleRemoveFromListClick(event, watchlistItem.firebaseItemId)
-            }
-            className="remove-item global-button"
-          >
-            Remove from watchlist
-            <FontAwesomeIcon icon={faTrashCan} />
-          </button>
+        {type !== "person" && !isLoading ? (
+          watchlistItem ? (
+            <button
+              onClick={(event) =>
+                handleRemoveFromListClick(
+                  event,
+                  watchlistItem.firebaseItemId,
+                  details.id
+                )
+              }
+              className="remove-item global-button"
+            >
+              Remove from watchlist
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+          ) : (
+            <button
+              onClick={() =>
+                handleAddToWatchlist(details, type, cast.cast.slice(0, 2))
+              }
+              className="add-to-watchlist global-button"
+            >
+              Add to Watch List
+              <FontAwesomeIcon icon={faSquarePlus} />
+            </button>
+          )
         ) : (
-          <button
-            onClick={() =>
-              handleAddToWatchlist(details, type, cast.cast.slice(0, 2))
-            }
-            className="add-to-watchlist global-button"
-          >
-            Add to Watch List
-            <FontAwesomeIcon icon={faSquarePlus} />
-          </button>
+          type !== "person" && (
+            <div className="add-watchlist-loading">
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+                alt="loading-gif"
+              />
+            </div>
+          )
         )}
       </div>
       {showRemoveFromWatchlistPopup && (

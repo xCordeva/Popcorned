@@ -14,12 +14,9 @@ import {
 import { userSearchInput, fetchAll } from "@/features/UserSearch";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 import RemoveFromWatchlistBox from "@/app/components/RemoveFromWatchlistBox";
-import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
-import { triggerRefetch } from "@/features/RefetchWatchlist";
-import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
-import useAuth from "@/Custom Hooks/useAuth";
 import SignInMessage from "@/app/components/SignInMessage";
 import usePopupCloser from "@/Custom Hooks/usePopupCloser";
+import useAddToWatchlist from "@/Custom Hooks/useAddToWatchlist";
 
 const SearchPage = ({ params }) => {
   usePopupCloser();
@@ -32,14 +29,14 @@ const SearchPage = ({ params }) => {
   const userSearch = useSelector((state) => state.UserSearch.searchInput);
   const [loading, setLoading] = useState(true);
   const status = useSelector((state) => state.UserSearch.status);
-  const { user } = useAuth();
+
   useEffect(() => {
     dispatch(userSearchInput(searchInput));
     dispatch(fetchAll(searchInput));
     setLoading(false);
   }, [searchInput, userSearch, dispatch]);
 
-  const { addToWatchlist, watchlist, isLoading } = useFetchWatchlist();
+  const { watchlist, isLoading } = useFetchWatchlist();
 
   if (!searchInput && !userSearch) {
     return (
@@ -53,21 +50,8 @@ const SearchPage = ({ params }) => {
     );
   }
 
-  const handleRemoveFromListClick = (event, itemId) => {
-    event.preventDefault();
-    dispatch(openRemoveWatchlistPopup(itemId));
-  };
-
-  const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
-
-  const handleAddToWatchlist = (result, type, topCast) => {
-    if (!user) {
-      dispatch(showSignInMessagePopup(true));
-    } else {
-      dispatch(triggerRefetch(!refetchWatchlist));
-      addToWatchlist(result, type, topCast);
-    }
-  };
+  const { handleAddToWatchlist, handleRemoveFromListClick } =
+    useAddToWatchlist();
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
 
   const showMessagePopup = useSelector(
@@ -183,7 +167,8 @@ const SearchPage = ({ params }) => {
                           onClick={(event) =>
                             handleRemoveFromListClick(
                               event,
-                              watchlistItem.firebaseItemId
+                              watchlistItem.firebaseItemId,
+                              result.id
                             )
                           }
                           className="remove-item global-button"

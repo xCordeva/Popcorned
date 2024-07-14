@@ -7,35 +7,15 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@/css/PersonsWork.css";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
-import { useDispatch, useSelector } from "react-redux";
-import { triggerRefetch } from "@/features/RefetchWatchlist";
-import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
-import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
-import useAuth from "@/Custom Hooks/useAuth";
+import useAddToWatchlist from "@/Custom Hooks/useAddToWatchlist";
 
 export default function PersonsWork({ work }) {
-  const dispatch = useDispatch();
-  const { addToWatchlist, watchlist, isLoading } = useFetchWatchlist();
+  const { watchlist, isLoading } = useFetchWatchlist();
 
   const watchlistItem = watchlist.find((item) => item.id === work.id);
 
-  const handleRemoveFromListClick = (event, itemId) => {
-    event.preventDefault();
-    dispatch(openRemoveWatchlistPopup(itemId));
-  };
-  const refetchWatchlist = useSelector((state) => state.RefetchWatchlist.value);
-  const { user } = useAuth();
-  const handleAddToWatchlist = (event, result, type, topCast) => {
-    if (!user) {
-      event.preventDefault();
-      dispatch(showSignInMessagePopup(true));
-    } else {
-      event.preventDefault();
-      dispatch(triggerRefetch(!refetchWatchlist));
-      addToWatchlist(result, type, topCast);
-    }
-  };
-
+  const { handleAddToWatchlist, handleRemoveFromListClick } =
+    useAddToWatchlist();
   return (
     <Link
       href={`/title/${work.id}?type=${work.media_type}`}
@@ -83,33 +63,51 @@ export default function PersonsWork({ work }) {
           </h3>
         )}
 
-        {work.type !== "person" &&
-          (watchlistItem ? (
-            <button
-              onClick={(event) =>
-                handleRemoveFromListClick(event, watchlistItem.firebaseItemId)
-              }
-              className="remove-item global-button"
-            >
-              Remove from watchlist
-              <FontAwesomeIcon icon={faTrashCan} />
-            </button>
-          ) : (
-            <button
-              onClick={(event) =>
-                handleAddToWatchlist(
-                  event,
-                  work,
-                  "movie",
-                  work.cast.slice(0, 2)
-                )
-              }
-              className="add-to-watchlist global-button"
-            >
-              Add to Watch List
-              <FontAwesomeIcon icon={faSquarePlus} />
-            </button>
-          ))}
+        {work.type !== "person" && (
+          <>
+            {isLoading ? (
+              <div className="add-watchlist-loading">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+                  alt="loading-gif"
+                />
+              </div>
+            ) : (
+              <>
+                {watchlistItem ? (
+                  <button
+                    onClick={(event) =>
+                      handleRemoveFromListClick(
+                        event,
+                        watchlistItem.firebaseItemId,
+                        work.id
+                      )
+                    }
+                    className="remove-item global-button"
+                  >
+                    Remove from watchlist
+                    <FontAwesomeIcon icon={faTrashCan} />
+                  </button>
+                ) : (
+                  <button
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleAddToWatchlist(
+                        work,
+                        "movie",
+                        work.cast.slice(0, 2)
+                      );
+                    }}
+                    className="add-to-watchlist global-button"
+                  >
+                    Add to Watch List
+                    <FontAwesomeIcon icon={faSquarePlus} />
+                  </button>
+                )}
+              </>
+            )}
+          </>
+        )}
       </div>
     </Link>
   );
