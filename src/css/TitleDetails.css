@@ -194,6 +194,15 @@
 .details .your-rating-loading p {
   font-size: 15px;
 }
+.details .add-watchlist-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.details .add-watchlist-loading img {
+  width: 40px;
+  height: 40px;
+}
 
 .date-time-rate {
   display: flex;

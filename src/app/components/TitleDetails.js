@@ -330,28 +330,34 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
           )}
         </div>
 
-        {type !== "person" &&
-          (watchlistItem ? (
-            <button
-              onClick={(event) =>
-                handleRemoveFromListClick(event, watchlistItem.firebaseItemId)
-              }
-              className="remove-item global-button"
-            >
-              Remove from watchlist
-              <FontAwesomeIcon icon={faTrashCan} />
-            </button>
-          ) : (
-            <button
-              onClick={() =>
-                handleAddToWatchlist(details, type, cast.cast.slice(0, 2))
-              }
-              className="add-to-watchlist global-button"
-            >
-              Add to Watch List
-              <FontAwesomeIcon icon={faSquarePlus} />
-            </button>
-          ))}
+        {type !== "person" && isLoading ? (
+          <div className="add-watchlist-loading">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+              alt="loading-gif"
+            />
+          </div>
+        ) : watchlistItem ? (
+          <button
+            onClick={(event) =>
+              handleRemoveFromListClick(event, watchlistItem.firebaseItemId)
+            }
+            className="remove-item global-button"
+          >
+            Remove from watchlist
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
+        ) : (
+          <button
+            onClick={() =>
+              handleAddToWatchlist(details, type, cast.cast.slice(0, 2))
+            }
+            className="add-to-watchlist global-button"
+          >
+            Add to Watch List
+            <FontAwesomeIcon icon={faSquarePlus} />
+          </button>
+        )}
       </div>
       {showRemoveFromWatchlistPopup && (
         <RemoveFromWatchlistBox></RemoveFromWatchlistBox>
