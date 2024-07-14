@@ -19,8 +19,10 @@ import { triggerRefetch } from "@/features/RefetchWatchlist";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 import useAuth from "@/Custom Hooks/useAuth";
 import SignInMessage from "@/app/components/SignInMessage";
+import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 
 const SearchPage = ({ params }) => {
+  usePopupCloser();
   const dispatch = useDispatch();
 
   const searchInput = decodeURIComponent(params.searchTerm);

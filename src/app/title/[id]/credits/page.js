@@ -4,8 +4,10 @@ import Navbar from "@/app/components/Navbar";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import "@/css/AllCast.css";
+import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 
 export default function allCast({ params }) {
+  usePopupCloser();
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
 

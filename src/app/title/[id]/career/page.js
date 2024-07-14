@@ -8,6 +8,7 @@ import Career from "@/app/components/Career";
 import RemoveFromWatchlistBox from "@/app/components/RemoveFromWatchlistBox";
 import { useSelector } from "react-redux";
 import SignInMessage from "@/app/components/SignInMessage";
+import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 
 const api_key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -30,6 +31,7 @@ const fetchCast = async (mediaType, id) => {
 };
 
 export default function allCast({ params }) {
+  usePopupCloser();
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
 

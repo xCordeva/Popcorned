@@ -1,10 +1,12 @@
 "use client";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
+import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 import Navbar from "@/app/components/Navbar";
 import Watchlist from "@/app/components/Watchlist";
 import "@/css/Watchlist.css";
 
 export default function WatchlistPage() {
+  usePopupCloser();
   const { isLoading } = useFetchWatchlist();
   if (isLoading)
     return (

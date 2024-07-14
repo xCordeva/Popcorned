@@ -10,8 +10,10 @@ import UserReviews from "@/app/components/UserReviews";
 import LeaveReview from "@/app/components/LeaveReview";
 import SignInMessage from "@/app/components/SignInMessage";
 import { useSelector } from "react-redux";
+import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 
 const titleDetails = ({ params }) => {
+  usePopupCloser();
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
 
