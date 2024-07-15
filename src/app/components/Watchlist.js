@@ -14,7 +14,6 @@ export default function Watchlist() {
     dispatch(openRemoveWatchlistPopup(itemId));
   };
   const { watchlist, isLoading } = useFetchWatchlist();
-  console.log(watchlist);
   if (watchlist < 1 && !isLoading) {
     return (
       <div className="watchlist-section">
