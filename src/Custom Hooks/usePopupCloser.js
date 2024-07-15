@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { closeUserPopup } from "../features/UserPopup";
-import { auth } from "@/firebase/firebase";
 
 const usePopupCloser = () => {
-  const [user] = useAuthState(auth);
-
   const dispatch = useDispatch();
   const userPopupOpen = useSelector((state) => state.UserPopup.value);
 
   const handleBodyClick = (event) => {
     // check if the click is outside the popup
-    if (userPopupOpen && !event.target.closest(".popup-user")) {
+    if (
+      userPopupOpen &&
+      !event.target.closest(".popup-user") &&
+      !event.target.closest(".user")
+    ) {
       dispatch(closeUserPopup(false));
     }
   };
