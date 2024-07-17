@@ -109,16 +109,20 @@
   overflow: hidden;
   z-index: 99;
 }
-.popup-user h4 {
+.popup-user a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  white-space: nowrap;
   width: 100%;
   padding: 25px 0;
   margin: 0;
   cursor: pointer;
 }
-.popup-user h4 svg {
+.popup-user a svg {
   margin: 0 6px;
 }
-.popup-user h4:hover {
+.popup-user a:hover {
   background-color: hsl(0, 0%, 10%);
 }
 

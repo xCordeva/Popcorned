@@ -7,8 +7,10 @@ import {
   faRightToBracket,
   faStar,
   faList,
+  faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { closeUserPopup } from "@/features/UserPopup";
+import Link from "next/link";
 
 export default function PopupUser() {
   const router = useRouter();
@@ -25,18 +27,22 @@ export default function PopupUser() {
   };
   return (
     <div className="popup-user">
-      <h4>
+      <Link href={`/profile-settings`}>
+        <FontAwesomeIcon icon={faGear} />
+        Profile
+      </Link>
+      <Link href={`/`}>
         <FontAwesomeIcon icon={faStar} />
         My Ratings
-      </h4>
-      <h4>
+      </Link>
+      <Link href={`/`}>
         <FontAwesomeIcon icon={faList} />
         My Lists
-      </h4>
-      <h4 onClick={handleSignOut}>
+      </Link>
+      <Link href={`/`} onClick={handleSignOut}>
         <FontAwesomeIcon icon={faRightToBracket} />
         Sign Out
-      </h4>
+      </Link>
     </div>
   );
 }
