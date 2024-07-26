@@ -18,7 +18,6 @@ export default function Navbar() {
     dispatch(openUserPopup(!userPopupClicked));
   };
   const { user } = useAuth();
-  console.log(user);
   return (
     <div className="navbar-container">
       <div className="navbar">
