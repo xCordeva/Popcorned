@@ -2,23 +2,7 @@
 import useAuth from "@/Custom Hooks/useAuth";
 import Navbar from "../components/Navbar";
 import "@/css/ProfilePage.css";
-import { useRef, useState } from "react";
 import usePopupCloser from "@/Custom Hooks/usePopupCloser";
-import {
-  getDownloadURL,
-  getStorage,
-  ref as storageRef,
-  uploadBytes,
-} from "firebase/storage";
-import {
-  EmailAuthProvider,
-  reauthenticateWithCredential,
-  sendEmailVerification,
-  updateEmail,
-  updatePassword,
-  updateProfile,
-} from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import {
   faCircleExclamation,
   faCircleCheck,
@@ -26,174 +10,51 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { auth, db } from "../../firebase/firebase";
+import useEmailUpdate from "@/Custom Hooks/useEmailUpdate";
+import usePasswordUpdate from "@/Custom Hooks/usePasswordUpdate";
+import useProfilePictureUpload from "@/Custom Hooks/useProfilePictureUpload";
 
 export default function ProfilePage() {
   usePopupCloser();
   const { user } = useAuth();
 
-  const [isAddingNewEmail, setIsAddingNewEmail] = useState(false);
-  const [newEmail, setNewEmail] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [profilePicture, setProfilePicture] = useState(
-    "https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/no-image-avaiable.jpg?alt=media&token=f01f2f4a-c8db-4e5f-8f7f-c920219a77fd"
-  );
-  const [emailUpdated, setEmailUpdated] = useState(false);
-  const [showInvalidEmailError, setShowInvalidEmailError] = useState(false);
-  const [showInvalidPasswordError, setShowInvalidPasswordError] =
-    useState(false);
-  const [showSelectImageAlert, setShowSelectImageAlert] = useState(false);
-  const [showImageUpdatedSuccessfully, setShowImageUpdatedSuccessfully] =
-    useState(false);
-  const [emailVerficationSent, setEmailVerficationSent] = useState(false);
-  const [passwordOfUpdateEmail, setPasswordOfUpdateEmail] = useState("");
-  const [pictureUploading, setPictureUploading] = useState(false);
+  const {
+    profilePicture,
+    showSelectImageAlert,
+    showImageUpdatedSuccessfully,
+    pictureUploading,
+    fileInputRef,
+    handleFileInputChange,
+  } = useProfilePictureUpload(user);
 
-  const fileInputRef = useRef(null);
+  const {
+    isAddingNewEmail,
+    newEmail,
+    passwordOfUpdateEmail,
+    emailUpdated,
+    showInvalidEmailError,
+    showInvalidPasswordError,
+    emailVerficationSent,
+    setNewEmail,
+    setPasswordOfUpdateEmail,
+    setIsAddingNewEmail,
+    handleUpdateEmail,
+    handleSendVerification,
+  } = useEmailUpdate(user);
 
-  const storage = getStorage();
-
-  const handleAddNewEmail = () => {
-    setIsAddingNewEmail(true);
-  };
-
-  const handleUpdateEmail = async () => {
-    const credential = EmailAuthProvider.credential(
-      user.email,
-      passwordOfUpdateEmail
-    );
-    try {
-      if (user) {
-        if (newEmail === "") {
-          setShowInvalidEmailError(true);
-        } else {
-          await reauthenticateWithCredential(user, credential);
-          await updateEmail(user, newEmail).then(() => setEmailUpdated(true));
-          setShowInvalidPasswordError(false);
-          setShowInvalidEmailError(false);
-          setIsAddingNewEmail(false);
-        }
-      }
-    } catch (error) {
-      console.error("Error updating email: ", error);
-      if (error.code === "auth/wrong-password") {
-        setShowInvalidPasswordError(true);
-        setShowInvalidEmailError(false);
-      } else if (error.code === "auth/invalid-email") {
-        setShowInvalidEmailError(true);
-        setShowInvalidPasswordError(false);
-      } else if (error.code === "auth/missing-password") {
-        setShowInvalidEmailError(false);
-        setShowInvalidPasswordError(true);
-      }
-    }
-  };
-  const [passwordNotMatchError, setPasswordNotMatchError] = useState(false);
-  const [passwordUpdated, setPasswordUpdated] = useState(false);
-  const [showWrongPasswordError, setShowWrongPasswordError] = useState(false);
-  const [weakPassword, setWeakPassword] = useState(false);
-  const handleUpdatePassword = async () => {
-    if (newPassword === confirmNewPassword) {
-      const credential = EmailAuthProvider.credential(
-        user.email,
-        currentPassword
-      );
-      try {
-        // Reauthenticate the user
-        await reauthenticateWithCredential(user, credential);
-
-        await updatePassword(user, newPassword);
-        setPasswordUpdated(true);
-        setCurrentPassword("");
-        setConfirmNewPassword("");
-        setNewPassword("");
-        setPasswordNotMatchError(false);
-        setWeakPassword(false);
-      } catch (error) {
-        if (error.code === "auth/wrong-password") {
-          setShowWrongPasswordError(true);
-        } else if (error.code === "auth/weak-password") {
-          setWeakPassword(true);
-        } else {
-          console.error("Error updating password: ", error);
-        }
-      }
-    } else {
-      setPasswordNotMatchError(true);
-    }
-  };
-
-  const handleFileInputChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const fileType = file.type.split("/")[0];
-      if (fileType !== "image") {
-        setShowSelectImageAlert(true);
-        return;
-      }
-      handleImageUpload(file);
-    }
-  };
-
-  const handleImageUpload = (file) => {
-    if (!file) {
-      return;
-    }
-    const imageRef = storageRef(storage, `profile-pictures/${user.uid}`);
-
-    setPictureUploading(true);
-    uploadBytes(imageRef, file)
-      .then((snapshot) => {
-        getDownloadURL(snapshot.ref)
-          .then((url) => {
-            updateProfilePicture(url);
-            saveProfilePictureUrlToDatabase(url);
-          })
-          .catch((error) => {
-            console.error(error.message);
-          });
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
-  };
-
-  const updateProfilePicture = (url) => {
-    updateProfile(auth.currentUser, { photoURL: url })
-      .then(() => {
-        setProfilePicture(url);
-        setShowSelectImageAlert(false);
-        setPictureUploading(false);
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
-  };
-
-  const saveProfilePictureUrlToDatabase = async (url) => {
-    try {
-      await setDoc(doc(db, "users", user.uid), { photoURL: url }).then(() => {
-        setShowImageUpdatedSuccessfully(true);
-        setTimeout(() => {
-          setShowImageUpdatedSuccessfully(false);
-        }, 4000);
-      });
-    } catch (error) {
-      console.error("Error saving profile picture URL to database: ", error);
-    }
-  };
-
-  const handleSendVerification = async () => {
-    try {
-      await sendEmailVerification(user);
-      setEmailVerficationSent(true);
-    } catch (error) {
-      console.error(error);
-      setEmailVerficationSent(false);
-    }
-  };
+  const {
+    currentPassword,
+    newPassword,
+    confirmNewPassword,
+    passwordNotMatchError,
+    passwordUpdated,
+    showWrongPasswordError,
+    weakPassword,
+    setCurrentPassword,
+    setNewPassword,
+    setConfirmNewPassword,
+    handleUpdatePassword,
+  } = usePasswordUpdate(user);
 
   return (
     <div>
@@ -295,7 +156,7 @@ export default function ProfilePage() {
                 </p>
               ) : (
                 <button
-                  onClick={handleAddNewEmail}
+                  onClick={() => setIsAddingNewEmail(true)}
                   className={`update-button ${
                     isAddingNewEmail ? "hide-update-button" : ""
                   }`}
