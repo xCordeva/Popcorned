@@ -11,6 +11,7 @@
   background-color: #080808;
   padding: 1% 5%;
   border-radius: 5px;
+  align-items: center;
 }
 .profile-settings-page .profile-settings .profile-picture {
   display: flex;
