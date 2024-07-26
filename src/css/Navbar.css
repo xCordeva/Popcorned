@@ -60,18 +60,24 @@
   background-color: hsl(0, 0%, 15%);
   transition: background-color 0.3s ease;
 }
-.navbar .user-info .user svg {
+.navbar .user-info .user svg,
+.navbar .user-info .user img {
   width: 20px;
+  height: 20px;
+  border-radius: 50%;
   margin: 0 5px;
 }
-.navbar .user-info .user svg:nth-of-type(2) {
+.navbar .user-info .user svg:nth-of-type(2),
+.navbar .user-info .user img:nth-of-type(2) {
   width: 15px;
 }
-.navbar .user-info .user svg:nth-of-type(2).user-arrow-up {
+.navbar .user-info .user svg:nth-of-type(2).user-arrow-up,
+.navbar .user-info .user img:nth-of-type(2).user-arrow-up {
   transition: transform 0.5s ease;
   transform: rotateX(180deg);
 }
-.navbar .user-info .user svg:nth-of-type(2).user-arrow-down {
+.navbar .user-info .user svg:nth-of-type(2).user-arrow-down,
+.navbar .user-info .user img:nth-of-type(2).user-arrow-down {
   transition: transform 0.5s ease;
   transform: rotateX(0deg);
 }

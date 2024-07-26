@@ -18,6 +18,7 @@ export default function Navbar() {
     dispatch(openUserPopup(!userPopupClicked));
   };
   const { user } = useAuth();
+  console.log(user);
   return (
     <div className="navbar-container">
       <div className="navbar">
@@ -41,7 +42,11 @@ export default function Navbar() {
                 toggleUserPopup();
               }}
             >
-              <FontAwesomeIcon icon={faCircleUser} />
+              {user?.photoURL ? (
+                <img src={user?.photoURL} alt="user-photo" />
+              ) : (
+                <FontAwesomeIcon icon={faCircleUser} />
+              )}
               <p>
                 {user &&
                   user.displayName &&
