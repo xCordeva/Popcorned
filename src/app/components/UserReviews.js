@@ -1,13 +1,10 @@
 import "@/css/UserReviews.css";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
-import useAuth from "@/Custom Hooks/useAuth";
 import Review from "./Review";
 import Link from "next/link";
 
 export default function UserReviews({ id, type, clickedStar, setClickedStar }) {
   const { reviews, isLoading } = useFetchReviews();
-
-  const { user } = useAuth();
 
   const filteredReviews = reviews.filter(
     (review) => review.titleId == id && review.titleType === type
@@ -41,20 +38,23 @@ export default function UserReviews({ id, type, clickedStar, setClickedStar }) {
       </div>
       <div className="reviews">
         {filteredReviews.length > 0 ? (
-          reviewsWithDetails.slice(0, 2).map((review, index) =>
-            review.reviewDetails ? (
-              <Review
-                review={review}
-                index={index}
-                clickedStar={clickedStar}
-                setClickedStar={setClickedStar}
-              ></Review>
-            ) : (
-              <div className="no-reviews">
-                No reviews yet. <br />
-                Be the first to share your thoughts on this title!
-              </div>
-            )
+          reviewsWithDetails.length > 0 ? (
+            reviewsWithDetails
+              .slice(0, 2)
+              .map((review, index) => (
+                <Review
+                  review={review}
+                  index={index}
+                  clickedStar={clickedStar}
+                  setClickedStar={setClickedStar}
+                  key={index}
+                />
+              ))
+          ) : (
+            <div className="no-reviews">
+              No reviews yet. <br />
+              Be the first to share your thoughts on this title!
+            </div>
           )
         ) : (
           <div className="no-reviews">
@@ -62,7 +62,7 @@ export default function UserReviews({ id, type, clickedStar, setClickedStar }) {
             Be the first to share your thoughts on this title!
           </div>
         )}
-        {filteredReviews.length > 2 ? (
+        {filteredReviews.length > 2 && (
           <Link
             href={{
               pathname: `/title/${id}/reviews`,
@@ -71,7 +71,7 @@ export default function UserReviews({ id, type, clickedStar, setClickedStar }) {
           >
             <h1>Show all user reviews</h1>
           </Link>
-        ) : null}
+        )}
       </div>
     </div>
   );
