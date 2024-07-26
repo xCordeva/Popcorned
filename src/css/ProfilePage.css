@@ -84,6 +84,15 @@
   border-radius: 4px;
   margin: 10px 0;
   font-weight: 1000;
+  transition: all 0.4s ease;
+}
+.profile-settings-page .profile-settings .user-info button:hover {
+  background-color: #ac2226;
+  transition: all 0.4s ease;
+}
+.profile-settings-page .profile-settings .user-info button:disabled {
+  background-color: hsl(0, 0%, 35%);
+  cursor: auto;
 }
 .profile-settings-page .profile-settings .user-info .email-group {
   display: inline-flex;
@@ -102,13 +111,16 @@
   text-align: center;
   width: fit-content;
 }
-.profile-settings-page .profile-settings .user-info .email-group .verification-status .send-verfication {
+.profile-settings-page .profile-settings .user-info .email-group .verification-status span {
   display: block;
   color: white;
   text-decoration: underline;
   color: #ca282c;
   margin: 5px 0;
   cursor: pointer;
+}
+.profile-settings-page .profile-settings .user-info .email-group .verification-status .verfication-sent {
+  color: hsl(120, 100%, 35%);
 }
 .profile-settings-page .profile-settings .user-info .button-container {
   overflow: hidden;
@@ -117,7 +129,7 @@
   top: 0;
   position: relative;
   height: auto;
-  transition: height 0.4s ease, top 0.4s ease;
+  transition: height 0.4s ease, top 0.4s ease, all 0.4s ease;
 }
 .profile-settings-page .profile-settings .user-info .button-container .hide-update-button {
   top: -500px;
@@ -133,6 +145,18 @@
   visibility: hidden;
   transition: height 0.4s ease, padding 0.4s ease, position 0.4s ease;
 }
+.profile-settings-page .profile-settings .user-info .new-email-group:nth-of-type(3),
+.profile-settings-page .profile-settings .user-info .update-email-button:nth-of-type(3) {
+  margin-top: 10px;
+}
+.profile-settings-page .profile-settings .user-info .invalid-input,
+.profile-settings-page .profile-settings .user-info .password-no-match {
+  color: red;
+}
+.profile-settings-page .profile-settings .user-info .invalid-input svg,
+.profile-settings-page .profile-settings .user-info .password-no-match svg {
+  margin-right: 10px;
+}
 .profile-settings-page .profile-settings .user-info .show-email-group,
 .profile-settings-page .profile-settings .user-info .show-update-email-button {
   height: auto;
@@ -140,6 +164,15 @@
   visibility: visible;
   position: relative;
   transition: height 0.4s ease, padding 0.4s ease;
+}
+.profile-settings-page .email-updated,
+.profile-settings-page .password-updated {
+  color: hsl(120, 100%, 35%);
+  font-size: larger;
+}
+.profile-settings-page .email-updated svg,
+.profile-settings-page .password-updated svg {
+  margin-left: 10px;
 }
 .profile-settings-page .choose-image-button {
   cursor: pointer;

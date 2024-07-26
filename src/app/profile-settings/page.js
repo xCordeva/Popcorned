@@ -10,17 +10,28 @@ import {
   ref as storageRef,
   uploadBytes,
 } from "firebase/storage";
-import { getAuth, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  sendEmailVerification,
+  updateEmail,
+  updatePassword,
+  updateProfile,
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import {
   faCircleExclamation,
   faCircleCheck,
+  faCheck,
+  faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { auth, db } from "../../firebase/firebase";
 
 export default function ProfilePage() {
   usePopupCloser();
   const { user } = useAuth();
+
   const [isAddingNewEmail, setIsAddingNewEmail] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -29,26 +40,91 @@ export default function ProfilePage() {
   const [profilePicture, setProfilePicture] = useState(
     "https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/no-image-avaiable.jpg?alt=media&token=f01f2f4a-c8db-4e5f-8f7f-c920219a77fd"
   );
+  const [emailUpdated, setEmailUpdated] = useState(false);
+  const [showInvalidEmailError, setShowInvalidEmailError] = useState(false);
+  const [showInvalidPasswordError, setShowInvalidPasswordError] =
+    useState(false);
+  const [showSelectImageAlert, setShowSelectImageAlert] = useState(false);
+  const [showImageUpdatedSuccessfully, setShowImageUpdatedSuccessfully] =
+    useState(false);
+  const [emailVerficationSent, setEmailVerficationSent] = useState(false);
+  const [passwordOfUpdateEmail, setPasswordOfUpdateEmail] = useState("");
+  const [pictureUploading, setPictureUploading] = useState(false);
+
   const fileInputRef = useRef(null);
+
+  const storage = getStorage();
 
   const handleAddNewEmail = () => {
     setIsAddingNewEmail(true);
   };
 
-  const handleUpdateEmail = () => {
-    console.log("Updating email to:", newEmail);
-  };
-
-  const handleUpdatePassword = () => {
-    if (newPassword === confirmNewPassword) {
-      console.log("Updating password to:", newPassword);
-    } else {
-      console.error("Passwords do not match");
+  const handleUpdateEmail = async () => {
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      passwordOfUpdateEmail
+    );
+    try {
+      if (user) {
+        if (newEmail === "") {
+          setShowInvalidEmailError(true);
+        } else {
+          await reauthenticateWithCredential(user, credential);
+          await updateEmail(user, newEmail).then(() => setEmailUpdated(true));
+          setShowInvalidPasswordError(false);
+          setShowInvalidEmailError(false);
+          setIsAddingNewEmail(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error updating email: ", error);
+      if (error.code === "auth/wrong-password") {
+        setShowInvalidPasswordError(true);
+        setShowInvalidEmailError(false);
+      } else if (error.code === "auth/invalid-email") {
+        setShowInvalidEmailError(true);
+        setShowInvalidPasswordError(false);
+      } else if (error.code === "auth/missing-password") {
+        setShowInvalidEmailError(false);
+        setShowInvalidPasswordError(true);
+      }
     }
   };
-  const [showSelectImageAlert, setShowSelectImageAlert] = useState(false);
-  const [showImageUpdatedSuccessfully, setShowImageUpdatedSuccessfully] =
-    useState(false);
+  const [passwordNotMatchError, setPasswordNotMatchError] = useState(false);
+  const [passwordUpdated, setPasswordUpdated] = useState(false);
+  const [showWrongPasswordError, setShowWrongPasswordError] = useState(false);
+  const [weakPassword, setWeakPassword] = useState(false);
+  const handleUpdatePassword = async () => {
+    if (newPassword === confirmNewPassword) {
+      const credential = EmailAuthProvider.credential(
+        user.email,
+        currentPassword
+      );
+      try {
+        // Reauthenticate the user
+        await reauthenticateWithCredential(user, credential);
+
+        await updatePassword(user, newPassword);
+        setPasswordUpdated(true);
+        setCurrentPassword("");
+        setConfirmNewPassword("");
+        setNewPassword("");
+        setPasswordNotMatchError(false);
+        setWeakPassword(false);
+      } catch (error) {
+        if (error.code === "auth/wrong-password") {
+          setShowWrongPasswordError(true);
+        } else if (error.code === "auth/weak-password") {
+          setWeakPassword(true);
+        } else {
+          console.error("Error updating password: ", error);
+        }
+      }
+    } else {
+      setPasswordNotMatchError(true);
+    }
+  };
+
   const handleFileInputChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -61,11 +137,6 @@ export default function ProfilePage() {
     }
   };
 
-  const storage = getStorage();
-  const db = getFirestore();
-  const auth = getAuth();
-
-  const [pictureUploading, setPictureUploading] = useState(false);
   const handleImageUpload = (file) => {
     if (!file) {
       return;
@@ -88,10 +159,9 @@ export default function ProfilePage() {
         console.error(error.message);
       });
   };
+
   const updateProfilePicture = (url) => {
-    updateProfile(auth.currentUser, {
-      photoURL: url,
-    })
+    updateProfile(auth.currentUser, { photoURL: url })
       .then(() => {
         setProfilePicture(url);
         setShowSelectImageAlert(false);
@@ -104,9 +174,7 @@ export default function ProfilePage() {
 
   const saveProfilePictureUrlToDatabase = async (url) => {
     try {
-      await setDoc(doc(db, "users", user.uid), {
-        photoURL: url,
-      }).then(() => {
+      await setDoc(doc(db, "users", user.uid), { photoURL: url }).then(() => {
         setShowImageUpdatedSuccessfully(true);
         setTimeout(() => {
           setShowImageUpdatedSuccessfully(false);
@@ -114,6 +182,16 @@ export default function ProfilePage() {
       });
     } catch (error) {
       console.error("Error saving profile picture URL to database: ", error);
+    }
+  };
+
+  const handleSendVerification = async () => {
+    try {
+      await sendEmailVerification(user);
+      setEmailVerficationSent(true);
+    } catch (error) {
+      console.error(error);
+      setEmailVerficationSent(false);
     }
   };
 
@@ -138,10 +216,9 @@ export default function ProfilePage() {
                   className="profile-picture"
                   src={user?.photoURL || profilePicture}
                   alt="user-profile-picture"
-                />{" "}
+                />
               </div>
             )}
-
             <label className="choose-image-button">
               Choose Image
               <input
@@ -155,9 +232,7 @@ export default function ProfilePage() {
             <div className="image-text-container">
               <p
                 className="select-image-alert"
-                style={{
-                  display: showSelectImageAlert ? "flex" : "none",
-                }}
+                style={{ display: showSelectImageAlert ? "flex" : "none" }}
               >
                 <FontAwesomeIcon icon={faCircleExclamation} />
                 Please select a valid image file
@@ -196,28 +271,39 @@ export default function ProfilePage() {
               {user && !user.emailVerified ? (
                 <p className="verification-status">
                   Not Verified{" "}
-                  <span
-                    className="send-verfication"
-                    onClick={() => handleSendVerification(user.email)}
-                  >
-                    Send Verification
-                  </span>
+                  {emailVerficationSent ? (
+                    <p className="verfication-sent">
+                      Verification Sent <FontAwesomeIcon icon={faCheck} />
+                    </p>
+                  ) : (
+                    <span
+                      className="send-verification"
+                      onClick={() => handleSendVerification(user.email)}
+                    >
+                      Send Verification
+                    </span>
+                  )}
                 </p>
               ) : (
                 <p className="verification-status">Verified</p>
               )}
             </div>
             <div className="button-container">
-              <button
-                onClick={handleAddNewEmail}
-                className={`update-button ${
-                  isAddingNewEmail ? "hide-update-button" : ""
-                }`}
-              >
-                Add New Email
-              </button>
+              {emailUpdated ? (
+                <p className="email-updated">
+                  Email Updated <FontAwesomeIcon icon={faCheck} />
+                </p>
+              ) : (
+                <button
+                  onClick={handleAddNewEmail}
+                  className={`update-button ${
+                    isAddingNewEmail ? "hide-update-button" : ""
+                  }`}
+                >
+                  Add New Email
+                </button>
+              )}
             </div>
-
             <input
               className={`new-email-group ${
                 isAddingNewEmail ? "show-email-group" : ""
@@ -227,7 +313,27 @@ export default function ProfilePage() {
               value={newEmail}
               onChange={(e) => setNewEmail(e.target.value)}
             />
-
+            <input
+              className={`new-email-group ${
+                isAddingNewEmail ? "show-email-group" : ""
+              }`}
+              type="password"
+              placeholder="Enter current password to update email"
+              value={passwordOfUpdateEmail}
+              onChange={(e) => setPasswordOfUpdateEmail(e.target.value)}
+            />
+            {showInvalidEmailError && (
+              <p className="invalid-input show-invalid-input">
+                <FontAwesomeIcon icon={faCircleExclamation} />
+                Please enter a valid email address
+              </p>
+            )}
+            {showInvalidPasswordError && (
+              <p className="invalid-input show-invalid-input">
+                <FontAwesomeIcon icon={faCircleExclamation} />
+                The password you entered is incorrect
+              </p>
+            )}
             <button
               onClick={handleUpdateEmail}
               className={`update-email-button ${
@@ -236,7 +342,6 @@ export default function ProfilePage() {
             >
               Update Email
             </button>
-
             <label htmlFor="current-password">Current Password:</label>
             <input
               id="current-password"
@@ -245,7 +350,6 @@ export default function ProfilePage() {
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
             />
-
             <label htmlFor="new-password">New Password:</label>
             <input
               id="new-password"
@@ -254,7 +358,6 @@ export default function ProfilePage() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
-
             <label htmlFor="confirm-new-password">Confirm New Password:</label>
             <input
               id="confirm-new-password"
@@ -263,10 +366,37 @@ export default function ProfilePage() {
               value={confirmNewPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}
             />
-
-            <button onClick={handleUpdatePassword} className="update-button">
-              Update Password
+            <button
+              onClick={handleUpdatePassword}
+              className="update-button"
+              disabled={passwordUpdated}
+            >
+              {passwordUpdated ? `Password Updated` : `Update Password`}
             </button>
+            {passwordNotMatchError && (
+              <p className="password-no-match">
+                <FontAwesomeIcon icon={faCircleXmark} />
+                The passwords you entered do not match.
+              </p>
+            )}
+            {passwordUpdated && (
+              <p className="password-updated">
+                Password Updated Successfully.
+                <FontAwesomeIcon icon={faCircleCheck} />
+              </p>
+            )}
+            {showWrongPasswordError && (
+              <p className="invalid-input show-invalid-input">
+                <FontAwesomeIcon icon={faCircleExclamation} />
+                The password you entered is incorrect
+              </p>
+            )}
+            {weakPassword && (
+              <p className="invalid-input show-invalid-input">
+                <FontAwesomeIcon icon={faCircleExclamation} />
+                Password should be at least 6 characters.
+              </p>
+            )}
           </div>
         </div>
       </div>
