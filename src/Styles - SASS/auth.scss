@@ -21,13 +21,25 @@
     display: flex;
     text-align: center;
     flex-direction: row;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: variables.$sec-grey;
+      border-radius: 0 0 5px 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: variables.$main-red;
+      border-radius: 10px;
+    }
     &.sign-up-box {
       flex-direction: column;
     }
     .sign-in-box,
     .forgot-password-box {
-      height: 500px;
       display: flex;
+      height: 500px;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -194,6 +206,13 @@
     }
     .recovery-mail-sent {
       color: green;
+    }
+  }
+}
+@media (max-height: 760px) {
+  .user-signs {
+    .sign-box {
+      overflow-y: auto;
     }
   }
 }

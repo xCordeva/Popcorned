@@ -22,13 +22,24 @@
   text-align: center;
   flex-direction: row;
 }
+.user-signs .sign-box::-webkit-scrollbar {
+  width: 8px;
+}
+.user-signs .sign-box::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 15%);
+  border-radius: 0 0 5px 5px;
+}
+.user-signs .sign-box::-webkit-scrollbar-thumb {
+  background-color: #ca282c;
+  border-radius: 10px;
+}
 .user-signs .sign-box.sign-up-box {
   flex-direction: column;
 }
 .user-signs .sign-box .sign-in-box,
 .user-signs .sign-box .forgot-password-box {
-  height: 500px;
   display: flex;
+  height: 500px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -191,4 +202,10 @@
 }
 .user-signs .sign-box .recovery-mail-sent {
   color: green;
+}
+
+@media (max-height: 760px) {
+  .user-signs .sign-box {
+    overflow-y: auto;
+  }
 }
