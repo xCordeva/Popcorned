@@ -72,7 +72,7 @@
       }
 
       input {
-        width: 100%;
+        width: 95%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -189,6 +189,7 @@
     padding: 10px 20px;
     border-radius: 4px;
     text-align: center;
+    white-space: nowrap;
     transition: all 0.4s ease;
     &:hover {
       background-color: darken($color: variables.$main-red, $amount: 7%);
@@ -204,6 +205,26 @@
     color: hsl(120, 100%, 50%);
     svg {
       margin-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .profile-settings-page {
+    .profile-settings {
+      .divider {
+        display: none;
+      }
+      flex-direction: column;
+      .user-info {
+        width: 100%;
+      }
+      .profile-picture {
+        .image-container {
+          height: 100%;
+          margin: 20px;
+        }
+      }
     }
   }
 }
