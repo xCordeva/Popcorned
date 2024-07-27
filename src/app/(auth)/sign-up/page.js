@@ -77,7 +77,7 @@ export default function SignUp() {
   };
   const [incorrect, setIncorrect] = useState(false);
   return (
-    <div className="sign-box">
+    <div className="sign-box sign-up-box">
       <form onSubmit={handleSignUp}>
         <h1>Sign Up</h1>
         <div className="name-section">

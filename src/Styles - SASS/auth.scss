@@ -6,7 +6,6 @@
   align-items: center;
   height: 100dvh;
   img {
-    // min-width: 30%;
     width: 400px;
     max-width: 80%;
   }
@@ -14,14 +13,61 @@
     min-width: 30%;
     width: 600px;
     max-width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     background-color: variables.$main-grey;
     border-radius: 10px;
     padding: 20px;
     margin: 50px;
+    overflow: hidden;
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    &.sign-up-box {
+      flex-direction: column;
+    }
+    .sign-in-box,
+    .forgot-password-box {
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      position: relative;
+    }
+    .forgot-password-box {
+      right: -700px;
+      transition: position 0.4s ease, right 0.4s ease, width 0.4s ease,
+        visibility 0.4s ease;
+      width: 0;
+      visibility: hidden;
+      h1 {
+        text-align: center;
+      }
+      button {
+        background-color: variables.$main-yellow;
+        transition: all 0.4s ease;
+        // margin-bottom: 50px;
+        &:hover {
+          background-color: darken(variables.$main-yellow, 7.5%);
+        }
+      }
+    }
+    .sign-in-box {
+      left: 0;
+      transition: position 0.4s ease, left 0.4s ease, width 0.4s ease,
+        visibility 0.4s ease;
+    }
+    .show-forgot-password {
+      right: 0;
+      visibility: visible;
+      width: 100%;
+    }
+    .hide-sign-in-box {
+      left: -700px;
+      width: 0;
+      visibility: hidden;
+    }
+
     form {
       width: 100%;
       display: flex;
@@ -29,31 +75,6 @@
       h1 {
         text-align: center;
         margin: 10px 0 20px 0;
-      }
-      .input-container {
-        width: 100%;
-        position: relative;
-        margin-top: 20px;
-      }
-      svg {
-        color: variables.$main-red;
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 1;
-      }
-      input {
-        padding: 10px 10px 10px 30px;
-        width: calc(100% - 50px);
-        margin: 10px 0;
-        border-radius: 4px;
-        border: 3px solid transparent;
-        outline: none;
-        font-size: 1.1rem;
-        &:focus {
-          border: 3px solid variables.$main-yellow;
-        }
       }
       button {
         background-color: variables.$main-yellow;
@@ -89,6 +110,32 @@
         }
         &.incorrect-signup {
           visibility: visible;
+        }
+      }
+    }
+    .input-container {
+      width: 100%;
+      position: relative;
+      margin-top: 20px;
+
+      svg {
+        color: variables.$main-red;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+      }
+      input {
+        padding: 10px 10px 10px 30px;
+        width: calc(100% - 50px);
+        margin: 10px 0;
+        border-radius: 4px;
+        border: 3px solid transparent;
+        outline: none;
+        font-size: 1.1rem;
+        &:focus {
+          border: 3px solid variables.$main-yellow;
         }
       }
     }
@@ -130,6 +177,23 @@
           color: darken(variables.$main-red, 7.5%);
         }
       }
+    }
+    .forgot-password,
+    .back-sign-in {
+      text-decoration: underline;
+      color: variables.$main-red;
+      margin: 0;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      &:hover {
+        color: hsl(0, 0%, 65%);
+      }
+    }
+    .user-not-exist {
+      color: grey;
+    }
+    .recovery-mail-sent {
+      color: green;
     }
   }
 }

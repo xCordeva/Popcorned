@@ -13,14 +13,57 @@
   min-width: 30%;
   width: 600px;
   max-width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: hsl(0, 0%, 10%);
   border-radius: 10px;
   padding: 20px;
   margin: 50px;
+  overflow: hidden;
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+}
+.user-signs .sign-box.sign-up-box {
+  flex-direction: column;
+}
+.user-signs .sign-box .sign-in-box,
+.user-signs .sign-box .forgot-password-box {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+.user-signs .sign-box .forgot-password-box {
+  right: -700px;
+  transition: position 0.4s ease, right 0.4s ease, width 0.4s ease, visibility 0.4s ease;
+  width: 0;
+  visibility: hidden;
+}
+.user-signs .sign-box .forgot-password-box h1 {
+  text-align: center;
+}
+.user-signs .sign-box .forgot-password-box button {
+  background-color: #e89c1e;
+  transition: all 0.4s ease;
+}
+.user-signs .sign-box .forgot-password-box button:hover {
+  background-color: #cb8615;
+}
+.user-signs .sign-box .sign-in-box {
+  left: 0;
+  transition: position 0.4s ease, left 0.4s ease, width 0.4s ease, visibility 0.4s ease;
+}
+.user-signs .sign-box .show-forgot-password {
+  right: 0;
+  visibility: visible;
+  width: 100%;
+}
+.user-signs .sign-box .hide-sign-in-box {
+  left: -700px;
+  width: 0;
+  visibility: hidden;
 }
 .user-signs .sign-box form {
   width: 100%;
@@ -30,31 +73,6 @@
 .user-signs .sign-box form h1 {
   text-align: center;
   margin: 10px 0 20px 0;
-}
-.user-signs .sign-box form .input-container {
-  width: 100%;
-  position: relative;
-  margin-top: 20px;
-}
-.user-signs .sign-box form svg {
-  color: #ca282c;
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-}
-.user-signs .sign-box form input {
-  padding: 10px 10px 10px 30px;
-  width: calc(100% - 50px);
-  margin: 10px 0;
-  border-radius: 4px;
-  border: 3px solid transparent;
-  outline: none;
-  font-size: 1.1rem;
-}
-.user-signs .sign-box form input:focus {
-  border: 3px solid #e89c1e;
 }
 .user-signs .sign-box form button {
   background-color: #e89c1e;
@@ -91,6 +109,31 @@
 }
 .user-signs .sign-box form h5.incorrect-signup {
   visibility: visible;
+}
+.user-signs .sign-box .input-container {
+  width: 100%;
+  position: relative;
+  margin-top: 20px;
+}
+.user-signs .sign-box .input-container svg {
+  color: #ca282c;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.user-signs .sign-box .input-container input {
+  padding: 10px 10px 10px 30px;
+  width: calc(100% - 50px);
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 3px solid transparent;
+  outline: none;
+  font-size: 1.1rem;
+}
+.user-signs .sign-box .input-container input:focus {
+  border: 3px solid #e89c1e;
 }
 .user-signs .sign-box img {
   width: 25px;
@@ -130,4 +173,22 @@
 }
 .user-signs .sign-box .switch a:hover {
   color: #aa2225;
+}
+.user-signs .sign-box .forgot-password,
+.user-signs .sign-box .back-sign-in {
+  text-decoration: underline;
+  color: #ca282c;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.user-signs .sign-box .forgot-password:hover,
+.user-signs .sign-box .back-sign-in:hover {
+  color: hsl(0, 0%, 65%);
+}
+.user-signs .sign-box .user-not-exist {
+  color: grey;
+}
+.user-signs .sign-box .recovery-mail-sent {
+  color: green;
 }
