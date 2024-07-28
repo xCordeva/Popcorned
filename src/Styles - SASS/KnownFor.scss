@@ -33,3 +33,25 @@
     }
   }
 }
+@media (max-width: 1300px) {
+  .known-for {
+    .the-known-works {
+      flex-direction: column;
+      width: 95%;
+      .the-work {
+        max-width: none;
+      }
+    }
+  }
+}
+@media (max-width: 600px) {
+  .known-for {
+    .the-known-works {
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+    .show-all {
+      margin: 5px 0;
+    }
+  }
+}

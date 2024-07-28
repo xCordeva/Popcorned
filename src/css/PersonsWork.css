@@ -108,3 +108,42 @@
   letter-spacing: 2px;
   background-color: transparent;
 }
+
+@media (min-width: 601px) and (max-width: 830px) {
+  .the-work .work-details .title-rate {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .the-work .work-details .title-rate h1 {
+    margin: 10px 0 0 0;
+    font-size: 25px;
+  }
+  .the-work .work-details .title-rate .rating p {
+    font-size: 25px;
+  }
+}
+@media (max-width: 600px) {
+  .the-work {
+    flex-direction: column;
+  }
+  .the-work .work-details {
+    width: auto;
+  }
+  .the-work img {
+    width: 100%;
+    max-width: none;
+  }
+  .the-work .work-details {
+    margin-left: 20px;
+  }
+  .the-work .work-details .title-rate {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .the-work .work-details .title-rate h1 {
+    margin: 10px 0 0 0;
+  }
+  .the-work .work-details .title-rate .rating p {
+    font-size: 25px;
+  }
+}
