@@ -122,6 +122,11 @@
     font-size: 25px;
   }
 }
+@media (max-width: 650px) {
+  .the-work .work-details {
+    margin-left: 20px;
+  }
+}
 @media (max-width: 600px) {
   .the-work {
     flex-direction: column;
@@ -132,9 +137,6 @@
   .the-work img {
     width: 100%;
     max-width: none;
-  }
-  .the-work .work-details {
-    margin-left: 20px;
   }
   .the-work .work-details .title-rate {
     flex-direction: column;

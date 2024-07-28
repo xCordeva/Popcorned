@@ -45,3 +45,15 @@
   animation: fadein 5s ease;
   background-color: blue;
 }
+
+@media (max-width: 650px) {
+  .the-work .work-details {
+    margin-left: 20px;
+  }
+  .person-career .accordion .accordion__panel {
+    padding: 0;
+  }
+  .career-page .accordion__button {
+    width: 95%;
+  }
+}
