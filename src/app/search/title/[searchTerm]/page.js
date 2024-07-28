@@ -156,7 +156,7 @@ const SearchPage = ({ params }) => {
                         pathname: `/title/${result.id}`,
                         query: { type: result.type },
                       }}
-                      className="more-info global-button"
+                      className="global-button"
                     >
                       Show More Info
                       <FontAwesomeIcon icon={faCircleInfo} />
@@ -187,7 +187,7 @@ const SearchPage = ({ params }) => {
                           }
                           className="popular-movies-button global-button"
                         >
-                          Add to Watch List
+                          Add to Watch List &nbsp;
                           <FontAwesomeIcon icon={faSquarePlus} />
                         </button>
                       )

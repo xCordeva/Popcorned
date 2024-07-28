@@ -27,7 +27,7 @@ const SearchResults = ({ status, searchButtonClicked, userSearch }) => {
   if (status === "failed") {
     return (
       <div className="search-results">
-        Sorry we're having trouble searching.
+        <div className="no-results">Sorry we're having trouble searching.</div>
       </div>
     );
   }

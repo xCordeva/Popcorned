@@ -12,34 +12,18 @@
   font-size: 1.1em;
   position: relative;
 }
+.navbar .fav-navbar {
+  display: flex;
+}
 .navbar .nav-logo {
   width: 45%;
 }
 .navbar .nav-logo img {
-  width: 60%;
   max-width: 200px;
 }
 .navbar .user-info {
   display: flex;
   align-items: center;
-}
-.navbar .user-info .favorites {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.5s ease;
-  text-decoration: none;
-  color: #ca282c;
-}
-.navbar .user-info .favorites svg {
-  width: 20px;
-  margin-right: 5px;
-}
-.navbar .user-info .favorites:hover svg {
-  animation: heart 1.5s ease infinite;
 }
 .navbar .user-info .user {
   display: flex;
@@ -100,6 +84,26 @@
 .navbar .user-info .sign-in-button a:hover {
   background-color: #bf7f14;
 }
+.navbar .favorites {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  text-decoration: none;
+  color: #ca282c;
+}
+.navbar .favorites p {
+  margin: 0;
+}
+.navbar .favorites svg {
+  width: 20px;
+  margin-right: 5px;
+}
+.navbar .favorites:hover svg {
+  animation: heart 1.5s ease infinite;
+}
 
 .popup-user {
   position: absolute;
@@ -114,6 +118,9 @@
   align-items: center;
   overflow: hidden;
   z-index: 99;
+}
+.popup-user .fav-popup-user {
+  display: none;
 }
 .popup-user a {
   text-decoration: none;
@@ -147,5 +154,16 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+@media (max-width: 540px) {
+  .navbar .fav-navbar {
+    display: none;
+  }
+  .navbar .nav-logo img {
+    max-width: 150px;
+  }
+  .popup-user .fav-popup-user {
+    display: flex;
   }
 }

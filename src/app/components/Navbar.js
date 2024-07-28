@@ -30,7 +30,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="user-info">
-          <Link href={"/user/watchlist"} className="favorites">
+          <Link href={"/user/watchlist"} className="favorites fav-navbar">
             <FontAwesomeIcon icon={faHeart} />
             <p>Watchlist</p>
           </Link>

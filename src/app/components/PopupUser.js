@@ -8,6 +8,7 @@ import {
   faStar,
   faList,
   faGear,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { closeUserPopup } from "@/features/UserPopup";
 import Link from "next/link";
@@ -27,6 +28,10 @@ export default function PopupUser() {
   };
   return (
     <div className="popup-user">
+      <Link href={"/user/watchlist"} className="favorites fav-popup-user">
+        <FontAwesomeIcon icon={faHeart} />
+        <p>Watchlist</p>
+      </Link>
       <Link href={`/profile-settings`}>
         <FontAwesomeIcon icon={faGear} />
         Profile
