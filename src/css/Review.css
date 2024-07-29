@@ -1,6 +1,4 @@
 .review {
-  display: flex;
-  align-items: center;
   background-color: hsl(0, 0%, 10%);
   padding: 20px;
   border-radius: 6px;
@@ -14,7 +12,12 @@
   border-radius: 4px;
   margin-top: 10px;
 }
-.review .username-date-time {
+.review .desktop-review-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.review .username-details {
   width: 100%;
   margin-top: 5px;
 }
@@ -110,4 +113,40 @@
   color: #ca282c;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.mobile-review-container {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .review .username-rate {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 40px;
+  }
+  .review .mobile-review-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .review .mobile-review-container .img-details-contianer {
+    display: flex;
+    flex-direction: row;
+  }
+  .review .desktop-review-container {
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  .review img {
+    width: 80px;
+    margin: 20px 10px 0 0;
+  }
+  .review .username-rate {
+    margin: 20px 0px 0 0;
+  }
+  .review .username-rate .rating {
+    font-size: 1.5rem;
+  }
 }

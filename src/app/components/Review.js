@@ -50,30 +50,87 @@ export default function Review({
 
   return (
     <div className="review">
-      <img
-        src="https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
-        alt=""
-      />
-      <div className="username-date-time">
-        <div className="username-rate">
-          <div className="username-date">
-            <p className="username">
-              {review.username ? review.username : "Anonymous"}
-            </p>
-            <p className="date-time">
-              {review.createdAt
-                ? formatDate(
-                    review.createdAt.seconds || review.createdAt.timestamp
-                  )
-                : "Unknown date"}
-            </p>
+      <div className="desktop-review-container">
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
+          alt=""
+        />
+        <div className="username-details">
+          <div className="username-rate">
+            <div className="username-date">
+              <p className="username">
+                {review.username ? review.username : "Anonymous"}
+              </p>
+              <p className="date-time">
+                {review.createdAt
+                  ? formatDate(
+                      review.createdAt.seconds || review.createdAt.timestamp
+                    )
+                  : "Unknown date"}
+              </p>
+            </div>
+            <div className="rating">
+              <FontAwesomeIcon icon={faStar} />
+              <p>
+                {review.rating}
+                <span>/10</span>
+              </p>
+            </div>
           </div>
-          <div className="rating">
-            <FontAwesomeIcon icon={faStar} />
-            <p>
-              {review.rating}
-              <span>/10</span>
-            </p>
+
+          <p
+            className={`review-details rev-det ${
+              editReviewClicked || editReviewAlreadyRevPopup ? "hide" : ""
+            }`}
+          >
+            {review.reviewDetails}
+          </p>
+          <textarea
+            className={`edit-review-textarea ${
+              editReviewClicked || editReviewAlreadyRevPopup ? "show" : ""
+            }`}
+            value={
+              editReviewAlreadyRevPopup
+                ? editedReviewTextAlreadyRevPopup
+                : editedReviewText
+            }
+            onChange={(event) =>
+              editReviewAlreadyRevPopup
+                ? setEditedReviewTextAlreadyRevPopup(event.target.value)
+                : setEditedReviewText(event.target.value)
+            }
+          ></textarea>
+        </div>
+      </div>
+      {/* I know repeating code and using this way to handle a problem of mobile viewing is not the most efficient way but here I am doing it anyways */}
+      <div className="mobile-review-container">
+        <div className="img-details-contianer">
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
+            alt=""
+          />
+          <div className="username-date-time">
+            <div className="username-rate">
+              <div className="username-date">
+                <p className="username">
+                  {review.username ? review.username : "Anonymous"}
+                </p>
+                <p className="date-time">
+                  {review.createdAt
+                    ? formatDate(
+                        review.createdAt.seconds || review.createdAt.timestamp
+                      )
+                    : "Unknown date"}
+                </p>
+              </div>
+              <div className="rating">
+                <FontAwesomeIcon icon={faStar} />
+                <p>
+                  {review.rating}
+                  <span>/10</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <p

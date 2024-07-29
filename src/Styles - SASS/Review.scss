@@ -1,7 +1,5 @@
 @use "variables.scss";
 .review {
-  display: flex;
-  align-items: center;
   background-color: variables.$main-grey;
   padding: 20px;
   border-radius: 6px;
@@ -14,7 +12,12 @@
     border-radius: 4px;
     margin-top: 10px;
   }
-  .username-date-time {
+  .desktop-review-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  .username-details {
     width: 100%;
     margin-top: 5px;
   }
@@ -108,6 +111,45 @@
         color: variables.$main-red;
         cursor: pointer;
         transition: all 0.3s ease;
+      }
+    }
+  }
+}
+.mobile-review-container {
+  display: none;
+}
+@media (max-width: 600px) {
+  .review {
+    .username-rate {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-right: 40px;
+    }
+
+    .mobile-review-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .img-details-contianer {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+    .desktop-review-container {
+      display: none;
+    }
+  }
+}
+@media (max-width: 400px) {
+  .review {
+    img {
+      width: 80px;
+      margin: 20px 10px 0 0;
+    }
+    .username-rate {
+      margin: 20px 0px 0 0;
+      .rating {
+        font-size: 1.5rem;
       }
     }
   }
