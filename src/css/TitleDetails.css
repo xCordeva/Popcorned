@@ -219,63 +219,6 @@
   display: flex;
 }
 
-.cast {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background-color: #080808;
-  margin: 5% 0;
-  padding: 1% 5%;
-  border-radius: 5px;
-}
-.cast a {
-  text-decoration: none;
-}
-.cast a h1 {
-  text-align: center;
-  color: hsl(0, 0%, 50%);
-  transition: all 0.5s ease;
-}
-.cast a h1:hover {
-  color: white;
-  letter-spacing: 1px;
-}
-.cast .members {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: center;
-}
-.cast .cast-member {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  min-width: 30%;
-  padding: 10px;
-  margin: 30px 0;
-  border-radius: 5px;
-  color: hsl(0, 0%, 65%);
-}
-.cast .cast-member a {
-  color: white;
-  text-decoration: none;
-}
-.cast .cast-member a:hover {
-  color: hsl(0, 0%, 80%);
-  transition: 0.4s all ease;
-}
-.cast .cast-member img {
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-.cast .cast-member img:hover {
-  cursor: pointer;
-  filter: grayscale(30%);
-  transition: 0.4s all ease;
-}
-
 .birth-location p {
   margin: 15px 0 5px 0;
 }

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "@/app/components/Navbar";
 import "@/css/TitleDetails.css";
+import "@/css/TopCast.css";
 import { useSearchParams } from "next/navigation";
 import TopCast from "@/app/components/TopCast";
 import TitleDetails from "@/app/components/TitleDetails";

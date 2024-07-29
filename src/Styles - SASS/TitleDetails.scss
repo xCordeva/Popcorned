@@ -222,65 +222,6 @@
   display: flex;
 }
 
-.cast {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background-color: darken($color: variables.$main-grey, $amount: 7%);
-  margin: 5% 0;
-  padding: 1% 5%;
-  border-radius: 5px;
-  a {
-    text-decoration: none;
-    h1 {
-      text-align: center;
-      color: hsl(0, 0%, 50%);
-      transition: all 0.5s ease;
-      &:hover {
-        color: white;
-        letter-spacing: 1px;
-      }
-    }
-  }
-
-  .members {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
-  }
-  .cast-member {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-width: 30%;
-    padding: 10px;
-    margin: 30px 0;
-    border-radius: 5px;
-    color: hsl(0, 0%, 65%);
-    a {
-      color: white;
-      text-decoration: none;
-      &:hover {
-        color: hsl(0, 0%, 80%);
-        transition: 0.4s all ease;
-      }
-    }
-
-    img {
-      height: 100px;
-      width: 100px;
-      border-radius: 50%;
-      margin-right: 20px;
-
-      &:hover {
-        cursor: pointer;
-        filter: grayscale(30%);
-        transition: 0.4s all ease;
-      }
-    }
-  }
-}
 .birth-location {
   p {
     margin: 15px 0 5px 0;
