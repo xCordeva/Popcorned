@@ -52,9 +52,18 @@ export default function Review({
     <div className="review">
       <div className="desktop-review-container">
         <img
-          src="https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
-          alt=""
+          src={
+            user && review.userId === user.uid
+              ? user?.photoURL
+              : "https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
+          }
+          alt={
+            user && review.userId === user.uid
+              ? `${user?.displayName}'s profile picture`
+              : "Default user profile icon"
+          }
         />
+
         <div className="username-details">
           <div className="username-rate">
             <div className="username-date">
