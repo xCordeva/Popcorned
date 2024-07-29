@@ -1,6 +1,5 @@
 .cast {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   background-color: #080808;
   margin: 5% 0;
@@ -21,8 +20,6 @@
 }
 .cast .members {
   display: grid;
-  flex-wrap: wrap;
-  width: 100%;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(30%, 300px));
 }
@@ -31,7 +28,6 @@
   align-items: center;
   padding: 10px;
   margin: 30px 0.5%;
-  border-radius: 5px;
   color: hsl(0, 0%, 65%);
 }
 .cast .members .cast-member a {
