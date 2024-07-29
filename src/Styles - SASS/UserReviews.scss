@@ -29,3 +29,14 @@
     }
   }
 }
+@media (max-width: 450px) {
+  .user-reviews {
+    .title-reviews-number {
+      flex-direction: column;
+      align-items: flex-start;
+      h2 {
+        margin: 0;
+      }
+    }
+  }
+}
