@@ -47,7 +47,9 @@ export default function Review({
       });
     }
   };
-
+  const alreadyReviewedPopup = useSelector(
+    (state) => state.AlreadyReviewedPopup.value
+  );
   return (
     <div className="review">
       <div className="desktop-review-container">
@@ -173,26 +175,31 @@ export default function Review({
           }
         ></textarea>
       </div>
-      {user && review.userId === user.uid && (
-        <div className="user-control-icons">
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            onClick={() =>
-              dispatch(openRemoveReviewPopup(review.firebaseItemId))
-            }
-          />
-          <FontAwesomeIcon
-            icon={
-              editReviewClicked || editReviewAlreadyRevPopup ? faCheck : faPen
-            }
-            onClick={() => {
-              setEditReviewClicked(true);
-              setEditedReviewText(review.reviewDetails);
-              handleEditReview();
-            }}
-          />
-        </div>
-      )}
+      {alreadyReviewedPopup
+        ? null
+        : user &&
+          review.userId === user.uid && (
+            <div className="user-control-icons">
+              <FontAwesomeIcon
+                icon={faTrashCan}
+                onClick={() =>
+                  dispatch(openRemoveReviewPopup(review.firebaseItemId))
+                }
+              />
+              <FontAwesomeIcon
+                icon={
+                  editReviewClicked || editReviewAlreadyRevPopup
+                    ? faCheck
+                    : faPen
+                }
+                onClick={() => {
+                  setEditReviewClicked(true);
+                  setEditedReviewText(review.reviewDetails);
+                  handleEditReview();
+                }}
+              />
+            </div>
+          )}
     </div>
   );
 }
