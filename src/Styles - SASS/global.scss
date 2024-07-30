@@ -191,3 +191,16 @@ body {
     color: variables.$main-yellow;
   }
 }
+
+@media (max-width: 520px) {
+  .leave-review {
+    .buttons {
+      flex-direction: column;
+      height: fit-content;
+      button {
+        // font-size: 0.5rem;
+        white-space: nowrap;
+      }
+    }
+  }
+}

@@ -254,3 +254,13 @@ body {
   font-size: 4rem;
   color: #e89c1e;
 }
+
+@media (max-width: 520px) {
+  .leave-review .buttons {
+    flex-direction: column;
+    height: fit-content;
+  }
+  .leave-review .buttons button {
+    white-space: nowrap;
+  }
+}

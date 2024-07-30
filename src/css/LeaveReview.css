@@ -7,8 +7,13 @@
   border-radius: 5px;
   position: relative;
   overflow: hidden;
-  height: 520px;
+  height: 550px;
+  text-align: center;
+  margin-bottom: 30px;
   transition: height 0.5s ease, position 0.5s ease;
+}
+.leave-review h1 {
+  text-align: left;
 }
 .leave-review .review-details {
   display: flex;
@@ -157,12 +162,15 @@
   transition: height 0.4s ease, top 0.4s ease;
 }
 .leave-review .hide-leave-review-content-contianer {
-  top: -500px;
+  top: -600px;
   height: 0;
   transition: height 0.4s ease, top 0.4s ease;
 }
 .leave-review .rate-submitted#leave-review-box-rate-submitted {
   height: 520px;
+}
+.leave-review .rate-submitted#leave-review-box-rate-submitted h1 {
+  text-align: center;
 }
 .leave-review.hide-leave-review {
   padding: 0;
