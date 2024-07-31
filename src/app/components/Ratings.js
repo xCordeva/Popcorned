@@ -15,7 +15,7 @@ const formatDate = (timestamp) => {
   return date.toLocaleDateString(undefined, options);
 };
 
-export default function Watchlist() {
+export default function Ratings() {
   const dispatch = useDispatch();
   const showRemoveReviewPopup = useSelector(
     (state) => state.RemoveReviewPopup.value
@@ -174,7 +174,6 @@ export default function Watchlist() {
             </div>
           </Link>
         ))}
-        <div className="watchlist-item"></div>
       </div>
       {ratingPopupOpen && (
         <RatingBox
