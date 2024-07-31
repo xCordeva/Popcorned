@@ -219,7 +219,12 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
               )}
             </div>
             {ratingPopupOpen && (
-              <RatingBox type={type} id={details.id}></RatingBox>
+              <RatingBox
+                details={details}
+                cast={cast}
+                type={type}
+                id={details.id}
+              ></RatingBox>
             )}
           </div>
         ) : (

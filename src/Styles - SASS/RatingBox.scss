@@ -49,11 +49,14 @@
       width: 100%;
       justify-content: center;
       margin: 0 auto;
+      font-size: 2rem;
+      color: hsl(0, 0%, 65%);
       span {
         width: 30px;
       }
       svg {
         margin: 0 10px;
+        color: variables.$main-yellow;
       }
     }
     .rating-review {

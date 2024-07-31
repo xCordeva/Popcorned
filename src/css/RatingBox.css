@@ -48,12 +48,15 @@
   width: 100%;
   justify-content: center;
   margin: 0 auto;
+  font-size: 2rem;
+  color: hsl(0, 0%, 65%);
 }
 .rating-box-contianer .rating-box .rating span {
   width: 30px;
 }
 .rating-box-contianer .rating-box .rating svg {
   margin: 0 10px;
+  color: #e89c1e;
 }
 .rating-box-contianer .rating-box .rating-review h3 {
   text-align: center;

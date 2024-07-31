@@ -12,7 +12,7 @@ import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import useAuth from "@/Custom Hooks/useAuth";
 import { triggerRefetch } from "@/features/RefetchReviews";
 
-const RatingBox = ({ type, id }) => {
+const RatingBox = ({ details, cast, type, id }) => {
   const dispatch = useDispatch();
   const [hoveredStar, setHoveredStar] = useState(0);
   const [clickedStar, setClickedStar] = useState(0);
@@ -64,6 +64,8 @@ const RatingBox = ({ type, id }) => {
       });
     } else {
       addNewReview({
+        details,
+        topCast: cast.cast.slice(0, 2),
         rating: clickedStar,
         reviewDetails: "",
         titleId: id,

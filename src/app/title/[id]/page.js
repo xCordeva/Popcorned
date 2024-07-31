@@ -103,6 +103,8 @@ const titleDetails = ({ params }) => {
         {type !== "person" && <UserReviews id={id} type={type}></UserReviews>}
         {type !== "person" && (
           <LeaveReview
+            details={details}
+            cast={cast}
             id={id}
             type={type}
             clickedStar={clickedStar}

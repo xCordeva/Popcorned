@@ -36,7 +36,7 @@ export default function PopupUser() {
         <FontAwesomeIcon icon={faGear} />
         Profile
       </Link>
-      <Link href={`/`}>
+      <Link href={`/user/ratings`}>
         <FontAwesomeIcon icon={faStar} />
         My Ratings
       </Link>

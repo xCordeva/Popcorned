@@ -15,7 +15,14 @@ import useAuth from "@/Custom Hooks/useAuth";
 import AlreadyReviewed from "./AlreadyReviewed";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
 
-export default function LeaveReview({ id, type, clickedStar, setClickedStar }) {
+export default function LeaveReview({
+  cast,
+  details,
+  id,
+  type,
+  clickedStar,
+  setClickedStar,
+}) {
   const [hoveredStar, setHoveredStar] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [showGiveRatingPopup, setShowGiveRatingPopup] = useState(false);
@@ -103,6 +110,8 @@ export default function LeaveReview({ id, type, clickedStar, setClickedStar }) {
       } else if (clickedStar > 0 && reviewText) {
         const timestamp = Math.floor(Date.now() / 1000);
         addNewReview({
+          details,
+          topCast: cast.cast.slice(0, 2),
           rating: clickedStar,
           reviewDetails: reviewText,
           titleId: id,
