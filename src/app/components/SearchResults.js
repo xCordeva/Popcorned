@@ -39,7 +39,7 @@ const SearchResults = ({ status, searchButtonClicked, userSearch }) => {
     >
       {combinedResults.length < 1 ? (
         <div className="no-results">
-          <p>Sorry, we couldn't find any movies with that name.</p>
+          <p>Sorry, we couldn't find any titles with that name.</p>
         </div>
       ) : (
         <>
