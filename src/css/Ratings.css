@@ -8,7 +8,6 @@
 }
 .ratings-page .ratings-section {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   background-color: #080808;
   padding: 1% 5%;
@@ -18,7 +17,7 @@
   text-decoration: none;
   color: white;
   display: flex;
-  margin: 40px 0;
+  margin: 20px 0 40px 0;
   background-color: hsl(0, 0%, 3%);
   border-radius: 10px;
   transition: scale 0.3s ease, border 0.3s ease;
@@ -47,6 +46,9 @@
   flex-direction: row;
   align-items: center;
 }
+.ratings-page .ratings-section .ratings-item .item-details .top-cast span {
+  display: none;
+}
 .ratings-page .ratings-section .ratings-item .item-details .top-cast a {
   display: inline-block;
   text-decoration: none;
@@ -67,6 +69,9 @@
   background-color: hsl(0, 0%, 10%);
   padding: 0px 5px;
   border-radius: 9px 0 10px 0;
+}
+.ratings-page .ratings-section .rated-on {
+  margin: 0 0 20px 0;
 }
 .ratings-page .ratings-section .title-rate {
   display: flex;
@@ -171,33 +176,38 @@
   letter-spacing: 2px;
 }
 
-@media (max-width: 800px) {
-  .watchlist-page .watchlist-section .watchlist-item img {
-    min-width: 180px;
-  }
-  .watchlist-page .watchlist-section .watchlist-item .item-details .top-cast {
+@media (max-width: 950px) {
+  .ratings-page .ratings-section .title-rate {
+    margin: 25px 0;
     flex-direction: column;
-    align-items: flex-start;
   }
-  .watchlist-page .watchlist-section .title-rate {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .watchlist-page .watchlist-section .title-rate h1 {
+  .ratings-page .ratings-section .title-rate h1 {
     margin: 0;
+    align-self: flex-start;
+  }
+  .ratings-page .ratings-section .ratings-item img {
+    min-width: 200px;
   }
 }
-@media (max-width: 600px) {
-  .watchlist-page .watchlist-section .watchlist-item {
+@media (max-width: 740px) {
+  .ratings-page .ratings-section .ratings-item {
     flex-direction: column;
   }
-  .watchlist-page .watchlist-section .watchlist-item img {
-    min-width: auto;
-    max-width: none;
-    width: 100%;
-  }
-  .watchlist-page .watchlist-section .watchlist-item .item-details {
+  .ratings-page .ratings-section .ratings-item .item-details {
     width: auto;
-    margin-left: 20px;
+  }
+  .ratings-page .ratings-section .ratings-item img {
+    width: 100%;
+    max-width: none;
+    min-width: auto;
+  }
+}
+@media (max-width: 460px) {
+  .ratings-page .ratings-section .title-rate .rating {
+    flex-direction: column;
+  }
+  .ratings-page .ratings-section .ratings-item .item-details .top-cast {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

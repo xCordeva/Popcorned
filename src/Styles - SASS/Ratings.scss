@@ -8,7 +8,6 @@
   flex-direction: column;
   .ratings-section {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     background-color: darken($color: variables.$main-grey, $amount: 7%);
     padding: 1% 5%;
@@ -17,7 +16,7 @@
       text-decoration: none;
       color: white;
       display: flex;
-      margin: 40px 0;
+      margin: 20px 0 40px 0;
       background-color: hsl(0, 0%, 3%);
       border-radius: 10px;
       transition: scale 0.3s ease, border 0.3s ease;
@@ -43,6 +42,9 @@
           display: flex;
           flex-direction: row;
           align-items: center;
+          span {
+            display: none;
+          }
           a {
             display: inline-block;
             text-decoration: none;
@@ -67,11 +69,15 @@
         border-radius: 9px 0 10px 0;
       }
     }
+    .rated-on {
+      margin: 0 0 20px 0;
+    }
     .title-rate {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin: 15px 0 0 0;
+
       .rating {
         display: flex;
         align-items: center;
@@ -172,43 +178,56 @@
     }
   }
 }
-@media (max-width: 800px) {
-  .watchlist-page {
-    .watchlist-section {
-      .watchlist-item {
-        img {
-          min-width: 180px;
-        }
-        .item-details {
-          .top-cast {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-        }
-      }
+@media (max-width: 950px) {
+  .ratings-page {
+    .ratings-section {
       .title-rate {
-        flex-direction: column;
-        align-items: flex-start;
         h1 {
           margin: 0;
+          align-self: flex-start;
+        }
+        margin: 25px 0;
+        flex-direction: column;
+      }
+      .ratings-item {
+        img {
+          min-width: 200px;
         }
       }
     }
   }
 }
-@media (max-width: 600px) {
-  .watchlist-page {
-    .watchlist-section {
-      .watchlist-item {
+@media (max-width: 740px) {
+  .ratings-page {
+    .ratings-section {
+      .ratings-item {
         flex-direction: column;
-        img {
-          min-width: auto;
-          max-width: none;
-          width: 100%;
-        }
         .item-details {
           width: auto;
-          margin-left: 20px;
+        }
+        img {
+          width: 100%;
+          max-width: none;
+          min-width: auto;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 460px) {
+  .ratings-page {
+    .ratings-section {
+      .title-rate {
+        .rating {
+          flex-direction: column;
+        }
+      }
+      .ratings-item {
+        .item-details {
+          .top-cast {
+            flex-direction: column;
+            align-items: flex-start;
+          }
         }
       }
     }

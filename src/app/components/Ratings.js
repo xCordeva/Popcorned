@@ -134,7 +134,7 @@ export default function Ratings() {
                   )}
                 </div>
               </div>
-              <p>
+              <p className="rated-on">
                 <span style={{ color: "grey" }}>Rated on </span>
                 {formatDate(item.createdAt.seconds)}
               </p>
