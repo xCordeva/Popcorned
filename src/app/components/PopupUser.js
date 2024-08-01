@@ -28,19 +28,29 @@ export default function PopupUser() {
   };
   return (
     <div className="popup-user">
-      <Link href={"/user/watchlist"} className="favorites fav-popup-user">
+      <Link
+        href={"/user/watchlist"}
+        className="favorites fav-popup-user"
+        onClick={() => dispatch(closeUserPopup(false))}
+      >
         <FontAwesomeIcon icon={faHeart} />
         <p>Watchlist</p>
       </Link>
-      <Link href={`/profile-settings`}>
+      <Link
+        href={`/profile-settings`}
+        onClick={() => dispatch(closeUserPopup(false))}
+      >
         <FontAwesomeIcon icon={faGear} />
         Profile
       </Link>
-      <Link href={`/user/ratings`}>
+      <Link
+        href={`/user/ratings`}
+        onClick={() => dispatch(closeUserPopup(false))}
+      >
         <FontAwesomeIcon icon={faStar} />
         My Ratings
       </Link>
-      <Link href={`/`}>
+      <Link href={`/`} onClick={() => dispatch(closeUserPopup(false))}>
         <FontAwesomeIcon icon={faList} />
         My Lists
       </Link>
