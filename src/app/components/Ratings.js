@@ -8,6 +8,7 @@ import { openRatingPopup } from "@/features/RatingPopup";
 import RatingBox from "./RatingBox";
 import { useState } from "react";
 import { openRemoveReviewPopup } from "@/features/RemoveReviewPopup";
+import useAuth from "@/Custom Hooks/useAuth";
 
 const formatDate = (timestamp) => {
   const date = new Date(timestamp * 1000);
@@ -17,16 +18,20 @@ const formatDate = (timestamp) => {
 
 export default function Ratings() {
   const dispatch = useDispatch();
-  const showRemoveReviewPopup = useSelector(
-    (state) => state.RemoveReviewPopup.value
-  );
-  const ratingPopupOpen = useSelector((state) => state.RatingPopup.value);
+  const { user } = useAuth();
 
   const { reviews, isLoading } = useFetchReviews();
   const [clickedRatedTitleId, setClickedRatedTitleId] = useState("");
   const [clickedRatedTitleType, setClickedRatedTitleType] = useState("");
 
-  if (reviews < 1 && !isLoading) {
+  const showRemoveReviewPopup = useSelector(
+    (state) => state.RemoveReviewPopup.value
+  );
+  const ratingPopupOpen = useSelector((state) => state.RatingPopup.value);
+
+  const filteredRatings = reviews.filter((review) => review.userId == user.uid);
+
+  if (filteredRatings < 1 && !isLoading) {
     return (
       <div className="ratings-section">
         <h1>Your Ratings</h1>
@@ -51,10 +56,11 @@ export default function Ratings() {
     <div className="ratings-section">
       <h1>Your Ratings</h1>
       <p>
-        You rated {reviews.length} {reviews.length === 1 ? "title" : "titles"}.
+        You rated {filteredRatings.length}{" "}
+        {filteredRatings.length === 1 ? "title" : "titles"}.
       </p>
       <div className="ratings-items">
-        {reviews.map((item) => (
+        {filteredRatings.map((item) => (
           <Link
             href={{
               pathname: `/title/${item.titleId}`,
