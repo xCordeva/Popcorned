@@ -40,7 +40,7 @@
         }
       }
       .image-text-container {
-        height: 15px;
+        height: 30px;
       }
       button {
         padding: 10px 20px;
@@ -103,6 +103,7 @@
 
       .email-group {
         display: inline-flex;
+
         width: 100%;
         margin: 0 20px 0 0;
         align-items: center;
@@ -178,8 +179,10 @@
   .password-updated {
     color: hsl(120, 100%, 35%);
     font-size: larger;
+    text-align: center;
+    width: 100%;
     svg {
-      margin-left: 10px;
+      margin-left: 5px;
     }
   }
   .choose-image-button {
@@ -203,8 +206,11 @@
   }
   .image-updated {
     color: hsl(120, 100%, 50%);
+    margin: 0;
+    text-align: center;
     svg {
-      margin-right: 10px;
+      margin-right: 5px;
+      text-align: center;
     }
   }
 }
@@ -220,9 +226,23 @@
         width: 100%;
       }
       .profile-picture {
+        width: 100%;
         .image-container {
-          height: 100%;
           margin: 20px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .profile-settings-page {
+    .profile-settings {
+      .user-info {
+        .email-group {
+          flex-direction: column;
+          .verification-status {
+            margin: 20px 0 0 0;
+          }
         }
       }
     }

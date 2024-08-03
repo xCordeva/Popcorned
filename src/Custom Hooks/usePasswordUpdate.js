@@ -27,19 +27,26 @@ const usePasswordUpdate = (user) => {
         setCurrentPassword("");
         setConfirmNewPassword("");
         setNewPassword("");
-        setPasswordNotMatchError(false);
+        setShowWrongPasswordError(false);
         setWeakPassword(false);
+        setPasswordNotMatchError(false);
       } catch (error) {
         if (error.code === "auth/wrong-password") {
           setShowWrongPasswordError(true);
+          setPasswordNotMatchError(false);
+          setWeakPassword(false);
         } else if (error.code === "auth/weak-password") {
           setWeakPassword(true);
+          setShowWrongPasswordError(false);
+          setPasswordNotMatchError(false);
         } else {
           console.error("Error updating password: ", error);
         }
       }
     } else {
       setPasswordNotMatchError(true);
+      setWeakPassword(false);
+      setShowWrongPasswordError(false);
     }
   };
 

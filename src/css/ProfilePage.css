@@ -39,7 +39,7 @@
   height: 50px;
 }
 .profile-settings-page .profile-settings .profile-picture .image-text-container {
-  height: 15px;
+  height: 30px;
 }
 .profile-settings-page .profile-settings .profile-picture button {
   padding: 10px 20px;
@@ -170,10 +170,12 @@
 .profile-settings-page .password-updated {
   color: hsl(120, 100%, 35%);
   font-size: larger;
+  text-align: center;
+  width: 100%;
 }
 .profile-settings-page .email-updated svg,
 .profile-settings-page .password-updated svg {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .profile-settings-page .choose-image-button {
   cursor: pointer;
@@ -196,9 +198,12 @@
 }
 .profile-settings-page .image-updated {
   color: hsl(120, 100%, 50%);
+  margin: 0;
+  text-align: center;
 }
 .profile-settings-page .image-updated svg {
-  margin-right: 10px;
+  margin-right: 5px;
+  text-align: center;
 }
 
 @media (max-width: 850px) {
@@ -211,8 +216,18 @@
   .profile-settings-page .profile-settings .user-info {
     width: 100%;
   }
+  .profile-settings-page .profile-settings .profile-picture {
+    width: 100%;
+  }
   .profile-settings-page .profile-settings .profile-picture .image-container {
-    height: 100%;
     margin: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .profile-settings-page .profile-settings .user-info .email-group {
+    flex-direction: column;
+  }
+  .profile-settings-page .profile-settings .user-info .email-group .verification-status {
+    margin: 20px 0 0 0;
   }
 }
