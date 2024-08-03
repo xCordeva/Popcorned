@@ -17,7 +17,7 @@ import useProfilePictureUpload from "@/Custom Hooks/useProfilePictureUpload";
 export default function ProfilePage() {
   usePopupCloser();
   const { user } = useAuth();
-
+  console.log(user);
   const {
     profilePicture,
     showSelectImageAlert,
@@ -111,7 +111,14 @@ export default function ProfilePage() {
               </p>
             </div>
           </div>
-          <div className="divider"></div>
+          <div
+            className="divider"
+            style={
+              user?.providerData[0].providerId !== "password"
+                ? { height: "500px" }
+                : null
+            }
+          ></div>
           <div className="user-info">
             <label htmlFor="name">Display Name:</label>
             <input
@@ -149,114 +156,120 @@ export default function ProfilePage() {
                 <p className="verification-status">Verified</p>
               )}
             </div>
-            <div className="button-container">
-              {emailUpdated ? (
-                <p className="email-updated">
-                  Email Updated <FontAwesomeIcon icon={faCheck} />
-                </p>
-              ) : (
+            {user?.providerData[0].providerId === "password" && (
+              <>
+                <div className="button-container">
+                  {emailUpdated ? (
+                    <p className="email-updated">
+                      Email Updated <FontAwesomeIcon icon={faCheck} />
+                    </p>
+                  ) : (
+                    <button
+                      onClick={() => setIsAddingNewEmail(true)}
+                      className={`update-button ${
+                        isAddingNewEmail ? "hide-update-button" : ""
+                      }`}
+                    >
+                      Add New Email
+                    </button>
+                  )}
+                </div>
+                <input
+                  className={`new-email-group ${
+                    isAddingNewEmail ? "show-email-group" : ""
+                  }`}
+                  type="email"
+                  placeholder="New Email"
+                  value={newEmail}
+                  onChange={(e) => setNewEmail(e.target.value)}
+                />
+                <input
+                  className={`new-email-group ${
+                    isAddingNewEmail ? "show-email-group" : ""
+                  }`}
+                  type="password"
+                  placeholder="Enter current password to update email"
+                  value={passwordOfUpdateEmail}
+                  onChange={(e) => setPasswordOfUpdateEmail(e.target.value)}
+                />
+                {showInvalidEmailError && (
+                  <p className="invalid-input show-invalid-input">
+                    <FontAwesomeIcon icon={faCircleExclamation} />
+                    Please enter a valid email address
+                  </p>
+                )}
+                {showInvalidPasswordError && (
+                  <p className="invalid-input show-invalid-input">
+                    <FontAwesomeIcon icon={faCircleExclamation} />
+                    The password you entered is incorrect
+                  </p>
+                )}
                 <button
-                  onClick={() => setIsAddingNewEmail(true)}
-                  className={`update-button ${
-                    isAddingNewEmail ? "hide-update-button" : ""
+                  onClick={handleUpdateEmail}
+                  className={`update-email-button ${
+                    isAddingNewEmail ? "show-update-email-button" : ""
                   }`}
                 >
-                  Add New Email
+                  Update Email
                 </button>
-              )}
-            </div>
-            <input
-              className={`new-email-group ${
-                isAddingNewEmail ? "show-email-group" : ""
-              }`}
-              type="email"
-              placeholder="New Email"
-              value={newEmail}
-              onChange={(e) => setNewEmail(e.target.value)}
-            />
-            <input
-              className={`new-email-group ${
-                isAddingNewEmail ? "show-email-group" : ""
-              }`}
-              type="password"
-              placeholder="Enter current password to update email"
-              value={passwordOfUpdateEmail}
-              onChange={(e) => setPasswordOfUpdateEmail(e.target.value)}
-            />
-            {showInvalidEmailError && (
-              <p className="invalid-input show-invalid-input">
-                <FontAwesomeIcon icon={faCircleExclamation} />
-                Please enter a valid email address
-              </p>
-            )}
-            {showInvalidPasswordError && (
-              <p className="invalid-input show-invalid-input">
-                <FontAwesomeIcon icon={faCircleExclamation} />
-                The password you entered is incorrect
-              </p>
-            )}
-            <button
-              onClick={handleUpdateEmail}
-              className={`update-email-button ${
-                isAddingNewEmail ? "show-update-email-button" : ""
-              }`}
-            >
-              Update Email
-            </button>
-            <label htmlFor="current-password">Current Password:</label>
-            <input
-              id="current-password"
-              type="password"
-              placeholder="Current Password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-            />
-            <label htmlFor="new-password">New Password:</label>
-            <input
-              id="new-password"
-              type="password"
-              placeholder="New Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <label htmlFor="confirm-new-password">Confirm New Password:</label>
-            <input
-              id="confirm-new-password"
-              type="password"
-              placeholder="Confirm New Password"
-              value={confirmNewPassword}
-              onChange={(e) => setConfirmNewPassword(e.target.value)}
-            />
-            <button
-              onClick={handleUpdatePassword}
-              className="update-button"
-              disabled={passwordUpdated}
-            >
-              {passwordUpdated ? `Password Updated` : `Update Password`}
-            </button>
-            {passwordNotMatchError && (
-              <p className="password-no-match">
-                <FontAwesomeIcon icon={faCircleXmark} />
-                The passwords you entered do not match.
-              </p>
-            )}
-            {passwordUpdated && (
-              <p className="password-updated">
-                Password Updated Successfully.
-                <FontAwesomeIcon icon={faCircleCheck} />
-              </p>
-            )}
-            {showWrongPasswordError && (
-              <p className="invalid-input show-invalid-input">
-                <FontAwesomeIcon icon={faCircleExclamation} />
-                The password you entered is incorrect
-              </p>
-            )}
-            {weakPassword && (
-              <p className="invalid-input show-invalid-input">
-                <FontAwesomeIcon icon={faCircleExclamation} />
-                Password should be at least 6 characters.
-              </p>
+                <label htmlFor="current-password">Current Password:</label>
+                <input
+                  id="current-password"
+                  type="password"
+                  placeholder="Current Password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+                <label htmlFor="new-password">New Password:</label>
+                <input
+                  id="new-password"
+                  type="password"
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <label htmlFor="confirm-new-password">
+                  Confirm New Password:
+                </label>
+                <input
+                  id="confirm-new-password"
+                  type="password"
+                  placeholder="Confirm New Password"
+                  value={confirmNewPassword}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                />
+                <button
+                  onClick={handleUpdatePassword}
+                  className="update-button"
+                  disabled={passwordUpdated}
+                >
+                  {passwordUpdated ? `Password Updated` : `Update Password`}
+                </button>
+                {passwordNotMatchError && (
+                  <p className="password-no-match">
+                    <FontAwesomeIcon icon={faCircleXmark} />
+                    The passwords you entered do not match.
+                  </p>
+                )}
+                {passwordUpdated && (
+                  <p className="password-updated">
+                    Password Updated Successfully.
+                    <FontAwesomeIcon icon={faCircleCheck} />
+                  </p>
+                )}
+                {showWrongPasswordError && (
+                  <p className="invalid-input show-invalid-input">
+                    <FontAwesomeIcon icon={faCircleExclamation} />
+                    The password you entered is incorrect
+                  </p>
+                )}
+                {weakPassword && (
+                  <p className="invalid-input show-invalid-input">
+                    <FontAwesomeIcon icon={faCircleExclamation} />
+                    Password should be at least 6 characters.
+                  </p>
+                )}
+              </>
             )}
           </div>
         </div>
