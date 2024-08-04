@@ -17,7 +17,7 @@ export default function Navbar() {
   const toggleUserPopup = () => {
     dispatch(openUserPopup(!userPopupClicked));
   };
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   return (
     <div className="navbar-container">
       <div className="navbar">
@@ -34,7 +34,14 @@ export default function Navbar() {
             <FontAwesomeIcon icon={faHeart} />
             <p>Watchlist</p>
           </Link>
-          {user ? (
+          {loading ? (
+            <div className="user">
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+                alt="loading-gif"
+              />
+            </div>
+          ) : user ? (
             <div
               className={userPopupClicked ? "user user-backgrounded" : "user"}
               onClick={() => {
@@ -46,12 +53,7 @@ export default function Navbar() {
               ) : (
                 <FontAwesomeIcon icon={faCircleUser} />
               )}
-              <p>
-                {user &&
-                  user.displayName &&
-                  user.displayName.substring(0, user.displayName.indexOf(" "))}
-              </p>
-
+              <p>{user.displayName && user.displayName.split(" ")[0]}</p>
               <FontAwesomeIcon
                 className={
                   userPopupClicked ? "user-arrow-up" : "user-arrow-down"
@@ -61,7 +63,7 @@ export default function Navbar() {
             </div>
           ) : (
             <div className="sign-in-button">
-              <Link href={"/sign-in"}>Sign In</Link>
+              <Link href="/sign-in">Sign In</Link>
             </div>
           )}
         </div>
