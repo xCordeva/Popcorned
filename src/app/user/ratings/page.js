@@ -1,4 +1,5 @@
 "use client";
+import useAuth from "@/Custom Hooks/useAuth";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 import Navbar from "@/app/components/Navbar";
@@ -7,8 +8,9 @@ import "@/css/Ratings.css";
 
 export default function RatingsPage() {
   usePopupCloser();
+  const { loading } = useAuth();
   const { isLoading } = useFetchReviews();
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="page-loading">
         <img

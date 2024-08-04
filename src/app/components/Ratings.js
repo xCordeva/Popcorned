@@ -18,7 +18,7 @@ const formatDate = (timestamp) => {
 
 export default function Ratings() {
   const dispatch = useDispatch();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
   const { reviews, isLoading } = useFetchReviews();
   const [clickedRatedTitleId, setClickedRatedTitleId] = useState("");
@@ -28,6 +28,26 @@ export default function Ratings() {
     (state) => state.RemoveReviewPopup.value
   );
   const ratingPopupOpen = useSelector((state) => state.RatingPopup.value);
+  if (loading || isLoading)
+    return (
+      <div className="page-loading">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+          alt="loading-gif"
+        />
+      </div>
+    );
+  if (!user) {
+    return (
+      <div className="ratings-section">
+        <h1>Your Ratings</h1>
+        <div className="ratings-not-found">
+          <h1>You need to sign in to view your ratings.</h1>
+          <Link href={`/sign-in`}>Sign In</Link>
+        </div>
+      </div>
+    );
+  }
 
   const filteredRatings = reviews.filter((review) => review.userId == user.uid);
 
