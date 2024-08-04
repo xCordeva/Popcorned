@@ -5,15 +5,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
+import useAuth from "@/Custom Hooks/useAuth";
 
 export default function Watchlist() {
   const dispatch = useDispatch();
+  const { user, loading } = useAuth();
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
   const handleRemoveFromListClick = (event, itemId) => {
     event.preventDefault();
     dispatch(openRemoveWatchlistPopup(itemId));
   };
   const { watchlist, isLoading } = useFetchWatchlist();
+  if (loading || isLoading)
+    return (
+      <div className="page-loading">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+          alt="loading-gif"
+        />
+      </div>
+    );
+  if (!user) {
+    return (
+      <div className="watchlist-section">
+        <h1>Your Ratings</h1>
+        <div className="watchlist-not-found">
+          <h1>You need to sign in to view your watchlist.</h1>
+          <Link href={`/sign-in`}>Sign In</Link>
+        </div>
+      </div>
+    );
+  }
   if (watchlist < 1 && !isLoading) {
     return (
       <div className="watchlist-section">
