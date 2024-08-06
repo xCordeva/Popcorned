@@ -23,6 +23,7 @@ export default function Ratings() {
   const { reviews, isLoading } = useFetchReviews();
   const [clickedRatedTitleId, setClickedRatedTitleId] = useState("");
   const [clickedRatedTitleType, setClickedRatedTitleType] = useState("");
+  const [removeRatingClicked, setRemoveRatingClicked] = useState(false);
 
   const showRemoveReviewPopup = useSelector(
     (state) => state.RemoveReviewPopup.value
@@ -193,6 +194,7 @@ export default function Ratings() {
                 onClick={(event) => {
                   event.preventDefault();
                   dispatch(openRemoveReviewPopup(item.firebaseItemId));
+                  setRemoveRatingClicked(true);
                 }}
               >
                 Remove Rating
@@ -207,7 +209,11 @@ export default function Ratings() {
           id={clickedRatedTitleId}
         ></RatingBox>
       )}
-      {showRemoveReviewPopup && <RemoveReviewBox></RemoveReviewBox>}
+      {showRemoveReviewPopup && (
+        <RemoveReviewBox
+          removeRatingClicked={removeRatingClicked}
+        ></RemoveReviewBox>
+      )}
     </div>
   );
 }

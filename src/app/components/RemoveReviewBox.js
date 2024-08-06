@@ -6,7 +6,10 @@ import { triggerRefetch } from "@/features/RefetchReviews";
 import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import { closeRemoveReviewPopup } from "@/features/RemoveReviewPopup";
 
-export default function RemoveFromWatchlistBox({ setClickedStar }) {
+export default function RemoveFromWatchlistBox({
+  setClickedStar,
+  removeRatingClicked,
+}) {
   const reviewId = useSelector((state) => state.RemoveReviewPopup.value);
 
   const dispatch = useDispatch();
@@ -24,7 +27,10 @@ export default function RemoveFromWatchlistBox({ setClickedStar }) {
   return (
     <div className="remove-watchlist-box-contianer">
       <div className="remove-watchlist-box">
-        <h2>Are you sure you want to remove this review?</h2>
+        <h2>
+          Are you sure you want to remove this{" "}
+          {removeRatingClicked ? `rating` : `review`}?
+        </h2>
         <div className="buttons">
           <button onClick={handleRemoveReview}>Yes</button>
           <button onClick={() => dispatch(closeRemoveReviewPopup(null))}>
