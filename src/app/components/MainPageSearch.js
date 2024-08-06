@@ -11,9 +11,9 @@ import {
   userSearchInput,
 } from "@/features/UserSearch";
 import SearchResults from "./SearchResults";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+// Debounce function to delay the execution until user stops typing
 function debounce(func, wait) {
   let timeout;
   return function (...args) {
@@ -30,33 +30,30 @@ export default function MainPageSearch() {
   const dispatch = useDispatch();
   const [userSearch, setUserSearch] = useState("");
   const status = useSelector((state) => state.UserSearch.status);
-
-  const handleUserSearch = useCallback(() => {
-    if (userSearch.trim()) {
-      dispatch(resetSearchResults());
-      dispatch(closeSearchPopup(true));
-      dispatch(userSearchInput(userSearch));
-      dispatch(fetchAll(userSearch));
-    }
-  }, [userSearch, dispatch]);
-
   const router = useRouter();
 
-  const searchButtonClicked = useCallback(() => {
-    if (userSearch.trim()) {
-      handleUserSearch();
-      router.push(`/search/title/${userSearch}`);
-    }
-  });
-
   const debounceHandleUserSearch = useCallback(
-    debounce(handleUserSearch, 500),
-    [handleUserSearch]
+    debounce(() => {
+      if (userSearch.trim()) {
+        dispatch(resetSearchResults());
+        dispatch(closeSearchPopup(true));
+        dispatch(userSearchInput(userSearch));
+        dispatch(fetchAll(userSearch));
+      }
+    }, 0),
+    [userSearch, dispatch]
   );
 
   useEffect(() => {
     debounceHandleUserSearch();
   }, [userSearch, debounceHandleUserSearch]);
+
+  const searchButtonClicked = useCallback(() => {
+    if (userSearch.trim()) {
+      debounceHandleUserSearch();
+      router.push(`/search/title/${userSearch}`);
+    }
+  }, [userSearch, debounceHandleUserSearch, router]);
 
   return (
     <div className="main-page-search">
@@ -79,14 +76,8 @@ export default function MainPageSearch() {
             type="text"
             placeholder={"Search for a " + text}
             value={userSearch}
-            onChange={(e) => {
-              setUserSearch(e.target.value);
-              dispatch(resetSearchResults());
-              handleUserSearch();
-              dispatch(userSearchInput(e.target.value));
-            }}
+            onChange={(e) => setUserSearch(e.target.value)}
           />
-
           <button onClick={searchButtonClicked} disabled={!userSearch}>
             <span>Search</span>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -97,7 +88,7 @@ export default function MainPageSearch() {
             status={status}
             searchButtonClicked={searchButtonClicked}
             userSearch={userSearch}
-          ></SearchResults>
+          />
         )}
       </div>
     </div>
