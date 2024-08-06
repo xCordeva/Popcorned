@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   getDownloadURL,
   ref as storageRef,
@@ -7,6 +7,7 @@ import {
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db, storage } from "@/firebase/firebase";
+import useAuth from "./useAuth";
 
 const useProfilePictureUpload = (user) => {
   const [profilePicture, setProfilePicture] = useState(
@@ -16,7 +17,16 @@ const useProfilePictureUpload = (user) => {
   const [showImageUpdatedSuccessfully, setShowImageUpdatedSuccessfully] =
     useState(false);
   const [pictureUploading, setPictureUploading] = useState(false);
-
+  const [initialLoading, setInitialLoading] = useState(true);
+  const { loading } = useAuth();
+  useEffect(() => {
+    if (!loading) {
+      if (user?.photoURL) {
+        setProfilePicture(user.photoURL);
+      }
+      setInitialLoading(false);
+    }
+  }, [user, loading]);
   const fileInputRef = useRef(null);
 
   const handleFileInputChange = async (e) => {
@@ -84,6 +94,7 @@ const useProfilePictureUpload = (user) => {
     showSelectImageAlert,
     showImageUpdatedSuccessfully,
     pictureUploading,
+    initialLoading,
     fileInputRef,
     handleFileInputChange,
   };

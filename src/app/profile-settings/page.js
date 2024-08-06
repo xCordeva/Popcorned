@@ -17,12 +17,13 @@ import useProfilePictureUpload from "@/Custom Hooks/useProfilePictureUpload";
 export default function ProfilePage() {
   usePopupCloser();
   const { user } = useAuth();
-  console.log(user);
+
   const {
     profilePicture,
     showSelectImageAlert,
     showImageUpdatedSuccessfully,
     pictureUploading,
+    initialLoading,
     fileInputRef,
     handleFileInputChange,
   } = useProfilePictureUpload(user);
@@ -63,7 +64,7 @@ export default function ProfilePage() {
         <h1>Account Settings</h1>
         <div className="profile-settings">
           <div className="profile-picture">
-            {pictureUploading ? (
+            {initialLoading || pictureUploading ? (
               <div className="image-container">
                 <img
                   className="image-uploading"
