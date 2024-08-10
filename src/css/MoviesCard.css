@@ -1,35 +1,57 @@
-.popular-movies-carousel {
+.main-page-carousel {
   display: flex;
   flex-direction: column;
   margin: 2%;
 }
-.popular-movies-carousel h1 {
+.main-page-carousel h1 {
   margin-left: 10px;
 }
+.main-page-carousel .watchlist-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 50dvh;
+  color: #ca282c;
+}
+.main-page-carousel .watchlist-not-found a {
+  cursor: pointer;
+  color: grey;
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+.main-page-carousel .watchlist-not-found a:hover {
+  color: white;
+}
 
-.populuar-movies-card-container {
+.movies-card-container {
   margin: 0 10px;
   max-height: 850px;
   overflow: hidden;
   background-color: hsl(0, 0%, 5%);
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-.populuar-movies-card-container h2 {
+.movies-card-container h2 {
   margin: 5px 0;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
+  height: 25px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-align: left;
 }
-.populuar-movies-card-container .card-components {
+.movies-card-container .card-components {
   padding: 0 15px 15px 15px;
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
-.populuar-movies-card-container .movie-plot {
+.movies-card-container .movie-plot {
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
   overflow: hidden;
@@ -38,29 +60,29 @@
   text-align: left;
   height: 50px;
 }
-.populuar-movies-card-container img {
+.movies-card-container img {
   width: 100%;
-  min-width: 300px;
+  min-width: 350px;
   height: 430px;
 }
-.populuar-movies-card-container .rating {
+.movies-card-container .rating {
   display: flex;
   align-items: center;
 }
-.populuar-movies-card-container .rating svg {
+.movies-card-container .rating svg {
   margin-right: 5px;
   color: #e89c1e;
 }
-.populuar-movies-card-container .rating p {
+.movies-card-container .rating p {
   margin-right: 15%;
 }
-.populuar-movies-card-container .rating a {
+.movies-card-container .rating a {
   text-decoration: none;
   color: white;
   padding: 10px;
   border-radius: 4px;
 }
-.populuar-movies-card-container .rating a:hover {
+.movies-card-container .rating a:hover {
   background-color: hsl(0, 0%, 15%);
   transition: all 0.4s ease;
 }

@@ -1,5 +1,5 @@
 import "../../css/PopularMovies.css";
-import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Carousel from "react-multi-carousel";
@@ -7,9 +7,11 @@ import "react-multi-carousel/lib/styles.css";
 import MoviesCard from "./MoviesCard";
 import { useSelector } from "react-redux";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
-import Watchlist from "./Watchlist";
+import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
+import { Link as SmoothLink } from "react-scroll";
+import useAuth from "@/Custom Hooks/useAuth";
 
-export default function PopularMovies() {
+export default function FromYourWatchlist() {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -27,28 +29,32 @@ export default function PopularMovies() {
       partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
   };
-
-  const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-  const apiUrl = "https://api.themoviedb.org/3";
-
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    // Function to fetch movie data
-    async function fetchMovies() {
-      try {
-        const response = await fetch(
-          `${apiUrl}/movie/popular?api_key=${apiKey}`
-        );
-        const data = await response.json();
-        setMovies(data.results);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    }
-    fetchMovies();
-  }, []);
+  const { watchlist } = useFetchWatchlist();
+  const { user } = useAuth();
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
+  if (!user) {
+    return (
+      <div className="watchlist-section">
+        <div className="watchlist-not-found">
+          <h1>You need to sign in to view your watchlist.</h1>
+          <Link href={`/sign-in`}>Sign In</Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (watchlist.length === 0) {
+    return (
+      <div className="watchlist-section">
+        <div className="watchlist-not-found">
+          <h1>Nothing here yet!</h1>
+          <SmoothLink to="popular-movies" smooth={true} duration={500}>
+            Start adding your favorite titles now!
+          </SmoothLink>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <Carousel
@@ -67,8 +73,8 @@ export default function PopularMovies() {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {movies.map((movie) => (
-          <MoviesCard key={movie.id} title={movie} />
+        {watchlist.map((title) => (
+          <MoviesCard key={title.id} title={title} />
         ))}
       </Carousel>
       {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
