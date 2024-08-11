@@ -24,6 +24,14 @@ export default function Home() {
         <h1 id="from-watchlist">From Your Watchlist</h1>
         <FromYourWatchlist></FromYourWatchlist>
       </div>
+      <div className="main-page-carousel">
+        <h1 id="from-watchlist">From Your Watchlist</h1>
+        <FromYourWatchlist></FromYourWatchlist>
+      </div>
+      <div className="main-page-carousel">
+        <h1 id="from-watchlist">From Your Watchlist</h1>
+        <FromYourWatchlist></FromYourWatchlist>
+      </div>
       {showSignInMessagePopup && <SignInMessage></SignInMessage>}
     </div>
   );

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "@/app/components/Navbar";
 import "@/css/TitleDetails.css";
+import "@/css/SimilarToThis.css";
 import "@/css/TopCast.css";
 import { useSearchParams } from "next/navigation";
 import TopCast from "@/app/components/TopCast";
@@ -12,6 +13,7 @@ import LeaveReview from "@/app/components/LeaveReview";
 import SignInMessage from "@/app/components/SignInMessage";
 import { useSelector } from "react-redux";
 import usePopupCloser from "@/Custom Hooks/usePopupCloser";
+import SimilarToThis from "@/app/components/SimilarToThis";
 
 const titleDetails = ({ params }) => {
   usePopupCloser();
@@ -110,6 +112,9 @@ const titleDetails = ({ params }) => {
             clickedStar={clickedStar}
             setClickedStar={setClickedStar}
           ></LeaveReview>
+        )}
+        {type !== "person" && (
+          <SimilarToThis id={id} type={type}></SimilarToThis>
         )}
       </div>
       {showSignInMessagePopup && <SignInMessage></SignInMessage>}

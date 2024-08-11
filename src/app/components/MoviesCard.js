@@ -57,7 +57,7 @@ const MoviesCard = ({ title }) => {
       </div>
     );
   }
-  console.log(title);
+
   return (
     <div className="movies-card-container">
       <img src={posterUrl} alt="" />
@@ -67,7 +67,7 @@ const MoviesCard = ({ title }) => {
           <p>{title.vote_average.toFixed(1)}</p>
           <Link href={"/"}> Rate it</Link>
         </div>
-        <h2>{title.title}</h2>
+        <h2>{title.title || title.name}</h2>
         <p className="movie-plot">
           {title.overview.length > 0 ? title.overview : `No Plot Available`}
           {title.overview}
