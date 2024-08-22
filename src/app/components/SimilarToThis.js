@@ -57,7 +57,7 @@ export default function SimilarToThis({ id, type }) {
     <div className="similar-to-this">
       <h1>Similar to this</h1>
       <Carousel
-        swipeable={false}
+        swipeable={true}
         draggable={false}
         showDots={false}
         responsive={responsive}
