@@ -6,6 +6,7 @@ import PopularMovies from "./components/PopularMovies";
 import { useSelector } from "react-redux";
 import SignInMessage from "./components/SignInMessage";
 import FromYourWatchlist from "./components/FromYourWatchlist";
+import TopMovies from "./components/TopMovies";
 
 export default function Home() {
   usePopupCloser();
@@ -25,12 +26,8 @@ export default function Home() {
         <FromYourWatchlist></FromYourWatchlist>
       </div>
       <div className="main-page-carousel">
-        <h1 id="from-watchlist">From Your Watchlist</h1>
-        <FromYourWatchlist></FromYourWatchlist>
-      </div>
-      <div className="main-page-carousel">
-        <h1 id="from-watchlist">From Your Watchlist</h1>
-        <FromYourWatchlist></FromYourWatchlist>
+        <h1 id="top-movies">Top Rated Movies</h1>
+        <TopMovies></TopMovies>
       </div>
       {showSignInMessagePopup && <SignInMessage></SignInMessage>}
     </div>

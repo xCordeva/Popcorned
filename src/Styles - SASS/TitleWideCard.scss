@@ -1,0 +1,90 @@
+@use "variables.scss";
+
+.title-wide-card {
+  margin: 0 10px;
+  height: auto;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  display: block;
+  .wide-card-content {
+    transition: filter 0.3s ease;
+    display: block;
+    transform: translateZ(0);
+  }
+
+  &:hover .wide-card-content {
+    filter: blur(0.5rem);
+  }
+
+  img {
+    width: 100%;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+
+  .title-details {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+
+    h1 {
+      margin: 10px 0;
+      display: block;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+
+      svg {
+        margin-right: 10px;
+        font-size: 25px;
+        color: variables.$main-yellow;
+      }
+    }
+  }
+
+  .mini-card-plot {
+    width: 100%;
+    position: absolute;
+    left: 5%;
+    bottom: -100%;
+    transition: all 0.5s ease;
+
+    .movie-plot {
+      padding: 20px;
+      border-radius: 0 5px 5px 0;
+      position: absolute;
+      left: calc(5% + 200px);
+      bottom: 0;
+      width: 30%;
+      line-height: 25px;
+      height: 239px;
+      color: white;
+      overflow-x: hidden;
+      background-color: hsla(0, 0%, 10%, 0.5);
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+      &::-webkit-scrollbar-track {
+        background: variables.$main-grey;
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: variables.$main-red;
+        border-radius: 10px;
+      }
+    }
+  }
+  &:hover .mini-card-plot {
+    bottom: 5%;
+  }
+}

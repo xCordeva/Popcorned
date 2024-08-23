@@ -1,0 +1,79 @@
+.title-wide-card {
+  margin: 0 10px;
+  height: auto;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  display: block;
+}
+.title-wide-card .wide-card-content {
+  transition: filter 0.3s ease;
+  display: block;
+  transform: translateZ(0);
+}
+.title-wide-card:hover .wide-card-content {
+  filter: blur(0.5rem);
+}
+.title-wide-card img {
+  width: 100%;
+  transition: transform 0.4s ease;
+}
+.title-wide-card:hover img {
+  transform: scale(1.05);
+}
+.title-wide-card .title-details {
+  position: absolute;
+  bottom: 15%;
+  left: 5%;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.title-wide-card .title-details h1 {
+  margin: 10px 0;
+  display: block;
+}
+.title-wide-card .title-details .rating {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+.title-wide-card .title-details .rating svg {
+  margin-right: 10px;
+  font-size: 25px;
+  color: #e89c1e;
+}
+.title-wide-card .mini-card-plot {
+  width: 100%;
+  position: absolute;
+  left: 5%;
+  bottom: -100%;
+  transition: all 0.5s ease;
+}
+.title-wide-card .mini-card-plot .movie-plot {
+  padding: 20px;
+  border-radius: 0 5px 5px 0;
+  position: absolute;
+  left: calc(5% + 200px);
+  bottom: 0;
+  width: 30%;
+  line-height: 25px;
+  height: 239px;
+  color: white;
+  overflow-x: hidden;
+  background-color: hsla(0, 0%, 10%, 0.5);
+}
+.title-wide-card .mini-card-plot .movie-plot::-webkit-scrollbar {
+  width: 8px;
+}
+.title-wide-card .mini-card-plot .movie-plot::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 10%);
+  border-radius: 5px;
+}
+.title-wide-card .mini-card-plot .movie-plot::-webkit-scrollbar-thumb {
+  background-color: #ca282c;
+  border-radius: 10px;
+}
+.title-wide-card:hover .mini-card-plot {
+  bottom: 5%;
+}
