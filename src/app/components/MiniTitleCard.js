@@ -7,7 +7,7 @@ import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 import useAddToWatchlist from "@/Custom Hooks/useAddToWatchlist";
 import { useEffect, useState } from "react";
 
-export default function MiniTitleCard({ title }) {
+export default function MiniTitleCard({ title, type }) {
   const posterUrl = title.poster_path
     ? `https://image.tmdb.org/t/p/w500${title.poster_path}`
     : "https://via.placeholder.com/500x750?text=No+Image";
@@ -29,7 +29,7 @@ export default function MiniTitleCard({ title }) {
     async function fetchMovieCast() {
       try {
         const castResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/${title.id}/credits?api_key=${apiKey}`
+          `https://api.themoviedb.org/3/${type}/${title.id}/credits?api_key=${apiKey}`
         );
         const castData = await castResponse.json();
         setCast(castData);

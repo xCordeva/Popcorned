@@ -4,13 +4,13 @@ import MiniTitleCard from "./MiniTitleCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function TitleWideCard({ title }) {
+export default function TitleWideCard({ title, type }) {
   return (
     <div className="title-wide-card" key={title.id}>
       <Link
         href={{
           pathname: `/title/${title.id}`,
-          query: { type: "movie" },
+          query: { type },
         }}
       >
         <div className="wide-card-content">
@@ -19,9 +19,8 @@ export default function TitleWideCard({ title }) {
             alt={`${title.title} famous frame`}
             loading="lazy"
           />
-
           <div className="title-details">
-            <h1>{title.title}</h1>
+            <h1>{title.title || title.name}</h1>
             <div className="rating">
               <FontAwesomeIcon icon={faStar} />
               <h1>{title.vote_average.toFixed(1)}</h1>
@@ -33,7 +32,7 @@ export default function TitleWideCard({ title }) {
             {title.overview.length > 0 ? title.overview : `No Plot Available`}
             {title.overview}
           </div>
-          <MiniTitleCard title={title}></MiniTitleCard>
+          <MiniTitleCard title={title} type={type}></MiniTitleCard>
         </div>
       </Link>
     </div>
