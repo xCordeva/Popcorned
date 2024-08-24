@@ -4,9 +4,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import MoviesCard from "./TitlesCard";
 import { useSelector } from "react-redux";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
+import TitlesCard from "./TitlesCard";
 
 export default function SimilarToThis({ id, type }) {
   const responsive = {
@@ -39,18 +39,18 @@ export default function SimilarToThis({ id, type }) {
 
   useEffect(() => {
     // Function to fetch movie data
-    async function fetchMovies() {
+    async function fetchTitles() {
       try {
         const response = await fetch(
           `${apiUrl}/${type}/${id}/recommendations?api_key=${apiKey}`
         );
         const data = await response.json();
-        setTitles(data.results);
+        setTitles(data.results.slice(0, 10));
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error("Error fetching titles:", error);
       }
     }
-    fetchMovies();
+    fetchTitles();
   }, []);
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
   return (
@@ -64,16 +64,14 @@ export default function SimilarToThis({ id, type }) {
         ssr={true} // means to render carousel on server-side.
         infinite={false}
         keyBoardControl={false}
-        customTransition="all 0.4s ease"
+        customTransition="all 0.5s ease"
         transitionDuration={500}
         containerClass="carousel-container"
         removeArrowOnDeviceType={["tablet", "mobile"]}
-        // deviceType={this.props.deviceType}
-        dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
         {titles.map((title) => (
-          <MoviesCard key={title.id} title={title} />
+          <TitlesCard key={title.id} title={title} type={type} />
         ))}
       </Carousel>
       {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
