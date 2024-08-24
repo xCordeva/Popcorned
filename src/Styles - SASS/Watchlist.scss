@@ -8,7 +8,6 @@
   flex-direction: column;
   .watchlist-section {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     background-color: darken($color: variables.$main-grey, $amount: 7%);
     padding: 1% 5%;

@@ -8,7 +8,6 @@
 }
 .watchlist-page .watchlist-section {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   background-color: #080808;
   padding: 1% 5%;
