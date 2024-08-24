@@ -56,7 +56,7 @@ export default function MiniTitleCard({ title, type }) {
         ) : (
           <button
             onClick={(e) => {
-              handleAddToWatchlist(title, "movie", cast.cast.slice(0, 2));
+              handleAddToWatchlist(title, type, cast.cast.slice(0, 2));
               e.preventDefault();
             }}
             className="popular-movies-button global-button"

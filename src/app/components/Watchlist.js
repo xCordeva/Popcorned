@@ -42,7 +42,7 @@ export default function Watchlist() {
         <h1>Your Watchlist</h1>
         <div className="watchlist-not-found">
           <h1>Nothing here yet!</h1>
-          <Link href={`/#popular-movies`}>
+          <Link href={`/#trending-movies`}>
             Start adding your favorite titles now!
           </Link>
         </div>

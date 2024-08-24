@@ -2,12 +2,12 @@
 import Navbar from "./components/Navbar";
 import MainPageSearch from "./components/MainPageSearch";
 import usePopupCloser from "@/Custom Hooks/usePopupCloser";
-import PopularMovies from "./components/PopularMovies";
 import { useSelector } from "react-redux";
 import SignInMessage from "./components/SignInMessage";
 import FromYourWatchlist from "./components/FromYourWatchlist";
 import TopMovies from "./components/TopMovies";
 import TopTvShows from "./components/TopTvShows";
+import TrendingTitles from "./components/TrendingTitles";
 
 export default function Home() {
   usePopupCloser();
@@ -19,8 +19,13 @@ export default function Home() {
       <Navbar></Navbar>
       <MainPageSearch></MainPageSearch>
       <div className="main-page-carousel">
-        <h1 id="popular-movies">Popular Movies</h1>
-        <PopularMovies></PopularMovies>
+        <h1 id="trending-movies">Trending Movies</h1>
+        <TrendingTitles type={"movie"}></TrendingTitles>
+      </div>
+
+      <div className="main-page-carousel">
+        <h1 id="trending-tv-shows">Trending Tv Shows</h1>
+        <TrendingTitles type={"tv"}></TrendingTitles>
       </div>
       <div className="main-page-carousel">
         <h1 id="top-movies">Top Rated Movies</h1>

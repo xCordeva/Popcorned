@@ -1,15 +1,14 @@
-import "../../css/PopularMovies.css";
 import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import MoviesCard from "./MoviesCard";
 import { useSelector } from "react-redux";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
 import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 import { Link as SmoothLink } from "react-scroll";
 import useAuth from "@/Custom Hooks/useAuth";
+import TitlesCard from "./TitlesCard";
 
 export default function FromYourWatchlist() {
   const responsive = {
@@ -48,7 +47,7 @@ export default function FromYourWatchlist() {
       <div className="watchlist-section">
         <div className="watchlist-not-found">
           <h1>Nothing here yet!</h1>
-          <SmoothLink to="popular-movies" smooth={true} duration={500}>
+          <SmoothLink to="trending-movies" smooth={true} duration={500}>
             Start adding your favorite titles now!
           </SmoothLink>
         </div>
@@ -74,7 +73,7 @@ export default function FromYourWatchlist() {
         itemClass="carousel-item-padding-40-px"
       >
         {watchlist.map((title) => (
-          <MoviesCard key={title.id} title={title} />
+          <TitlesCard key={title.id} title={title} type={title.type} />
         ))}
       </Carousel>
       {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}

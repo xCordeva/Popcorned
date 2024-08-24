@@ -1,15 +1,13 @@
-import "../../css/PopularMovies.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import MoviesCard from "./MoviesCard";
 import { useSelector } from "react-redux";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
-import Watchlist from "./Watchlist";
+import TitlesCard from "./TitlesCard";
 
-export default function PopularMovies() {
+export default function TrendingTitles({ type }) {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -31,28 +29,29 @@ export default function PopularMovies() {
   const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
   const apiUrl = "https://api.themoviedb.org/3";
 
-  const [movies, setMovies] = useState([]);
+  const [titles, setTitles] = useState([]);
 
   useEffect(() => {
-    // Function to fetch movie data
-    async function fetchMovies() {
+    // Function to fetch title data
+    async function fetchTitles() {
       try {
         const response = await fetch(
-          `${apiUrl}/movie/popular?api_key=${apiKey}`
+          `${apiUrl}/trending/${type}/week?api_key=${apiKey}`
         );
         const data = await response.json();
-        setMovies(data.results);
+        setTitles(data.results);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error("Error fetching titles:", error);
       }
     }
-    fetchMovies();
+    fetchTitles();
   }, []);
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
+
   return (
     <div>
       <Carousel
-        swipeable={false}
+        swipeable={true}
         draggable={false}
         showDots={false}
         responsive={responsive}
@@ -67,8 +66,8 @@ export default function PopularMovies() {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {movies.map((movie) => (
-          <MoviesCard key={movie.id} title={movie} />
+        {titles.map((title) => (
+          <TitlesCard key={title.id} title={title} type={type} />
         ))}
       </Carousel>
       {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}

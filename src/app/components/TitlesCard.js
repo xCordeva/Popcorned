@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "../../css/MoviesCard.css";
+import { useEffect, useState } from "react";
+import "../../css/TitlesCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
@@ -15,26 +15,26 @@ import useAddToWatchlist from "@/Custom Hooks/useAddToWatchlist";
 
 const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
-const MoviesCard = ({ title }) => {
+const TitlesCard = ({ title, type }) => {
   const posterUrl = title.poster_path
     ? `https://image.tmdb.org/t/p/w500${title.poster_path}`
     : "https://via.placeholder.com/500x750?text=No+Image";
   const [cast, setCast] = useState([]);
   useEffect(() => {
-    // Function to fetch movie data
+    // Function to fetch title data
 
-    async function fetchMovieCast() {
+    async function fetchTitleCast() {
       try {
         const castResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/${title.id}/credits?api_key=${apiKey}`
+          `https://api.themoviedb.org/3/${type}/${title.id}/credits?api_key=${apiKey}`
         );
         const castData = await castResponse.json();
         setCast(castData);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error("Error fetching titles:", error);
       }
     }
-    fetchMovieCast();
+    fetchTitleCast();
   }, [title.id]);
   const { watchlist, isLoading } = useFetchWatchlist();
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ const MoviesCard = ({ title }) => {
         <Link
           href={{
             pathname: `/title/${title.id}`,
-            query: { type: "movie" },
+            query: { type },
           }}
           className="popular-movies-button global-button"
         >
@@ -95,7 +95,7 @@ const MoviesCard = ({ title }) => {
         ) : (
           <button
             onClick={() =>
-              handleAddToWatchlist(title, "movie", cast.cast.slice(0, 2))
+              handleAddToWatchlist(title, type, cast.cast.slice(0, 2))
             }
             className="popular-movies-button global-button"
           >
@@ -108,4 +108,4 @@ const MoviesCard = ({ title }) => {
   );
 };
 
-export default MoviesCard;
+export default TitlesCard;

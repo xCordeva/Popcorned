@@ -58,7 +58,7 @@ export default function Ratings() {
         <h1>Your Ratings</h1>
         <div className="ratings-not-found">
           <h1>Nothing here yet!</h1>
-          <Link href={`/#popular-movies`}>
+          <Link href={`/#trending-movies`}>
             Start rating your favorite titles now!
           </Link>
         </div>
