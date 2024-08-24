@@ -5,9 +5,8 @@ import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 import { useSelector } from "react-redux";
 import SignInMessage from "./components/SignInMessage";
 import FromYourWatchlist from "./components/FromYourWatchlist";
-import TopMovies from "./components/TopMovies";
-import TopTvShows from "./components/TopTvShows";
 import TrendingTitles from "./components/TrendingTitles";
+import TopRatedTitles from "./components/TopRatedTitles";
 
 export default function Home() {
   usePopupCloser();
@@ -29,11 +28,11 @@ export default function Home() {
       </div>
       <div className="main-page-carousel">
         <h1 id="top-movies">Top Rated Movies</h1>
-        <TopMovies></TopMovies>
+        <TopRatedTitles type={"movie"}></TopRatedTitles>
       </div>
       <div className="main-page-carousel">
         <h1 id="top-tv-shows">Top Rated Tv Shows</h1>
-        <TopTvShows></TopTvShows>
+        <TopRatedTitles type={"tv"}></TopRatedTitles>
       </div>
       <div className="main-page-carousel">
         <h1 id="from-watchlist">From Your Watchlist</h1>

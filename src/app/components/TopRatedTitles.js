@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import RemoveFromWatchlistBox from "./RemoveFromWatchlistBox";
 import TitleWideCard from "./TitleWideCard";
 
-export default function TopTvShows() {
+export default function TopRatedTitles({ type }) {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1050 },
@@ -38,18 +38,18 @@ export default function TopTvShows() {
 
   useEffect(() => {
     // Function to fetch movie data
-    async function fetchMovies() {
+    async function fetchTitles() {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/tv/top_rated?api_key=${apiKey}`
+          `https://api.themoviedb.org/3/${type}/top_rated?api_key=${apiKey}`
         );
         const data = await response.json();
         setTitles(data.results);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error("Error fetching titles:", error);
       }
     }
-    fetchMovies();
+    fetchTitles();
   }, []);
   const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
   return (
@@ -71,7 +71,7 @@ export default function TopTvShows() {
         itemClass="carousel-item-padding-40-px"
       >
         {titles.map((title) => (
-          <TitleWideCard key={title.id} title={title} type={"tv"} />
+          <TitleWideCard key={title.id} title={title} type={type} />
         ))}
       </Carousel>
       {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
