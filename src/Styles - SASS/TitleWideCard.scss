@@ -37,6 +37,7 @@
     h1 {
       margin: 10px 0;
       display: block;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     }
 
     .rating {
@@ -48,6 +49,7 @@
         margin-right: 10px;
         font-size: 25px;
         color: variables.$main-yellow;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
       }
     }
   }
