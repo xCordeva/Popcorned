@@ -132,7 +132,6 @@ export default function Watchlist() {
             </div>
           </Link>
         ))}
-        <div className="watchlist-item"></div>
       </div>
       {showPopup && <RemoveFromWatchListBox></RemoveFromWatchListBox>}
     </div>
