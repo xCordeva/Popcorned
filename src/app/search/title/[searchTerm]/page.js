@@ -17,6 +17,7 @@ import RemoveFromWatchlistBox from "@/app/components/RemoveFromWatchlistBox";
 import SignInMessage from "@/app/components/SignInMessage";
 import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 import useAddToWatchlist from "@/Custom Hooks/useAddToWatchlist";
+import Footer from "@/app/components/Footer";
 
 const SearchPage = ({ params }) => {
   usePopupCloser();
@@ -201,6 +202,7 @@ const SearchPage = ({ params }) => {
       </div>
       {showPopup && <RemoveFromWatchlistBox></RemoveFromWatchlistBox>}
       {showMessagePopup && <SignInMessage></SignInMessage>}
+      <Footer />
     </div>
   );
 };

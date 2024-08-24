@@ -1,0 +1,14 @@
+.footer {
+  background-color: hsl(0, 0%, 10%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5px 0 30px 0;
+  margin-top: 80px;
+}
+.footer img {
+  width: 45%;
+  max-width: 150px;
+  margin: 10px 0;
+}

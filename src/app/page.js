@@ -7,6 +7,7 @@ import SignInMessage from "./components/SignInMessage";
 import FromYourWatchlist from "./components/FromYourWatchlist";
 import TrendingTitles from "./components/TrendingTitles";
 import TopRatedTitles from "./components/TopRatedTitles";
+import Footer from "./components/Footer";
 
 export default function Home() {
   usePopupCloser();
@@ -38,6 +39,7 @@ export default function Home() {
         <h1 id="from-watchlist">From Your Watchlist</h1>
         <FromYourWatchlist></FromYourWatchlist>
       </div>
+      <Footer />
       {showSignInMessagePopup && <SignInMessage></SignInMessage>}
     </div>
   );
