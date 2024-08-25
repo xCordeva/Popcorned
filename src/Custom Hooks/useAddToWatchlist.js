@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { triggerRefetch } from "@/features/RefetchWatchlist";
 import { showSignInMessagePopup } from "@/features/SignInMessagePopup";
@@ -14,15 +14,23 @@ const useAddToWatchlist = () => {
   const { watchlist } = useFetchWatchlist();
   const [isAddedMap, setIsAddedMap] = useState({});
 
+  useEffect(() => {
+    // Update the isAddedMap whenever the watchlist changes
+    const initialMap = watchlist.reduce((map, item) => {
+      map[item.id] = true;
+      return map;
+    }, {});
+    setIsAddedMap(initialMap);
+  }, [watchlist]);
+
   const handleAddToWatchlist = (result, type, topCast) => {
-    const watchlistItem = watchlist.find((item) => item.id === result.id);
     const isAdded = isAddedMap[result.id];
+
     if (!user) {
       dispatch(showSignInMessagePopup(true));
-    } else if (!watchlistItem && !isAdded) {
+    } else if (!isAdded) {
       addToWatchlist(result, type, topCast).finally(() => {
         setIsAddedMap((prevMap) => ({ ...prevMap, [result.id]: true }));
-
         dispatch(triggerRefetch(!refetchWatchlist));
       });
     }
@@ -30,8 +38,11 @@ const useAddToWatchlist = () => {
 
   const handleRemoveFromListClick = (event, itemId, resultId) => {
     event.preventDefault();
-    dispatch(openRemoveWatchlistPopup(itemId));
-    setIsAddedMap((prevMap) => ({ ...prevMap, [resultId]: false }));
+    if (isAddedMap[resultId]) {
+      setIsAddedMap((prevMap) => ({ ...prevMap, [resultId]: false }));
+      dispatch(openRemoveWatchlistPopup(itemId));
+      dispatch(triggerRefetch(!refetchWatchlist));
+    }
   };
 
   return { handleAddToWatchlist, handleRemoveFromListClick };
