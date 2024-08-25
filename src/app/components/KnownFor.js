@@ -16,17 +16,22 @@ const fetchTvShowDetails = async (showId) => {
   const data = await response.json();
   return data.number_of_episodes;
 };
+
+// Function to fetch cast members of a media
 const fetchCast = async (mediaType, mediaId) => {
   const response = await fetch(
     `https://api.themoviedb.org/3/${mediaType}/${mediaId}/credits?api_key=${api_key}`
   );
   const data = await response.json();
-  return data.cast; // Get the top 2 cast members
+  return data.cast;
 };
 
 const KnownFor = ({ id, details }) => {
   const [knownFor, setKnownFor] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { isLoading } = useFetchWatchlist();
+  const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
+
   useEffect(() => {
     const fetchKnownFor = async () => {
       try {
@@ -64,6 +69,7 @@ const KnownFor = ({ id, details }) => {
           })
         );
 
+        // Fetch additional details for movies
         const moviesWithDetails = await Promise.all(
           movies.map(async (movie) => {
             const cast = await fetchCast("movie", movie.id);
@@ -124,28 +130,32 @@ const KnownFor = ({ id, details }) => {
         }
 
         setKnownFor(combinedResults);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching known for data:", error);
+        setLoading(false);
       }
     };
 
     fetchKnownFor();
-    setLoading(false);
-  }, [id]);
+  }, [id, details]);
 
-  const showPopup = useSelector((state) => state.RemoveWatchlistPopup.value);
-  const { watchlist, isLoading } = useFetchWatchlist();
-  if (loading || (watchlist && isLoading)) {
+  // Loading state
+  if (loading || isLoading) {
     return (
-      <div className="secondary-loading">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
-          alt="loading-gif"
-        />
-        <p>Loading...</p>
+      <div className="known-for">
+        <h1>Known For</h1>
+        <div className="secondary-loading">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/loading.gif?alt=media&token=fb93d855-3412-4e08-bf85-a696cc68004a"
+            alt="loading-gif"
+          />
+          <p>Loading...</p>
+        </div>
       </div>
     );
   }
+
   return (
     <div className="known-for">
       <h1>Known For</h1>
