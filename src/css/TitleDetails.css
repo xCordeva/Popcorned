@@ -49,12 +49,17 @@
   background-color: #ca282c;
   border-radius: 10px;
 }
+.details-card .languages {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .details-card .title-language {
   background-color: hsl(0, 0%, 10%);
   width: fit-content;
   padding: 5px;
   border-radius: 4px;
-  display: inline;
   margin: 0 10px;
 }
 .details-card .rating {
