@@ -12,6 +12,8 @@ import useFetchWatchlist from "@/Custom Hooks/useFetchWatchlist";
 import { useDispatch } from "react-redux";
 import { openRemoveWatchlistPopup } from "@/features/RemoveWatchlistPopup";
 import useAddToWatchlist from "@/Custom Hooks/useAddToWatchlist";
+import useFetchReviews from "@/Custom Hooks/useFetchReviews";
+import useAuth from "@/Custom Hooks/useAuth";
 
 const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -46,6 +48,14 @@ const TitlesCard = ({ title, type }) => {
   };
 
   const { handleAddToWatchlist } = useAddToWatchlist(title.id);
+  const { reviews } = useFetchReviews();
+  const { user } = useAuth();
+  const userAlreadyReviewed = reviews.find(
+    (review) =>
+      review.titleId === title.id &&
+      review.titleType === type &&
+      (user ? review.userId === user.uid : false)
+  );
   if (watchlist && isLoading) {
     return (
       <div className="secondary-loading">
@@ -65,7 +75,14 @@ const TitlesCard = ({ title, type }) => {
         <div className="rating">
           <FontAwesomeIcon icon={faStar} />
           <p>{title.vote_average.toFixed(1)}</p>
-          <Link href={"/"}> Rate it</Link>
+          {userAlreadyReviewed ? (
+            <div className="user-rate">
+              <FontAwesomeIcon icon={faStar} className="user-rating-star" />
+              <p>{userAlreadyReviewed.rating}</p>
+            </div>
+          ) : (
+            ``
+          )}
         </div>
         <h2>{title.title || title.name}</h2>
         <p className="movie-plot">

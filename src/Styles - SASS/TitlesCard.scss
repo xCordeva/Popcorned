@@ -57,7 +57,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     text-align: left;
-    height: 50px;
+    height: 48px;
   }
   img {
     width: 100%;
@@ -67,6 +67,7 @@
   .rating {
     display: flex;
     align-items: center;
+    font-size: 20px;
     svg {
       margin-right: 5px;
       color: variables.$main-yellow;
@@ -83,6 +84,15 @@
         background-color: variables.$sec-grey;
         transition: all 0.4s ease;
       }
+    }
+  }
+  .user-rate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    .user-rating-star {
+      color: variables.$main-red;
     }
   }
 }
