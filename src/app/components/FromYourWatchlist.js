@@ -12,19 +12,29 @@ import TitlesCard from "./TitlesCard";
 
 export default function FromYourWatchlist() {
   const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 6,
+    bigDesktop: {
+      breakpoint: { max: 3000, min: 1800 },
+      items: 5,
       partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
+    desktop: {
+      breakpoint: { max: 1800, min: 1500 },
       items: 4,
       partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
+    smallDesktop: {
+      breakpoint: { max: 1500, min: 1024 },
+      items: 3,
+      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 700 },
       items: 2,
+      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
+    },
+    mobile: {
+      breakpoint: { max: 700, min: 0 },
+      items: 1,
       partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
   };
