@@ -67,7 +67,7 @@ export default function FromYourWatchlist() {
   return (
     <div>
       <Carousel
-        swipeable={false}
+        swipeable={true}
         draggable={false}
         showDots={false}
         responsive={responsive}
