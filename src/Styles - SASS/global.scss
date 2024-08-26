@@ -6,6 +6,17 @@
   color: white;
   font-family: "Ubuntu Mono", monospace;
   font-weight: 600;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: variables.$main-grey;
+    border-radius: 0 0 5px 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: variables.$main-yellow;
+    border-radius: 10px;
+  }
 }
 body {
   margin: 0;
