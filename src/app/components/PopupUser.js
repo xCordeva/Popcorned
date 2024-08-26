@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRightToBracket,
   faStar,
-  faList,
   faGear,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
@@ -37,11 +36,11 @@ export default function PopupUser() {
         <p>Watchlist</p>
       </Link>
       <Link
-        href={`/profile-settings`}
+        href={`/account-settings`}
         onClick={() => dispatch(closeUserPopup(false))}
       >
         <FontAwesomeIcon icon={faGear} />
-        Profile
+        Account
       </Link>
       <Link
         href={`/user/ratings`}
@@ -49,10 +48,6 @@ export default function PopupUser() {
       >
         <FontAwesomeIcon icon={faStar} />
         My Ratings
-      </Link>
-      <Link href={`/`} onClick={() => dispatch(closeUserPopup(false))}>
-        <FontAwesomeIcon icon={faList} />
-        My Lists
       </Link>
       <Link href={`/`} onClick={handleSignOut}>
         <FontAwesomeIcon icon={faRightToBracket} />
