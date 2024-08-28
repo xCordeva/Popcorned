@@ -1,23 +1,51 @@
-.mini-title-card-container {
+.mini-card {
+  width: 80%;
   position: absolute;
-  bottom: 5%;
   left: 5%;
-  overflow: hidden;
-  background-color: hsl(0, 0%, 5%);
+  bottom: -100%;
   border-radius: 5px 0 0 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.5s ease;
 }
-.mini-title-card-container img {
+.mini-card .movie-plot {
+  padding: 20px;
+  border-radius: 0 5px 5px 0;
+  line-height: 25px;
+  color: white;
+  overflow-x: hidden;
+  background-color: hsla(0, 0%, 10%, 0.5);
+}
+.mini-card .movie-plot::-webkit-scrollbar {
+  width: 8px;
+}
+.mini-card .movie-plot::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 10%);
+  border-radius: 5px;
+}
+.mini-card .movie-plot::-webkit-scrollbar-thumb {
+  background-color: #ca282c;
+  border-radius: 10px;
+}
+.mini-card .mini-title-card-container {
+  height: 280px;
+  display: flex;
+  flex-direction: row;
+}
+.mini-card .mini-title-card-container img {
   width: 100%;
-  min-width: 200px;
+  min-width: 210px;
   max-height: 220px;
 }
-.mini-title-card-container button.popular-movies-button,
-.mini-title-card-container .remove-item {
-  width: 100%;
+.mini-card .mini-title-card-container .card-components {
+  background-color: hsl(0, 0%, 5%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mini-card .mini-title-card-container button.popular-movies-button,
+.mini-card .mini-title-card-container .remove-item {
+  width: 190px;
   padding: 5px;
   border-radius: 3px;
   font-size: 11px;
@@ -25,6 +53,38 @@
   margin: 15px 0;
   transition: all 0.3s ease;
 }
-.mini-title-card-container .remove-item:hover {
+.mini-card .mini-title-card-container .remove-item:hover {
   border-color: hsl(0, 0%, 15%);
+}
+.mini-card .mini-title-card-container button.popular-movies-button:hover {
+  border-color: #e89c1e;
+}
+
+@media (max-width: 600px) {
+  .mini-card {
+    width: 100%;
+    left: 0%;
+    height: 100%;
+    overflow-x: hidden;
+    display: flex;
+    background-color: hsla(0, 0%, 10%, 0.5);
+  }
+  .mini-card .mini-title-card-container {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+  .mini-card .mini-title-card-container img {
+    display: none;
+  }
+  .mini-card .mini-title-card-container .card-components {
+    background-color: transparent;
+  }
+  .mini-card .mini-title-card-container .movie-plot {
+    background-color: transparent;
+  }
+  .mini-card .mini-title-card-container button.popular-movies-button,
+  .mini-card .mini-title-card-container .remove-item {
+    width: 70%;
+    margin: 10px 0;
+  }
 }

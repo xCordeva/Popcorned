@@ -10,23 +10,13 @@ import TitleWideCard from "./TitleWideCard";
 
 export default function TopRatedTitles({ type }) {
   const responsive = {
+    bigDesktop: {
+      breakpoint: { max: 3000, min: 1200 },
+      items: 2,
+      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
+    },
     desktop: {
-      breakpoint: { max: 3000, min: 1050 },
-      items: 2,
-      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
-    },
-    tablet: {
-      breakpoint: { max: 1050, min: 900 },
-      items: 2,
-      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
-    },
-    mobile: {
-      breakpoint: { max: 900, min: 550 },
-      items: 2,
-      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
-    },
-    smallMobile: {
-      breakpoint: { max: 550, min: 0 },
+      breakpoint: { max: 1200, min: 0 },
       items: 1,
       partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
@@ -66,7 +56,6 @@ export default function TopRatedTitles({ type }) {
         transitionDuration={500}
         containerClass="carousel-container"
         removeArrowOnDeviceType={["tablet", "mobile"]}
-        // deviceType={this.props.deviceType}
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >

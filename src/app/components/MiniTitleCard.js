@@ -41,8 +41,8 @@ export default function MiniTitleCard({ title, type }) {
   }, [title.id]);
   return (
     <div className="mini-title-card-container">
-      <img src={posterUrl} alt="" />
       <div className="card-components">
+        <img src={posterUrl} alt={title.title || title.name + ` poster`} />
         {watchlistItem ? (
           <button
             onClick={(event) =>
@@ -65,6 +65,10 @@ export default function MiniTitleCard({ title, type }) {
             <FontAwesomeIcon icon={faSquarePlus} />
           </button>
         )}
+      </div>
+      <div className="movie-plot">
+        {title.overview.length > 0 ? title.overview : `No Plot Available`}
+        {title.overview}
       </div>
     </div>
   );
