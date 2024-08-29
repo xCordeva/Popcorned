@@ -114,6 +114,9 @@
     font-size: 1.6rem;
     justify-content: center;
   }
+  .main-page-search .search-box .input-container button {
+    width: 25%;
+  }
   .main-page-search .search-box img {
     width: 30px;
   }
