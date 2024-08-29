@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Account Settings | Popcorned",
+  title: "Popcorned - Account Settings",
   description:
     "Manage your Popcorned account settings, update personal information, change your password, and adjust your preferences.",
 };
