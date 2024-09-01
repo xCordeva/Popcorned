@@ -99,3 +99,9 @@
   height: 0;
   transition: height 0.4s ease, top 0.4s ease;
 }
+
+@media (max-width: 400px) {
+  .rating-box-contianer .rating-box .rating-stars {
+    font-size: 1.55rem;
+  }
+}

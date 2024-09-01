@@ -194,3 +194,8 @@
     transform: translate(0, 0) rotate(0deg);
   }
 }
+@media (max-width: 460px) {
+  .leave-review .review-details .rating-stars {
+    font-size: 1.42rem;
+  }
+}
