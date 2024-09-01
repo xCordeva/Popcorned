@@ -5,6 +5,7 @@ import {
   faCakeCandles,
   faLocationDot,
   faTrashCan,
+  faSkull,
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarReg } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
@@ -244,7 +245,12 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
                 )}
               </span>
             </p>
-            {details.deathday && <p>Deathday :{details.birthday}</p>}
+            {details.deathday && (
+              <p>
+                <FontAwesomeIcon icon={faSkull} />
+                Deathday: <span>{details.deathday}</span>
+              </p>
+            )}
             <p>
               <FontAwesomeIcon icon={faLocationDot} />
               Place of Birth:{" "}
