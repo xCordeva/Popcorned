@@ -1,0 +1,27 @@
+.not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: calc(100dvh - 100px);
+  text-align: center;
+  padding: 20px;
+}
+.not-found h1 {
+  color: #ca282c;
+  font-size: 10rem;
+  margin: 0;
+}
+.not-found h2 {
+  font-size: 3rem;
+  color: #ca282c;
+}
+.not-found a {
+  color: white;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  font-size: 1.2rem;
+}
+.not-found a:hover {
+  color: grey;
+}

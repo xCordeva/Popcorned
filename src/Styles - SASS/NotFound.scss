@@ -1,0 +1,28 @@
+@use "variables.scss";
+.not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: calc(100dvh - 100px);
+  text-align: center;
+  padding: 20px;
+  h1 {
+    color: variables.$main-red;
+    font-size: 10rem;
+    margin: 0;
+  }
+  h2 {
+    font-size: 3rem;
+    color: variables.$main-red;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    font-size: 1.2rem;
+    &:hover {
+      color: grey;
+    }
+  }
+}
