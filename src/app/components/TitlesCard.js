@@ -3,7 +3,6 @@ import "../../css/TitlesCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
-  faCircleInfo,
   faSquarePlus,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
@@ -70,57 +69,54 @@ const TitlesCard = ({ title, type }) => {
 
   return (
     <div className="movies-card-container">
-      <img src={posterUrl} alt="" />
-      <div className="card-components">
-        <div className="rating">
-          <FontAwesomeIcon icon={faStar} />
-          <p>{title.vote_average.toFixed(1)}</p>
-          {userAlreadyReviewed ? (
-            <div className="user-rate">
-              <FontAwesomeIcon icon={faStar} className="user-rating-star" />
-              <p>{userAlreadyReviewed.rating}</p>
-            </div>
+      <Link
+        href={{
+          pathname: `/title/${title.id}`,
+          query: { type },
+        }}
+      >
+        <img src={posterUrl} alt="" />
+        <div className="card-components">
+          <div className="rating">
+            <FontAwesomeIcon icon={faStar} />
+            <p>{title.vote_average.toFixed(1)}</p>
+            {userAlreadyReviewed ? (
+              <div className="user-rate">
+                <FontAwesomeIcon icon={faStar} className="user-rating-star" />
+                <p>{userAlreadyReviewed.rating}</p>
+              </div>
+            ) : (
+              ``
+            )}
+          </div>
+          <h2>{title.title || title.name}</h2>
+          <p className="movie-plot">
+            {title.overview.length > 0 ? title.overview : `No Plot Available`}
+            {title.overview}
+          </p>
+          {watchlistItem ? (
+            <button
+              onClick={(event) =>
+                handleRemoveFromListClick(event, watchlistItem.firebaseItemId)
+              }
+              className="remove-item global-button"
+            >
+              Remove from watchlist
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
           ) : (
-            ``
+            <button
+              onClick={() =>
+                handleAddToWatchlist(title, type, cast.cast.slice(0, 2))
+              }
+              className="popular-movies-button global-button"
+            >
+              Add to Watch List
+              <FontAwesomeIcon icon={faSquarePlus} />
+            </button>
           )}
         </div>
-        <h2>{title.title || title.name}</h2>
-        <p className="movie-plot">
-          {title.overview.length > 0 ? title.overview : `No Plot Available`}
-          {title.overview}
-        </p>
-        <Link
-          href={{
-            pathname: `/title/${title.id}`,
-            query: { type },
-          }}
-          className="popular-movies-button global-button"
-        >
-          Show More Info
-          <FontAwesomeIcon icon={faCircleInfo} />
-        </Link>
-        {watchlistItem ? (
-          <button
-            onClick={(event) =>
-              handleRemoveFromListClick(event, watchlistItem.firebaseItemId)
-            }
-            className="remove-item global-button"
-          >
-            Remove from watchlist
-            <FontAwesomeIcon icon={faTrashCan} />
-          </button>
-        ) : (
-          <button
-            onClick={() =>
-              handleAddToWatchlist(title, type, cast.cast.slice(0, 2))
-            }
-            className="popular-movies-button global-button"
-          >
-            Add to Watch List
-            <FontAwesomeIcon icon={faSquarePlus} />
-          </button>
-        )}
-      </div>
+      </Link>
     </div>
   );
 };

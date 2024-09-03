@@ -25,15 +25,30 @@
 }
 
 .movies-card-container {
+  transition: all 0.4s ease;
+  border-radius: 5px;
+  overflow: hidden;
   margin: 0 10px;
   max-height: 850px;
-  overflow: hidden;
   background-color: hsl(0, 0%, 5%);
+  border-radius: 5px;
+}
+.movies-card-container a {
+  text-decoration: none;
+  color: white;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   flex-direction: column;
+  transition: all 0.4s ease;
+}
+.movies-card-container a:hover {
+  scale: 1.05;
+}
+.movies-card-container:hover {
+  box-shadow: 0 0 15px hsl(0, 0%, 10%);
 }
 .movies-card-container h2 {
   margin: 5px 0;
