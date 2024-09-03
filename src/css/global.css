@@ -79,7 +79,7 @@ body {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 1001;
 }
 .sign-in-box-contianer .sign-in-box,
 .sign-in-box-contianer .rating-box,
