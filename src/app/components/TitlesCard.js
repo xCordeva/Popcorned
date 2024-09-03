@@ -106,9 +106,10 @@ const TitlesCard = ({ title, type }) => {
             </button>
           ) : (
             <button
-              onClick={() =>
-                handleAddToWatchlist(title, type, cast.cast.slice(0, 2))
-              }
+              onClick={(e) => {
+                handleAddToWatchlist(title, type, cast.cast.slice(0, 2));
+                e.preventDefault();
+              }}
               className="popular-movies-button global-button"
             >
               Add to Watch List
