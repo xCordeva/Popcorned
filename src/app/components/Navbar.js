@@ -5,13 +5,21 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import "../../css/Navbar.css";
+import "../../css/SearchBar.css";
 import PopupUser from "./PopupUser";
 import { useDispatch, useSelector } from "react-redux";
 import { openUserPopup } from "@/features/UserPopup";
 import useAuth from "@/Custom Hooks/useAuth";
 import Link from "next/link";
+import SearchBar from "./SearchBar";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  let noSearchBar = true;
+  if (pathname === "/") {
+    noSearchBar = false;
+  }
   const dispatch = useDispatch();
   const userPopupClicked = useSelector((state) => state.UserPopup.value);
   const toggleUserPopup = () => {
@@ -29,6 +37,7 @@ export default function Navbar() {
             />
           </Link>
         </div>
+        <div className="nav-search-bar">{noSearchBar && <SearchBar />}</div>
         <div className="user-info">
           <Link href={"/user/watchlist"} className="favorites fav-navbar">
             <FontAwesomeIcon icon={faHeart} />

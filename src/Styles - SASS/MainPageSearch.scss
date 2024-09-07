@@ -30,69 +30,6 @@
     img {
       width: 40px;
     }
-    .input-container {
-      width: 100%;
-      position: relative;
-      input {
-        background-color: variables.$sec-grey;
-        color: white;
-        width: calc(100% - 44px);
-        border-radius: 4px;
-        padding: 10px 20px 10px 20px;
-        border: 2px solid transparent;
-        outline: none;
-        box-shadow: 0 0 5px hsl(0, 0%, 20%);
-        transition: border 0.5s ease;
-        font-size: larger;
-        &::placeholder {
-          color: hsl(0, 0%, 80%);
-        }
-        &:focus {
-          border: 2px solid variables.$main-red;
-        }
-      }
-      button {
-        &:disabled {
-          cursor: auto;
-        }
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 15%;
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        color: white;
-        font-weight: 800;
-        background-color: variables.$main-red;
-        border-radius: 0 4px 4px 0;
-        text-decoration: none;
-        border: none;
-        box-shadow: 0 0 5px hsl(0, 100%, 50%);
-        cursor: pointer;
-        transition: background-color 0.5s ease;
-        &:hover {
-          background-color: darken($color: variables.$main-red, $amount: 5%);
-          span {
-            opacity: 0;
-            transition: all 0.5s ease-out;
-          }
-          svg {
-            scale: 2;
-            position: relative;
-            transform: translateX(-100%);
-          }
-        }
-        svg {
-          margin-left: 5px;
-          font-weight: 1000;
-          right: 0;
-          transition: all 0.5s ease;
-        }
-      }
-    }
   }
 }
 
