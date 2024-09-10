@@ -1,4 +1,4 @@
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../css/SearchBar.css";
 import "../../css/MainPageSearch.css";
@@ -23,7 +23,7 @@ function debounce(func, wait) {
     timeout = setTimeout(() => func.apply(this, args), wait);
   };
 }
-export default function SearchBar() {
+export default function SearchBar({ searchIconClicked, setSearchIconClicked }) {
   const [text] = useTypewriter({
     words: ["Movie...", "Tv Show...", "Person..."],
     loop: 0,
@@ -50,23 +50,41 @@ export default function SearchBar() {
   }, [userSearch, debounceHandleUserSearch]);
 
   const searchButtonClicked = useCallback(() => {
-    if (userSearch.trim()) {
+    const screenWidth = window.innerWidth;
+
+    // If the screen width is smaller than 700px
+    if (screenWidth < 700) {
+      // Toggle search bar open/closed
+      if (!searchIconClicked) {
+        setSearchIconClicked(true); // Open search bar
+      } else {
+        setSearchIconClicked(false); // Close search bar
+        setUserSearch(""); // Clear search input when closing the search bar
+      }
+    }
+
+    // If search bar is open and userSearch is valid, proceed with search
+    if (searchIconClicked && userSearch.trim()) {
       debounceHandleUserSearch();
       router.push(`/search/title/${userSearch}`);
     }
-  }, [userSearch, debounceHandleUserSearch, router]);
+  }, [userSearch, debounceHandleUserSearch, router, searchIconClicked]);
   return (
     <div className="search-bar">
       <div className="input-container">
         <input
+          className={`small-screen ${
+            searchIconClicked ? `search-icon-clicked` : ``
+          }  `}
           type="text"
           placeholder={"Search for a " + text}
           value={userSearch}
           onChange={(e) => setUserSearch(e.target.value)}
         />
-        <button onClick={searchButtonClicked} disabled={!userSearch}>
+        <button onClick={searchButtonClicked}>
           <span>Search</span>
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          {!searchIconClicked && <FontAwesomeIcon icon={faMagnifyingGlass} />}
+          {searchIconClicked && <FontAwesomeIcon icon={faXmark} />}
         </button>
       </div>
 

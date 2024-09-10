@@ -124,6 +124,27 @@
     width: 65%;
   }
 }
+@media (max-width: 700px) {
+  .nav-search-bar {
+    max-width: none;
+  }
+  .nav-search-bar .search-bar .input-container button {
+    border-radius: 4px;
+  }
+  .nav-search-bar .search-bar .input-container button svg {
+    margin-left: 0px;
+  }
+  .nav-search-bar .search-bar .input-container .small-screen {
+    width: 0%;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .nav-search-bar .search-bar .input-container .search-icon-clicked {
+    transition: all 0.5s ease;
+    opacity: 1;
+    width: calc(100% - 44px);
+  }
+}
 @media (max-width: 550px) {
   .search-bar .input-container button {
     width: 20%;

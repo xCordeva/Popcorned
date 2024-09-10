@@ -127,7 +127,31 @@
     width: 65%;
   }
 }
-
+@media (max-width: 700px) {
+  .nav-search-bar {
+    max-width: none;
+    .search-bar {
+      .input-container {
+        button {
+          border-radius: 4px;
+          svg {
+            margin-left: 0px;
+          }
+        }
+        .small-screen {
+          width: 0%;
+          opacity: 0;
+          transition: all 0.5s ease;
+        }
+        .search-icon-clicked {
+          transition: all 0.5s ease;
+          opacity: 1;
+          width: calc(100% - 44px);
+        }
+      }
+    }
+  }
+}
 @media (max-width: 550px) {
   .search-bar {
     .input-container {

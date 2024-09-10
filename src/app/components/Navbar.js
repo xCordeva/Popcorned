@@ -13,6 +13,7 @@ import useAuth from "@/Custom Hooks/useAuth";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -26,10 +27,16 @@ export default function Navbar() {
     dispatch(openUserPopup(!userPopupClicked));
   };
   const { user, loading } = useAuth();
+  const [searchIconClicked, setSearchIconClicked] = useState(false);
+
   return (
     <div className="navbar-container">
       <div className="navbar">
-        <div className="nav-logo">
+        <div
+          className={`nav-logo ${
+            searchIconClicked ? `search-icon-clicked` : ``
+          }  `}
+        >
           <Link href={"/"}>
             <img
               src="https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/popcorned.png?alt=media&token=db91cd2d-06cd-4808-bb3b-5548b0e03762"
@@ -37,8 +44,23 @@ export default function Navbar() {
             />
           </Link>
         </div>
-        <div className="nav-search-bar">{noSearchBar && <SearchBar />}</div>
-        <div className="user-info">
+        <div
+          className={`nav-search-bar ${
+            searchIconClicked ? `full-width` : ``
+          }  `}
+        >
+          {noSearchBar && (
+            <SearchBar
+              setSearchIconClicked={setSearchIconClicked}
+              searchIconClicked={searchIconClicked}
+            />
+          )}
+        </div>
+        <div
+          className={`user-info ${
+            searchIconClicked ? `search-icon-clicked` : ``
+          }  `}
+        >
           <Link href={"/user/watchlist"} className="favorites fav-navbar">
             <FontAwesomeIcon icon={faHeart} />
             <p>Watchlist</p>
@@ -71,7 +93,11 @@ export default function Navbar() {
               />
             </div>
           ) : (
-            <div className="sign-in-button">
+            <div
+              className={`sign-in-button ${
+                searchIconClicked ? `search-icon-clicked` : ``
+              }  `}
+            >
               <Link href="/sign-in">Sign In</Link>
             </div>
           )}

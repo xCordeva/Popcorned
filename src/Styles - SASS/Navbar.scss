@@ -73,7 +73,7 @@
       min-width: 120px;
       a {
         text-decoration: none;
-        padding: 10px;
+        padding: 15px;
         cursor: pointer;
         margin-left: 35px;
         border-radius: 3px;
@@ -172,7 +172,7 @@
     .user-info {
       .sign-in-button {
         a {
-          margin-left: 0px;
+          margin-left: 10px;
         }
       }
     }
@@ -188,6 +188,37 @@
   .popup-user {
     .fav-popup-user {
       display: flex;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .navbar {
+    .user-info {
+      .search-icon-clicked {
+        display: none;
+      }
+      .sign-in-button {
+        min-width: 40px;
+        a {
+          padding: 15px 5px;
+        }
+      }
+    }
+    .search-icon-clicked {
+      opacity: 0;
+      width: 0;
+      padding: 0;
+      margin: 0;
+      transition: width 0.5s ease;
+    }
+    .full-width {
+      width: 100%;
+      transition: width 0.5s ease;
+    }
+    .nav-logo {
+      img {
+        max-width: 140px;
+      }
     }
   }
 }

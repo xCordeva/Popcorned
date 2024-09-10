@@ -79,7 +79,7 @@
 }
 .navbar .user-info .sign-in-button a {
   text-decoration: none;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
   margin-left: 35px;
   border-radius: 3px;
@@ -165,7 +165,7 @@
 }
 @media (max-width: 900px) {
   .navbar .user-info .sign-in-button a {
-    margin-left: 0px;
+    margin-left: 10px;
   }
   .navbar .fav-navbar {
     display: none;
@@ -175,5 +175,30 @@
   }
   .popup-user .fav-popup-user {
     display: flex;
+  }
+}
+@media (max-width: 700px) {
+  .navbar .user-info .search-icon-clicked {
+    display: none;
+  }
+  .navbar .user-info .sign-in-button {
+    min-width: 40px;
+  }
+  .navbar .user-info .sign-in-button a {
+    padding: 15px 5px;
+  }
+  .navbar .search-icon-clicked {
+    opacity: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    transition: width 0.5s ease;
+  }
+  .navbar .full-width {
+    width: 100%;
+    transition: width 0.5s ease;
+  }
+  .navbar .nav-logo img {
+    max-width: 140px;
   }
 }
