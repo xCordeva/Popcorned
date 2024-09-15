@@ -15,10 +15,10 @@ import SearchBar from "./SearchBar";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({ handleSearch }) {
   const pathname = usePathname();
   let noSearchBar = true;
-  if (pathname === "/") {
+  if (pathname === "/" || pathname.startsWith("/search/title")) {
     noSearchBar = false;
   }
   const dispatch = useDispatch();
@@ -51,6 +51,7 @@ export default function Navbar() {
         >
           {noSearchBar && (
             <SearchBar
+              handleSearch={handleSearch}
               setSearchIconClicked={setSearchIconClicked}
               searchIconClicked={searchIconClicked}
             />

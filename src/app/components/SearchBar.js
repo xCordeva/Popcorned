@@ -7,13 +7,13 @@ import { useTypewriter } from "react-simple-typewriter";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  closeSearchPopup,
   fetchAll,
   resetSearchResults,
   userSearchInput,
 } from "@/features/UserSearch";
 import SearchResults from "./SearchResults";
 import { useRouter } from "next/navigation";
+import usePopupCloser from "@/Custom Hooks/usePopupCloser";
 
 // Debounce function to delay the execution until user stops typing
 function debounce(func, wait) {
@@ -30,6 +30,12 @@ export default function SearchBar({ searchIconClicked, setSearchIconClicked }) {
   });
   const dispatch = useDispatch();
   const [userSearch, setUserSearch] = useState("");
+  usePopupCloser({
+    userSearch,
+    setUserSearch,
+    searchIconClicked,
+    setSearchIconClicked,
+  });
   const status = useSelector((state) => state.UserSearch.status);
   const router = useRouter();
 
@@ -37,7 +43,6 @@ export default function SearchBar({ searchIconClicked, setSearchIconClicked }) {
     debounce(() => {
       if (userSearch.trim()) {
         dispatch(resetSearchResults());
-        dispatch(closeSearchPopup(true));
         dispatch(userSearchInput(userSearch));
         dispatch(fetchAll(userSearch));
       }
@@ -52,23 +57,33 @@ export default function SearchBar({ searchIconClicked, setSearchIconClicked }) {
   const searchButtonClicked = useCallback(() => {
     const screenWidth = window.innerWidth;
 
-    // If the screen width is smaller than 700px
     if (screenWidth < 700) {
-      // Toggle search bar open/closed
+      // If the search bar is closed, open it on small screens
       if (!searchIconClicked) {
-        setSearchIconClicked(true); // Open search bar
+        setSearchIconClicked(true); // Open the search bar
+      } else if (userSearch.trim()) {
+        // If the search bar is open and there's user input, perform the search
+        debounceHandleUserSearch();
+        router.push(`/search/title/${userSearch}`);
       } else {
-        setSearchIconClicked(false); // Close search bar
-        setUserSearch(""); // Clear search input when closing the search bar
+        setSearchIconClicked(false); // Close the search bar when no input
+        setUserSearch(""); // Clear search input when closing
+      }
+    } else {
+      // On larger screens, perform the search directly if there's input
+      if (userSearch.trim()) {
+        debounceHandleUserSearch();
+        router.push(`/search/title/${userSearch}`);
       }
     }
+  }, [
+    userSearch,
+    debounceHandleUserSearch,
+    router,
+    searchIconClicked,
+    setSearchIconClicked,
+  ]);
 
-    // If search bar is open and userSearch is valid, proceed with search
-    if (searchIconClicked && userSearch.trim()) {
-      debounceHandleUserSearch();
-      router.push(`/search/title/${userSearch}`);
-    }
-  }, [userSearch, debounceHandleUserSearch, router, searchIconClicked]);
   return (
     <div className="search-bar">
       <div className="input-container">
@@ -83,8 +98,11 @@ export default function SearchBar({ searchIconClicked, setSearchIconClicked }) {
         />
         <button onClick={searchButtonClicked}>
           <span>Search</span>
-          {!searchIconClicked && <FontAwesomeIcon icon={faMagnifyingGlass} />}
-          {searchIconClicked && <FontAwesomeIcon icon={faXmark} />}
+          {!searchIconClicked || userSearch ? (
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          ) : (
+            <FontAwesomeIcon icon={faXmark} />
+          )}
         </button>
       </div>
 
@@ -93,6 +111,9 @@ export default function SearchBar({ searchIconClicked, setSearchIconClicked }) {
           status={status}
           searchButtonClicked={searchButtonClicked}
           userSearch={userSearch}
+          setUserSearch={setUserSearch}
+          searchIconClicked={searchIconClicked}
+          setSearchIconClicked={setSearchIconClicked}
         />
       )}
     </div>

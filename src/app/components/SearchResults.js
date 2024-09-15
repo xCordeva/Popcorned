@@ -3,12 +3,35 @@ import "../../css/SearchResults.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
+import { resetSearchResults, userSearchInput } from "@/features/UserSearch";
 
-const SearchResults = ({ status, searchButtonClicked, userSearch }) => {
+const SearchResults = ({
+  status,
+  searchButtonClicked,
+  userSearch,
+  setUserSearch,
+  searchIconClicked,
+  setSearchIconClicked,
+}) => {
   const combinedResults = useSelector(
     (state) => state.UserSearch.combinedResults
   );
+  const currentPathname = usePathname();
+  const dispatch = useDispatch();
+  const handleResultClick = (result) => {
+    const resultPath = `/title/${result.id}`;
+    if (currentPathname === resultPath) {
+      // Reset search and close the popup
+      setUserSearch("");
+      dispatch(userSearchInput(""));
+      dispatch(resetSearchResults());
+      if (window.innerWidth < 700 && searchIconClicked) {
+        setSearchIconClicked(false);
+      }
+    }
+  };
   if (status === "loading") {
     return (
       <div
@@ -44,13 +67,13 @@ const SearchResults = ({ status, searchButtonClicked, userSearch }) => {
       ) : (
         <>
           {combinedResults.slice(0, 10).map((result) => (
-            <div>
+            <div key={result.id}>
               <Link
                 href={{
                   pathname: `/title/${result.id}`,
                   query: { type: result.type },
                 }}
-                key={result.id}
+                onClick={() => handleResultClick(result)}
               >
                 <div className="search-result">
                   <img

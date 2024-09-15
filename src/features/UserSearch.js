@@ -131,9 +131,6 @@ export const userSearchSlice = createSlice({
       state.value = action.payload;
       state.searchInput = action.payload;
     },
-    closeSearchPopup: (state) => {
-      state.value = "";
-    },
     resetSearchResults: (state) => {
       state.movies = [];
       state.tvShows = [];
@@ -161,7 +158,6 @@ export const userSearchSlice = createSlice({
   },
 });
 
-export const { userSearchInput, closeSearchPopup, resetSearchResults } =
-  userSearchSlice.actions;
+export const { userSearchInput, resetSearchResults } = userSearchSlice.actions;
 
 export default userSearchSlice.reducer;
