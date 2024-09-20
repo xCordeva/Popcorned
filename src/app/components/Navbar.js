@@ -75,7 +75,11 @@ export default function Navbar({ handleSearch }) {
             </div>
           ) : user ? (
             <div
-              className={userPopupClicked ? "user user-backgrounded" : "user"}
+              className={
+                userPopupClicked
+                  ? "user user-backgrounded"
+                  : `user ${searchIconClicked ? `search-icon-clicked` : ``}`
+              }
               onClick={() => {
                 toggleUserPopup();
               }}

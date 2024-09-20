@@ -31,6 +31,7 @@
 .navbar .user-info {
   display: flex;
   align-items: center;
+  margin-left: 10px;
 }
 .navbar .user-info .user {
   display: flex;
@@ -58,17 +59,13 @@
   border-radius: 50%;
   margin: 0 5px;
 }
-.navbar .user-info .user svg:nth-of-type(2),
-.navbar .user-info .user img:nth-of-type(2) {
-  width: 15px;
-}
-.navbar .user-info .user svg:nth-of-type(2).user-arrow-up,
-.navbar .user-info .user img:nth-of-type(2).user-arrow-up {
+.navbar .user-info .user svg:nth-of-type(1).user-arrow-up,
+.navbar .user-info .user img:nth-of-type(1).user-arrow-up {
   transition: transform 0.5s ease;
   transform: rotateX(180deg);
 }
-.navbar .user-info .user svg:nth-of-type(2).user-arrow-down,
-.navbar .user-info .user img:nth-of-type(2).user-arrow-down {
+.navbar .user-info .user svg:nth-of-type(1).user-arrow-down,
+.navbar .user-info .user img:nth-of-type(1).user-arrow-down {
   transition: transform 0.5s ease;
   transform: rotateX(0deg);
 }
@@ -166,6 +163,9 @@
 @media (max-width: 900px) {
   .navbar .user-info .sign-in-button a {
     margin-left: 10px;
+  }
+  .navbar .user-info .user {
+    margin-left: 0px;
   }
   .navbar .fav-navbar {
     display: none;
