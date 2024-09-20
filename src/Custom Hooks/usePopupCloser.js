@@ -45,6 +45,10 @@ const usePopupCloser = ({
       if (window.innerWidth < 700 && searchIconClicked) {
         setSearchIconClicked(false);
       }
+      // Remove focus from the input
+      if (document.activeElement.tagName === "INPUT") {
+        document.activeElement.blur();
+      }
     }
   };
 
