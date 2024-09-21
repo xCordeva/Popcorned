@@ -222,7 +222,13 @@ export default function LeaveReview({
           </button>
         </div>
         {!userAlreadyReviewed && isRateNoReviewOpen && (
-          <RateNoReview id={id} type={type} rate={clickedStar} />
+          <RateNoReview
+            id={id}
+            type={type}
+            rate={clickedStar}
+            details={details}
+            cast={cast}
+          />
         )}
         {showGiveRatingPopup && <GiveRatingPopupMessage />}
         {isAlreadyReviewedOpen && (

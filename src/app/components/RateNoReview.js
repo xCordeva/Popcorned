@@ -8,7 +8,7 @@ import useFetchReviews from "@/Custom Hooks/useFetchReviews";
 import { triggerRefetch } from "@/features/RefetchReviews";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
-const RateNoReview = ({ rate, id, type }) => {
+const RateNoReview = ({ rate, id, type, details, cast }) => {
   const [leaveReviewClicked, setLeaveReviewClicked] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const dispatch = useDispatch();
@@ -21,6 +21,8 @@ const RateNoReview = ({ rate, id, type }) => {
     const timestamp = Math.floor(Date.now() / 1000);
 
     addNewReview({
+      details,
+      topCast: cast.cast.slice(0, 2),
       reviewDetails: reviewText,
       rating: rate,
       titleId: id,
