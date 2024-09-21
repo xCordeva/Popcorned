@@ -293,7 +293,6 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
                       pathname: `/title/${director.id}`,
                       query: { type: "person" },
                     }}
-                    key={director.id}
                   >
                     {cast && cast.crew ? director.name : "N/A"}
                   </Link>
@@ -309,7 +308,7 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
                 : `Creator${getWriters(cast.crew).length > 1 ? "s" : ""}: `}
               {cast && cast.crew
                 ? getWriters(cast.crew).map((writer, index, array) => (
-                    <span key={writer}>
+                    <span key={writer.id}>
                       <Link
                         href={{
                           pathname: `/title/${writer.id}`,
