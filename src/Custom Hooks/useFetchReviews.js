@@ -6,10 +6,11 @@ import {
   getDocs,
   query,
   orderBy,
-  doc,
+  doc as firestoreDoc, // Renamed import here
   deleteDoc,
   setDoc,
   collectionGroup,
+  getDoc as getFirestoreDoc, // Renamed to avoid conflicts
 } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import useAuth from "./useAuth";
@@ -21,6 +22,7 @@ const useFetchReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch current user's ID from Firebase
   const getUserId = async () => {
     return new Promise((resolve) => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -34,15 +36,29 @@ const useFetchReviews = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch reviews data
         const reviewsQuery = query(
           collectionGroup(db, "reviews"),
           orderBy("createdAt", "desc")
         );
         const querySnapshot = await getDocs(reviewsQuery);
-        const reviewsData = querySnapshot.docs.map((doc) => ({
-          firebaseItemId: doc.id,
-          ...doc.data(),
-        }));
+        const reviewsData = await Promise.all(
+          querySnapshot.docs.map(async (doc) => {
+            const review = { firebaseItemId: doc.id, ...doc.data() };
+
+            // Fetch the user's photoURL from their document
+            if (review.userId) {
+              const userDocRef = firestoreDoc(db, "users", review.userId);
+              const userDoc = await getFirestoreDoc(userDocRef);
+              review.photoURL = userDoc.exists()
+                ? userDoc.data().photoURL
+                : null;
+            }
+
+            return review;
+          })
+        );
+
         setReviews(reviewsData);
         setIsLoading(false);
       } catch (error) {
@@ -55,7 +71,7 @@ const useFetchReviews = () => {
   }, [refetchReviews]);
 
   const { user } = useAuth();
-
+  console.log(reviews);
   const addNewReview = async (newReview) => {
     const uid = await getUserId();
 
@@ -76,7 +92,7 @@ const useFetchReviews = () => {
     if (!uid) {
       return;
     }
-    const docRef = doc(db, `users/${uid}/reviews`, reviewId);
+    const docRef = firestoreDoc(db, `users/${uid}/reviews`, reviewId);
     setDoc(docRef, { ...editedReview, userId: uid });
   };
 
@@ -85,7 +101,7 @@ const useFetchReviews = () => {
     if (!uid) {
       return;
     }
-    deleteDoc(doc(db, `users/${uid}/reviews`, itemId));
+    deleteDoc(firestoreDoc(db, `users/${uid}/reviews`, itemId));
   };
 
   return { reviews, addNewReview, isLoading, editReview, removeReview };
