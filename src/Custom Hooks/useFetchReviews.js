@@ -71,7 +71,7 @@ const useFetchReviews = () => {
   }, [refetchReviews]);
 
   const { user } = useAuth();
-  console.log(reviews);
+
   const addNewReview = async (newReview) => {
     const uid = await getUserId();
 
