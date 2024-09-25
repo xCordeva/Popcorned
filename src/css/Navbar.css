@@ -115,7 +115,7 @@
   width: 125px;
   background-color: hsl(0, 0%, 15%);
   border-radius: 5px;
-  top: 102%;
+  top: 97%;
   box-shadow: 0 0 5px black;
   display: flex;
   flex-direction: column;
@@ -205,5 +205,9 @@
 @media (max-width: 380px) {
   .navbar {
     padding: 0 2.5%;
+  }
+  .popup-user {
+    position: absolute;
+    right: 2.5%;
   }
 }
