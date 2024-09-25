@@ -116,14 +116,12 @@ export default function Review({
         <div className="img-details-contianer">
           <img
             src={
-              user && review.userId === user.uid
-                ? user?.photoURL
-                : "https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
+              review.photoURL ||
+              "https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
             }
             alt={
-              user && review.userId === user.uid
-                ? `${user?.displayName}'s profile picture`
-                : "Default user profile icon"
+              `${review.username}'s profile picture` ||
+              "Default user profile icon"
             }
           />
           <div className="username-date-time">
