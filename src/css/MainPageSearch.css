@@ -1,12 +1,12 @@
 .main-page-search {
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/1324762.jpg?alt=media&token=e2327a97-23f7-40ae-bdc8-047454423d77");
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/popcorned-x.appspot.com/o/main-page-image.jpg?alt=media&token=e7d4d032-eb8a-4bb6-b626-c72fa309127e");
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: column;
   background-position: center;
   align-items: center;
-  height: calc(100dvh - 60px);
+  height: calc(100vh - 60px);
   position: relative;
 }
 .main-page-search::after {
