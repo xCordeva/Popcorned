@@ -44,7 +44,7 @@ Ensure that you have Node.js and npm installed on your machine.
 2. Navigate to the project directory:
 
    ```bash
-   cd calendizer
+   cd popcorned
    ```
 
 3. Install dependencies:
