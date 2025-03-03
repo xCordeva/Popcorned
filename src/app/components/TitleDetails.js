@@ -69,16 +69,15 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
     return writers;
   };
 
-  const calculateAge = (birthDate) => {
-    const today = new Date();
+  const calculateAge = (birthDate, deathDate = null) => {
     const birthDateObj = new Date(birthDate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDiff = today.getMonth() - birthDateObj.getMonth();
+    const referenceDate = deathDate ? new Date(deathDate) : new Date(); // Use death date if present, otherwise use today's date
+    let age = referenceDate.getFullYear() - birthDateObj.getFullYear();
 
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birthDateObj.getDate())
-    ) {
+    const monthDiff = referenceDate.getMonth() - birthDateObj.getMonth();
+    const dayDiff = referenceDate.getDate() - birthDateObj.getDate();
+
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
       age--;
     }
 
@@ -237,8 +236,12 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
                 {details.birthday ? (
                   <>
                     {details.birthday}
-                    <span style={{ color: "white" }}> &#8226; </span>
-                    {calculateAge(details.birthday)} years old
+                    {!details.deathday && (
+                      <>
+                        <span style={{ color: "white" }}> &#8226; </span>
+                        {calculateAge(details.birthday)} years old
+                      </>
+                    )}
                   </>
                 ) : (
                   "No info available"
@@ -249,6 +252,12 @@ const TitleDetails = ({ details, cast, type, setClickedStar }) => {
               <p>
                 <FontAwesomeIcon icon={faSkull} />
                 Deathday: <span>{details.deathday}</span>
+                <>
+                  <span style={{ color: "white" }}> &#8226; </span>
+                  <span style={{ color: "hsl(0, 0%, 65%)" }}>
+                    {calculateAge(details.birthday, details.deathday)} years old
+                  </span>
+                </>
               </p>
             )}
             <p>
